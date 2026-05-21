@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NoReflowTabBar API Reference: NoReflowTabBar_Items: Class TNoReflowTabBarItem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 1.0.4">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="bootstrap.min.css">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<nav class="navbar d-md-none sticky-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">NoReflowTabBar API Reference</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="offcanvas-md offcanvas-start navigation" tabindex="-1" id="sidebarNav" data-bs-scroll="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">NoReflowTabBar API Reference</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarNav" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body py-2">
+<h2><a href="index.html">NoReflowTabBar API Reference</a></h2><ul class="nav flex-column px-3"><li class="nav-item"><a class="nav-link px-2 py-1" href="AllUnits.html">Units</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="ClassHierarchy.html">Class Hierarchy</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllTypes.html">Types</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllVariables.html">Variables</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllConstants.html">Constants</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllFunctions.html">Functions and Procedures</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllIdentifiers.html">Identifiers</a></li><li class="nav-item pt-2 px-2"><form class="search-form" action="tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div></div>
+<main class="pasdoc-content content">
+<div class="container-fluid py-3 px-4">
+<span id="TNoReflowTabBarItem"></span><h1 class="cio">Class TNoReflowTabBarItem</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a href="NoReflowTabBar_Items.html">NoReflowTabBar_Items</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TNoReflowTabBarItem = class(TCollectionItem)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Persistent logical item stored in a <a class="normal" href="NoReflowTabBar.html">NoReflowTabBar</a> item collection.
+
+<p>This class contains no geometry and no rendering logic. It describes the item <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Data">data</a>: <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Caption">caption</a>, visibility, <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Enabled">enabled</a> state, <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Checked">checked</a> state, signal, user identifier, <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Hint">hint</a>, logical <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a> and optional glyph information.</p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor">TPersistent</li>
+<li class="ancestor">TCollectionItem</li>
+<li class="thisitem">TNoReflowTabBarItem</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Assign-TPersistent-">Assign</a></strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SetPinZoneDirect-TNoReflowTabBarPinZone-">SetPinZoneDirect</a></strong>(Const Value: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>);</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#GetDisplayName">GetDisplayName</a></strong>: String; override;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#DefineProperties-TFiler-">DefineProperties</a></strong>(Filer: TFiler); override;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Constructor <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Create-TCollection-">Create</a></strong>(Collection: TCollection); override;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Destructor <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Destroy">Destroy</a></strong>; override;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SetZonePlacementDirect-TNoReflowTabBarPinZone-Integer-">SetZonePlacementDirect</a></strong>( Const APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; Const AZoneIndex: Integer);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SetZoneIndexDirect-Integer-">SetZoneIndexDirect</a></strong>(Const Value: Integer);</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SetCheckedDirect-Boolean-">SetCheckedDirect</a></strong>(Const Value: Boolean);</code></td>
+</tr>
+</table>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Host">Host</a></strong>: <a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html">INoReflowTabBarModelHost</a> Read GetHost;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#ItemIndex">ItemIndex</a></strong>: Integer Read GetItemIndex;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#ItemKey">ItemKey</a></strong>: Integer Read FItemKey;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#PinZone">PinZone</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a> Read FPinZone Write SetPinZone default <a href="NoReflowTabBar_CommonTypes.html#nrtpzCenter">nrtpzCenter</a>;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Data">Data</a></strong>: TObject Read FData Write FData;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#GlyphName">GlyphName</a></strong>: String Read FGlyphName Write SetGlyphName;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Caption">Caption</a></strong>: String Read FCaption Write SetCaption;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalCode">SignalCode</a></strong>: Integer Read FSignalCode Write SetSignalCode default 0;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalName">SignalName</a></strong>: String Read GetSignalName Write SetSignalName stored False;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalValue">SignalValue</a></strong>: Double Read FSignalValue Write SetSignalValue;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalMax">SignalMax</a></strong>: Double Read FSignalMax Write SetSignalMax;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#UserId">UserId</a></strong>: Integer Read FItemUserId Write SetItemUserId default 0;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#KeyView">KeyView</a></strong>: Integer Read FItemKey stored False;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Visible">Visible</a></strong>: Boolean Read FVisible Write SetVisible default True;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Enabled">Enabled</a></strong>: Boolean Read FEnabled Write SetEnabled default True;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Checked">Checked</a></strong>: Boolean Read FChecked Write SetChecked default False;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Hint">Hint</a></strong>: String Read FHint Write SetHint;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#ShowHint">ShowHint</a></strong>: Boolean Read FShowHint Write SetShowHint default True;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">Zone</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarZone">TNoReflowTabBarZone</a> Read GetZone Write SetZone default <a href="NoReflowTabBar_CommonTypes.html#nrtzCenter">nrtzCenter</a>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#ZoneIndex">ZoneIndex</a></strong>: Integer Read FZoneIndex Write SetZoneIndex stored True;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#GlyphIndex">GlyphIndex</a></strong>: Integer Read FGlyphIndex Write SetGlyphIndex default -1;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#GlyphPosition">GlyphPosition</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemGlyphPosition">TNoReflowTabBarItemGlyphPosition</a> Read FGlyphPosition Write SetGlyphPosition default <a href="NoReflowTabBar_CommonTypes.html#nrigpDefault">nrigpDefault</a>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#ShowGlyph">ShowGlyph</a></strong>: Boolean Read FShowGlyph Write SetShowGlyph default True;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="Assign-TPersistent-"></span><code>Procedure <strong>Assign</strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Copies persistent item <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Data">data</a> from another item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="SetPinZoneDirect-TNoReflowTabBarPinZone-"></span><code>Procedure <strong>SetPinZoneDirect</strong>(Const Value: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sets the internal pin <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a> without invoking the normal move logic.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="GetDisplayName"></span><code>Function <strong>GetDisplayName</strong>: String; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the name displayed by the collection editor.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="DefineProperties-TFiler-"></span><code>Procedure <strong>DefineProperties</strong>(Filer: TFiler); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Defines the hidden streamed technical key property.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Create-TCollection-"></span><code>Constructor <strong>Create</strong>(Collection: TCollection); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Creates an item with its default values.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Destroy"></span><code>Destructor <strong>Destroy</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Destroys the item and notifies the <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Host">host</a> before destruction when this item is stored as the selected item reference.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SetZonePlacementDirect-TNoReflowTabBarPinZone-Integer-"></span><code>Procedure <strong>SetZonePlacementDirect</strong>( Const APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; Const AZoneIndex: Integer);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sets the internal pin <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a> and <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a>-relative index directly.
+
+<p>This method is intended for the <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Host">host</a> component when it has already validated and normalized a <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a> move.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SetZoneIndexDirect-Integer-"></span><code>Procedure <strong>SetZoneIndexDirect</strong>(Const Value: Integer);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sets the stored <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a>-relative index directly.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SetCheckedDirect-Boolean-"></span><code>Procedure <strong>SetCheckedDirect</strong>(Const Value: Boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sets the <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Checked">checked</a> state without using the public setter logic.
+
+<p>This method is intended for the core component when several items must be synchronized at once, for example to enforce exclusive selection.</p>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Host"></span><code>property <strong>Host</strong>: <a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html">INoReflowTabBarModelHost</a> Read GetHost;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Host</code> interface of the owning collection.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="ItemIndex"></span><code>property <strong>ItemIndex</strong>: Integer Read GetItemIndex;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Current absolute index of the item in its collection.
+
+<p>The value is computed on demand from the owning collection.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="ItemKey"></span><code>property <strong>ItemKey</strong>: Integer Read FItemKey;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Unique technical item key.
+
+<p>This key is generated automatically by the collection and is used for stable identification during persistence, restoration and internal operations that must not depend on the current collection index.
+
+<p>Unlike <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#UserId">UserId</a>, this key has no business meaning and should not be modified by application code.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="PinZone"></span><code>property <strong>PinZone</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a> Read FPinZone Write SetPinZone default <a href="NoReflowTabBar_CommonTypes.html#nrtpzCenter">nrtpzCenter</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Internal logical pin <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a> of the item.
+
+<p>This property is kept for component internals and is normalized to one of the effective zones: <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtpzStart">nrtpzStart</a>, <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtpzCenter">nrtpzCenter</a> or <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtpzEnd">nrtpzEnd</a>.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Data"></span><code>property <strong>Data</strong>: TObject Read FData Write FData;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Free user object associated with the item.
+
+<p>The tab bar does not own this object. The caller remains responsible for its lifetime.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="GlyphName"></span><code>property <strong>GlyphName</strong>: String Read FGlyphName Write SetGlyphName;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Optional symbolic glyph name.
+
+<p>This property is reserved for a future name-based glyph resolution mechanism. It is available to application code, but is not published because it is not currently an active design-time feature.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Caption"></span><code>property <strong>Caption</strong>: String Read FCaption Write SetCaption;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text displayed by the item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="SignalCode"></span><code>property <strong>SignalCode</strong>: Integer Read FSignalCode Write SetSignalCode default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Technical code of the signal used by the item.
+
+<p>The value 0 means that the item has no signal.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="SignalName"></span><code>property <strong>SignalName</strong>: String Read GetSignalName Write SetSignalName stored False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Name of the signal used by the item.
+
+<p>This is a convenience view over <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalCode">SignalCode</a>. It does not store any additional state. Reading the property returns the name matching the current code. Writing the property searches a signal with that name and updates <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalCode">SignalCode</a> automatically.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="SignalValue"></span><code>property <strong>SignalValue</strong>: Double Read FSignalValue Write SetSignalValue;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Current signal fill value.
+
+<p>This value is meaningful only when <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalMax">SignalMax</a> is greater than 0. Otherwise the signal is drawn as a full indicator.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="SignalMax"></span><code>property <strong>SignalMax</strong>: Double Read FSignalMax Write SetSignalMax;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Maximum reference value for partial signal rendering.
+
+<p>Examples: - <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalValue">SignalValue</a> = 3 and <code>SignalMax</code> = 4 means 75 percent filled; - <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#SignalValue">SignalValue</a> = 75 and <code>SignalMax</code> = 100 means 75 percent filled.
+
+<p>When <code>SignalMax</code> is less than or equal to 0, the signal is drawn as a full indicator.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="UserId"></span><code>property <strong>UserId</strong>: Integer Read FItemUserId Write SetItemUserId default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+User-defined item identifier.
+
+<p>This can be used to find or manipulate an item independently from its current collection index.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="KeyView"></span><code>property <strong>KeyView</strong>: Integer Read FItemKey stored False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Read-only design-time view of the internal technical key.
+
+<p>The real persistence of the technical key is handled through <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#DefineProperties-TFiler-">DefineProperties</a>; this property only makes the generated key <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Visible">visible</a> for diagnostics in the Object Inspector.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Visible"></span><code>property <strong>Visible</strong>: Boolean Read FVisible Write SetVisible default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Indicates whether the item participates in layout, rendering and hit testing.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Enabled"></span><code>property <strong>Enabled</strong>: Boolean Read FEnabled Write SetEnabled default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Indicates whether the item can be selected or activated.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Checked"></span><code>property <strong>Checked</strong>: Boolean Read FChecked Write SetChecked default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Indicates whether the item is <code>checked</code>.
+
+<p>The exact meaning depends on the bar mode: - tabs and single-selection buttons synchronize it with the active item; - check buttons use it as the independent state of each item; - push buttons do not automatically modify it when clicked.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Hint"></span><code>property <strong>Hint</strong>: String Read FHint Write SetHint;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Item-specific <code>hint</code> text.
+
+<p>When this is empty, the component may fall back to the item <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Caption">caption</a>.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ShowHint"></span><code>property <strong>ShowHint</strong>: Boolean Read FShowHint Write SetShowHint default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Enables or disables <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Hint">hint</a> display for this item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Zone"></span><code>property <strong>Zone</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarZone">TNoReflowTabBarZone</a> Read GetZone Write SetZone default <a href="NoReflowTabBar_CommonTypes.html#nrtzCenter">nrtzCenter</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+User-facing logical <code>zone</code> of the item.
+
+<p><a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtzStart">nrtzStart</a> keeps the item in the start block, <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtzCenter">nrtzCenter</a> stores it in the regular center block, and <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtzEnd">nrtzEnd</a> keeps it in the end block.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ZoneIndex"></span><code>property <strong>ZoneIndex</strong>: Integer Read FZoneIndex Write SetZoneIndex stored True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Relative item position inside its logical <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a>.
+
+<p>This property reorders the item inside its current <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a> without changing the <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a> itself. Assigned values are automatically clamped to the valid range of the <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a>: 0 to <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html#Zone">zone</a> item count - 1.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="GlyphIndex"></span><code>property <strong>GlyphIndex</strong>: Integer Read FGlyphIndex Write SetGlyphIndex default -1;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Optional index in the bar global ImageList.
+
+<p>The value -1 means that no image index is assigned.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="GlyphPosition"></span><code>property <strong>GlyphPosition</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemGlyphPosition">TNoReflowTabBarItemGlyphPosition</a> Read FGlyphPosition Write SetGlyphPosition default <a href="NoReflowTabBar_CommonTypes.html#nrigpDefault">nrigpDefault</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Item-specific glyph position.
+
+<p><a class="normal" href="NoReflowTabBar_CommonTypes.html#nrigpDefault">nrigpDefault</a> uses the global position defined by the bar. Other values force the glyph to the left, right, top or bottom for this item only.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ShowGlyph"></span><code>property <strong>ShowGlyph</strong>: Boolean Read FShowGlyph Write SetShowGlyph default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Determines whether this item's glyph should be displayed.</p>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://pasdoc.github.io/">PasDoc 1.0.4</a>. </em>
+</span>
+</div></main>
+<script src="bootstrap.bundle.min.js"></script>
+</body></html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NoReflowTabBar API Reference: NoReflowTabBar_EventsTypes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 1.0.4">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="bootstrap.min.css">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<nav class="navbar d-md-none sticky-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">NoReflowTabBar API Reference</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="offcanvas-md offcanvas-start navigation" tabindex="-1" id="sidebarNav" data-bs-scroll="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">NoReflowTabBar API Reference</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarNav" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body py-2">
+<h2><a href="index.html">NoReflowTabBar API Reference</a></h2><ul class="nav flex-column px-3"><li class="nav-item"><a class="nav-link px-2 py-1" href="AllUnits.html">Units</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="ClassHierarchy.html">Class Hierarchy</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllTypes.html">Types</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllVariables.html">Variables</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllConstants.html">Constants</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllFunctions.html">Functions and Procedures</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllIdentifiers.html">Identifiers</a></li><li class="nav-item pt-2 px-2"><form class="search-form" action="tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div></div>
+<main class="pasdoc-content content">
+<div class="container-fluid py-3 px-4">
+<h1 class="unit">Unit NoReflowTabBar_EventsTypes</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Types">Types</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="description">Description</h2>
+<p class="nodescription">This item has no description.</p><span id="PasDoc-Uses"></span><h2 class="overview">Overview</h2>
+<span id="PasDoc-Types"></span><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarChangingEvent">TNoReflowTabBarChangingEvent</a></strong> = Procedure( Sender: TObject; OldItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; NewItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var Allow: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarChangeEvent">TNoReflowTabBarChangeEvent</a></strong> = Procedure( Sender: TObject; OldItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; NewItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarBeginDragItemEvent">TNoReflowTabBarBeginDragItemEvent</a></strong> = Procedure( Sender: TObject; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASourceIndex: Integer; ASourceZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarEndDragItemEvent">TNoReflowTabBarEndDragItemEvent</a></strong> = Procedure( Sender: TObject; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASourceIndex: Integer; ASourceZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZoneIndex: Integer; ADropped: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanReorderItemEvent">TNoReflowTabBarCanReorderItemEvent</a></strong> = Procedure( Sender: TObject; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASourceZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ASourceZoneIndex: Integer; ATargetZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZoneIndex: Integer; Var Allow: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanDropItemEvent">TNoReflowTabBarCanDropItemEvent</a></strong> = Procedure( Sender: TObject; ASourceBar: TObject; ASourceItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ATargetZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZoneIndex: Integer; Var Allow: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDroppedEvent">TNoReflowTabBarItemDroppedEvent</a></strong> = Procedure( Sender: TObject; ASourceBar: TObject; ASourceItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ATargetItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ATargetZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZoneIndex: Integer) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDragOverEvent">TNoReflowTabBarItemDragOverEvent</a></strong> = Procedure( Sender: TObject; ASourceBar: TObject; ASourceItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var Accept: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDragLeaveEvent">TNoReflowTabBarItemDragLeaveEvent</a></strong> = Procedure( Sender: TObject; ASourceBar: TObject; ASourceItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanEditItemCaptionEvent">TNoReflowTabBarCanEditItemCaptionEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var Allow: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarValidateItemCaptionEvent">TNoReflowTabBarValidateItemCaptionEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOldCaption: String; Var ANewCaption: String; Var Accept: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemCaptionEditedEvent">TNoReflowTabBarItemCaptionEditedEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOldCaption: String; Const ANewCaption: String) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarPaintEvent">TNoReflowTabBarPaintEvent</a></strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AText: String; Const ABounds: TRect; Const ARegionPoints: TArray&lt;TPoint&gt;; Const AMetrics: <a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html">TNoReflowTabBarItemMetrics</a>; AVisualState: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemVisualState">TNoReflowTabBarItemVisualState</a>; Var ADefaultDraw: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarClickEvent">TNoReflowTabBarClickEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Button: TMouseButton; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarDblClickEvent">TNoReflowTabBarDblClickEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMouseEvent">TNoReflowTabBarMouseEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarZoneMouseEvent">TNoReflowTabBarZoneMouseEvent</a></strong> = Procedure( Sender: TObject; APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGetItemTextEvent">TNoReflowTabBarGetItemTextEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var AText: String) Of Object;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGetItemHintEvent">TNoReflowTabBarGetItemHintEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var AHint: String; Var AShowHint: Boolean) Of Object;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMeasureItemEvent">TNoReflowTabBarMeasureItemEvent</a></strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASelectedFont: Boolean; Var ATextWidth: Integer; Var ATextHeight: Integer; Var AHandled: Boolean) Of Object;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarChangingEvent"></span><code><strong>TNoReflowTabBarChangingEvent</strong> = Procedure( Sender: TObject; OldItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; NewItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var Allow: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired just before the selected or current item changes.
+
+<p>OldItem is the current item before the transition. NewItem is the requested item after component-side normalisation. Either value may be nil when no item exists before or after the operation.
+
+<p>Set Allow to False to reject the transition. Typical use cases include preventing the user from leaving a page with invalid data, requesting user confirmation, or applying application-specific access rules.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarChangeEvent"></span><code><strong>TNoReflowTabBarChangeEvent</strong> = Procedure( Sender: TObject; OldItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; NewItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired after a new selected or current item has been applied.
+
+<p>OldItem is the previous item. NewItem is the new item. Either value may be nil when the bar changes from or to an empty state.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarBeginDragItemEvent"></span><code><strong>TNoReflowTabBarBeginDragItemEvent</strong> = Procedure( Sender: TObject; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASourceIndex: Integer; ASourceZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired when an item drag operation becomes active.
+
+<p>This event is not fired on MouseDown. It is fired only after the mouse movement threshold has been exceeded.
+
+<p>AItem is the dragged item, ASourceIndex is its absolute index when the drag started, and ASourceZone is its original logical zone.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarEndDragItemEvent"></span><code><strong>TNoReflowTabBarEndDragItemEvent</strong> = Procedure( Sender: TObject; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASourceIndex: Integer; ASourceZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZoneIndex: Integer; ADropped: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired when an item drag operation ends.
+
+<p>ADropped is True only when a move or drop operation has actually been applied. ATargetZone and ATargetZoneIndex describe the resolved target. When ADropped is False, the target information can usually be ignored.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarCanReorderItemEvent"></span><code><strong>TNoReflowTabBarCanReorderItemEvent</strong> = Procedure( Sender: TObject; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASourceZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ASourceZoneIndex: Integer; ATargetZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZoneIndex: Integer; Var Allow: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event used to validate an item reorder operation before it is applied.
+
+<p>AItem is the item being moved. ASourceZone and ASourceZoneIndex describe its current position. ATargetZone and ATargetZoneIndex describe the requested target position.
+
+<p>Set Allow to False to reject the move.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarCanDropItemEvent"></span><code><strong>TNoReflowTabBarCanDropItemEvent</strong> = Procedure( Sender: TObject; ASourceBar: TObject; ASourceItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ATargetZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZoneIndex: Integer; Var Allow: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event used to validate a drop operation before it is applied.
+
+<p>This event generalises OnCanReorderItem: - ASourceBar can be the target bar itself for an internal drag; - ASourceBar can be another <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html">TNoReflowTabBar</a> for an inter-bar drag.
+
+<p>The component does not assign application-specific meaning to ASourceBar. Applications can use it to identify a page, category, menu, command group or any other owner context.
+
+<p>Set Allow to False to reject the drop.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarItemDroppedEvent"></span><code><strong>TNoReflowTabBarItemDroppedEvent</strong> = Procedure( Sender: TObject; ASourceBar: TObject; ASourceItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ATargetItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ATargetZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ATargetZoneIndex: Integer) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired after a drop has been accepted and applied by the target bar.
+
+<p>For an internal drag, ASourceItem and ATargetItem normally refer to the same moved object.
+
+<p>For an inter-bar drag, ATargetItem refers to the item created in the target bar from the source item. Removing the original source item, when desired, remains the responsibility of the application or calling layer.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarItemDragOverEvent"></span><code><strong>TNoReflowTabBarItemDragOverEvent</strong> = Procedure( Sender: TObject; ASourceBar: TObject; ASourceItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var Accept: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired while a dragged item is hovering over a bar item.
+
+<p>This event does not mean that the dragged item will be inserted into the bar. It lets the application react to functional hover states, for example by activating a menu page, opening a group, displaying contextual help, or deciding whether the hovered item should react to this drag.
+
+<p>ASourceBar identifies the source bar or owner of the drag. ASourceItem is the dragged item. AItemIndex and AItem identify the item currently under the drag. Set Accept to False to indicate that this item does not accept this kind of hover reaction.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarItemDragLeaveEvent"></span><code><strong>TNoReflowTabBarItemDragLeaveEvent</strong> = Procedure( Sender: TObject; ASourceBar: TObject; ASourceItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired when a drag operation leaves the item that was previously hovered.
+
+<p>Applications can use this event to clear visual or functional state that was set by OnItemDragOver.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarCanEditItemCaptionEvent"></span><code><strong>TNoReflowTabBarCanEditItemCaptionEvent</strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var Allow: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired before inline caption editing starts for an item.
+
+<p>Set Allow to False to prevent editing. This is useful to keep fixed items read-only, apply application-specific permissions, or disable editing depending on the current context.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarValidateItemCaptionEvent"></span><code><strong>TNoReflowTabBarValidateItemCaptionEvent</strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOldCaption: String; Var ANewCaption: String; Var Accept: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired just before a new item caption is accepted.
+
+<p>ANewCaption is writable. The handler can trim it, normalise casing, replace a forbidden value, or reject the change by setting Accept to False.
+
+<p>When Accept is False, the edit operation is cancelled and the original caption is preserved.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarItemCaptionEditedEvent"></span><code><strong>TNoReflowTabBarItemCaptionEditedEvent</strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOldCaption: String; Const ANewCaption: String) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired after an item caption has been effectively changed.
+
+<p>This is the event an application should handle to persist the new caption in a database, configuration file, user profile or other application storage.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarPaintEvent"></span><code><strong>TNoReflowTabBarPaintEvent</strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AText: String; Const ABounds: TRect; Const ARegionPoints: TArray&lt;TPoint&gt;; Const AMetrics: <a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html">TNoReflowTabBarItemMetrics</a>; AVisualState: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemVisualState">TNoReflowTabBarItemVisualState</a>; Var ADefaultDraw: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event used to customise the rendering of an item.
+
+<p>Unlike a simple rectangle-based paint callback, this event exposes: - the active component canvas; - the logical item object; - the item bounding rectangle; - the real polygonal outline used for painting and hit testing; - the computed content metrics; - the resolved visual state.
+
+<p>The handler can either leave ADefaultDraw set to True to keep the standard drawing pipeline, or set it to False and perform the full drawing itself.
+
+<p>AText contains the resolved display text for the item, after applying OnGetItemText when assigned. The same text is used by the component during measurement, provided OnGetItemText remains stable during the layout and paint cycle.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarClickEvent"></span><code><strong>TNoReflowTabBarClickEvent</strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Button: TMouseButton; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired when a mouse click activates a valid item.
+
+<p>Unlike the standard TControl.OnClick event, this event explicitly provides the item involved in the click and the relevant mouse information.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarDblClickEvent"></span><code><strong>TNoReflowTabBarDblClickEvent</strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired when a mouse double-click activates a valid item.
+
+<p>The standard control double-click event is not published by the component in order to avoid ambiguity between the bar itself and its virtual items.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarMouseEvent"></span><code><strong>TNoReflowTabBarMouseEvent</strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired when the mouse enters or leaves a virtual item.
+
+<p>Unlike OnMouseEnter and OnMouseLeave, this event refers to a precise item managed by the bar.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarZoneMouseEvent"></span><code><strong>TNoReflowTabBarZoneMouseEvent</strong> = Procedure( Sender: TObject; APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired when the mouse enters or leaves a logical zone.
+
+<p>APinZone is <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtpzStart">nrtpzStart</a>, <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtpzCenter">nrtpzCenter</a> or <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtpzEnd">nrtpzEnd</a> depending on the zone involved in the transition.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarGetItemTextEvent"></span><code><strong>TNoReflowTabBarGetItemTextEvent</strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var AText: String) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event used to resolve the text displayed for an item dynamically.
+
+<p>AText initially contains AItem.Caption. The handler can replace it to display calculated text without modifying the <a class="normal" href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a> object.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarGetItemHintEvent"></span><code><strong>TNoReflowTabBarGetItemHintEvent</strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var AHint: String; Var AShowHint: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event used to resolve the hint displayed for an item dynamically.
+
+<p>AHint initially contains AItem.Hint, or the resolved item text when the item hint is empty. Set AShowHint to False to disable the hint for this item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarMeasureItemEvent"></span><code><strong>TNoReflowTabBarMeasureItemEvent</strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASelectedFont: Boolean; Var ATextWidth: Integer; Var ATextHeight: Integer; Var AHandled: Boolean) Of Object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event used to override item text measurement.
+
+<p>The component first computes the standard measurement. The handler can replace it by changing ATextWidth and ATextHeight, then setting AHandled to True.</p>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://pasdoc.github.io/">PasDoc 1.0.4</a>. </em>
+</span>
+</div></main>
+<script src="bootstrap.bundle.min.js"></script>
+</body></html>

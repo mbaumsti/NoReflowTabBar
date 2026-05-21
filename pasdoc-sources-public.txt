@@ -1,0 +1,7 @@
+src\NoReflowTabBar.pas
+src\NoReflowTabBar_CommonTypes.pas
+src\NoReflowTabBar_EventsTypes.pas
+src\NoReflowTabBar_Items.pas
+src\NoReflowTabBar_AppearanceAndLayout.pas
+src\NoReflowTabBar_ZoneHeader.pas
+src\NoReflowTabBar_StorageSupport.pas

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NoReflowTabBar API Reference: NoReflowTabBar_StorageSupport: Class TNoReflowTabBarStorageSupport</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 1.0.4">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="bootstrap.min.css">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<nav class="navbar d-md-none sticky-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">NoReflowTabBar API Reference</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="offcanvas-md offcanvas-start navigation" tabindex="-1" id="sidebarNav" data-bs-scroll="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">NoReflowTabBar API Reference</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarNav" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body py-2">
+<h2><a href="index.html">NoReflowTabBar API Reference</a></h2><ul class="nav flex-column px-3"><li class="nav-item"><a class="nav-link px-2 py-1" href="AllUnits.html">Units</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="ClassHierarchy.html">Class Hierarchy</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllTypes.html">Types</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllVariables.html">Variables</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllConstants.html">Constants</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllFunctions.html">Functions and Procedures</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllIdentifiers.html">Identifiers</a></li><li class="nav-item pt-2 px-2"><form class="search-form" action="tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div></div>
+<main class="pasdoc-content content">
+<div class="container-fluid py-3 px-4">
+<span id="TNoReflowTabBarStorageSupport"></span><h1 class="cio">Class TNoReflowTabBarStorageSupport</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a href="NoReflowTabBar_StorageSupport.html">NoReflowTabBar_StorageSupport</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TNoReflowTabBarStorageSupport = class(TNoReflowTabBarDragSupport)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Storage support layer of the <a class="normal" href="NoReflowTabBar.html">NoReflowTabBar</a> component.
+
+<p>This class exposes backend-independent save and restore operations. It produces and consumes logical storage entries, then provides convenience wrappers for TStrings, UTF-8 streams, files and INI files.
+
+<p>The class intentionally depends on no application-specific storage system.</p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TNoReflowTabBarDragSupport</li>
+<li class="thisitem">TNoReflowTabBarStorageSupport</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#ResolveStorageRoot-TNoReflowTabBarStorageOptions-">ResolveStorageRoot</a></strong>(Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>): String;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#PinZoneToStorageZone-TNoReflowTabBarPinZone-">PinZoneToStorageZone</a></strong>(APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>): <a href="NoReflowTabBar_StorageSupport.html#TNoReflowTabBarStoredPinZone">TNoReflowTabBarStoredPinZone</a>;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#StorageZoneToPinZone-TNoReflowTabBarStoredPinZone-">StorageZoneToPinZone</a></strong>(AZone: <a href="NoReflowTabBar_StorageSupport.html#TNoReflowTabBarStoredPinZone">TNoReflowTabBarStoredPinZone</a>): <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#IsStorageZoneEnabled-TNoReflowTabBarPinZone-TNoReflowTabBarStorageOptions-">IsStorageZoneEnabled</a></strong>( APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>): Boolean;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#StorageGeneralSection">StorageGeneralSection</a></strong>: String;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#StorageItemSection-Integer-">StorageItemSection</a></strong>(AStorageIndex: Integer): String;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#ReadStoredItemKey-TNoReflowTabBarStorageEntryList-String-Integer-">ReadStoredItemKey</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): Integer;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#RestoreStoredItemKey-TNoReflowTabBarStorageEntryList-String-Integer-TNoReflowTabBarItem-">RestoreStoredItemKey</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>);</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#ReadStoredItemUserId-TNoReflowTabBarStorageEntryList-String-Integer-">ReadStoredItemUserId</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): Integer;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#ReadStoredItemZone-TNoReflowTabBarStorageEntryList-String-Integer-">ReadStoredItemZone</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#ReadStoredItemZoneIndex-TNoReflowTabBarStorageEntryList-String-Integer-">ReadStoredItemZoneIndex</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): Integer;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#FindItemForStorage-TNoReflowTabBarStorageEntryList-String-Integer-">FindItemForStorage</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#SaveOneItemGlyphStorage-TNoReflowTabBarStorageEntryList-String-String-TNoReflowTabBarItem-">SaveOneItemGlyphStorage</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; Const ASection: String; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>);</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#RestoreOneItemGlyphStorage-TNoReflowTabBarStorageEntryList-String-String-TNoReflowTabBarItem-">RestoreOneItemGlyphStorage</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; Const ASection: String; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>);</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#SaveOneItemStorage-TNoReflowTabBarStorageEntryList-String-Integer-TNoReflowTabBarItem-TNoReflowTabBarStorageOptions-">SaveOneItemStorage</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#RestoreOneExistingItemStorage-TNoReflowTabBarStorageEntryList-String-Integer-TNoReflowTabBarItem-TNoReflowTabBarStorageOptions-">RestoreOneExistingItemStorage</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#CreateItemFromStorage-TNoReflowTabBarStorageEntryList-String-Integer-TNoReflowTabBarStorageOptions-">CreateItemFromStorage</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>): <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#ClearItemsForStorageZones-TNoReflowTabBarStorageOptions-">ClearItemsForStorageZones</a></strong>(Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#StorageEntriesToStrings-TNoReflowTabBarStorageEntryList-TStrings-">StorageEntriesToStrings</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; AStrings: TStrings);</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#StringsToStorageEntries-TStrings-TNoReflowTabBarStorageEntryList-">StringsToStorageEntries</a></strong>( AStrings: TStrings; AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>);</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#StorageIniSectionName-String-String-">StorageIniSectionName</a></strong>( Const ARoot: String; Const ASection: String): String;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#IsStorageIniSectionForRoot-String-String-">IsStorageIniSectionForRoot</a></strong>( Const AIniSectionName: String; Const ARoot: String): Boolean;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#StorageSectionFromIniSectionName-String-String-">StorageSectionFromIniSectionName</a></strong>( Const AIniSectionName: String; Const ARoot: String): String;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#SaveStorageToEntries-TNoReflowTabBarStorageEntryList-TNoReflowTabBarStorageOptions-">SaveStorageToEntries</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#LoadStorageFromEntries-TNoReflowTabBarStorageEntryList-TNoReflowTabBarStorageOptions-">LoadStorageFromEntries</a></strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#CreateStorageEnumerator-TNoReflowTabBarStorageOptions-">CreateStorageEnumerator</a></strong>(Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>): <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEnumerator.html">TNoReflowTabBarStorageEnumerator</a>;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#SaveStorageToStrings-TStrings-TNoReflowTabBarStorageOptions-">SaveStorageToStrings</a></strong>( AStrings: TStrings; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#LoadStorageFromStrings-TStrings-TNoReflowTabBarStorageOptions-">LoadStorageFromStrings</a></strong>( AStrings: TStrings; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#SaveStorageToStream-TStream-TNoReflowTabBarStorageOptions-">SaveStorageToStream</a></strong>( AStream: TStream; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#LoadStorageFromStream-TStream-TNoReflowTabBarStorageOptions-">LoadStorageFromStream</a></strong>( AStream: TStream; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#SaveStorageToFile-String-TNoReflowTabBarStorageOptions-">SaveStorageToFile</a></strong>( Const AFileName: String; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#LoadStorageFromFile-String-TNoReflowTabBarStorageOptions-">LoadStorageFromFile</a></strong>( Const AFileName: String; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#SaveStorageToIni-TCustomIniFile-TNoReflowTabBarStorageOptions-Boolean-">SaveStorageToIni</a></strong>( AIni: TCustomIniFile; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>; AClearExisting: Boolean = True);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#LoadStorageFromIni-TCustomIniFile-TNoReflowTabBarStorageOptions-">LoadStorageFromIni</a></strong>( AIni: TCustomIniFile; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#SaveStorageToIniFile-String-TNoReflowTabBarStorageOptions-Boolean-">SaveStorageToIniFile</a></strong>( Const AFileName: String; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>; AClearExisting: Boolean = True);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html#LoadStorageFromIniFile-String-TNoReflowTabBarStorageOptions-">LoadStorageFromIniFile</a></strong>( Const AFileName: String; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="ResolveStorageRoot-TNoReflowTabBarStorageOptions-"></span><code>Function <strong>ResolveStorageRoot</strong>(Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>): String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Resolves the storage root from options or component ownership.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="PinZoneToStorageZone-TNoReflowTabBarPinZone-"></span><code>Function <strong>PinZoneToStorageZone</strong>(APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>): <a href="NoReflowTabBar_StorageSupport.html#TNoReflowTabBarStoredPinZone">TNoReflowTabBarStoredPinZone</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts an internal pin zone to a stored zone value.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="StorageZoneToPinZone-TNoReflowTabBarStoredPinZone-"></span><code>Function <strong>StorageZoneToPinZone</strong>(AZone: <a href="NoReflowTabBar_StorageSupport.html#TNoReflowTabBarStoredPinZone">TNoReflowTabBarStoredPinZone</a>): <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts a stored zone value back to an internal pin zone.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="IsStorageZoneEnabled-TNoReflowTabBarPinZone-TNoReflowTabBarStorageOptions-"></span><code>Function <strong>IsStorageZoneEnabled</strong>( APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns True when a pin zone participates in the current storage options.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="StorageGeneralSection"></span><code>Function <strong>StorageGeneralSection</strong>: String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the logical section name used for general bar values.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="StorageItemSection-Integer-"></span><code>Function <strong>StorageItemSection</strong>(AStorageIndex: Integer): String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the logical section name used for a stored item index.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="ReadStoredItemKey-TNoReflowTabBarStorageEntryList-String-Integer-"></span><code>Function <strong>ReadStoredItemKey</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads the stored technical item key for a storage item index.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="RestoreStoredItemKey-TNoReflowTabBarStorageEntryList-String-Integer-TNoReflowTabBarItem-"></span><code>Procedure <strong>RestoreStoredItemKey</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores a stored technical item key on an item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="ReadStoredItemUserId-TNoReflowTabBarStorageEntryList-String-Integer-"></span><code>Function <strong>ReadStoredItemUserId</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads the stored application UserId for a storage item index.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="ReadStoredItemZone-TNoReflowTabBarStorageEntryList-String-Integer-"></span><code>Function <strong>ReadStoredItemZone</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads the stored pin zone for a storage item index.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="ReadStoredItemZoneIndex-TNoReflowTabBarStorageEntryList-String-Integer-"></span><code>Function <strong>ReadStoredItemZoneIndex</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads the stored zone index for a storage item index.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="FindItemForStorage-TNoReflowTabBarStorageEntryList-String-Integer-"></span><code>Function <strong>FindItemForStorage</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer): <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Finds the existing item that corresponds to a stored item entry.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="SaveOneItemGlyphStorage-TNoReflowTabBarStorageEntryList-String-String-TNoReflowTabBarItem-"></span><code>Procedure <strong>SaveOneItemGlyphStorage</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; Const ASection: String; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Saves simple glyph-related properties for one item.
+
+<p>This method uses RTTI to avoid depending on the exact GlyphPosition type. It saves only published properties available on the item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="RestoreOneItemGlyphStorage-TNoReflowTabBarStorageEntryList-String-String-TNoReflowTabBarItem-"></span><code>Procedure <strong>RestoreOneItemGlyphStorage</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; Const ASection: String; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores simple glyph-related properties for one item.
+
+<p>Missing properties are ignored to preserve the current item values, especially values coming from the DFM.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="SaveOneItemStorage-TNoReflowTabBarStorageEntryList-String-Integer-TNoReflowTabBarItem-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>SaveOneItemStorage</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Saves one item according to the selected storage options.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="RestoreOneExistingItemStorage-TNoReflowTabBarStorageEntryList-String-Integer-TNoReflowTabBarItem-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>RestoreOneExistingItemStorage</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer; ATab: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores stored state to one existing item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="CreateItemFromStorage-TNoReflowTabBarStorageEntryList-String-Integer-TNoReflowTabBarStorageOptions-"></span><code>Function <strong>CreateItemFromStorage</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const ARoot: String; AStorageIndex: Integer; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>): <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Creates a new item from stored data.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="ClearItemsForStorageZones-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>ClearItemsForStorageZones</strong>(Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Clears items belonging to the zones involved in the storage options.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="StorageEntriesToStrings-TNoReflowTabBarStorageEntryList-TStrings-"></span><code>Procedure <strong>StorageEntriesToStrings</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; AStrings: TStrings);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Serialises storage entries to a TStrings representation.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="StringsToStorageEntries-TStrings-TNoReflowTabBarStorageEntryList-"></span><code>Procedure <strong>StringsToStorageEntries</strong>( AStrings: TStrings; AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Parses storage entries from a TStrings representation.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="StorageIniSectionName-String-String-"></span><code>Function <strong>StorageIniSectionName</strong>( Const ARoot: String; Const ASection: String): String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Builds the INI section name corresponding to a storage root and logical section.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="IsStorageIniSectionForRoot-String-String-"></span><code>Function <strong>IsStorageIniSectionForRoot</strong>( Const AIniSectionName: String; Const ARoot: String): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns True when an INI section belongs to the specified storage root.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="StorageSectionFromIniSectionName-String-String-"></span><code>Function <strong>StorageSectionFromIniSectionName</strong>( Const AIniSectionName: String; Const ARoot: String): String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Extracts the logical storage section from an INI section name.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SaveStorageToEntries-TNoReflowTabBarStorageEntryList-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>SaveStorageToEntries</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Fills a storage entry list with the requested state.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="LoadStorageFromEntries-TNoReflowTabBarStorageEntryList-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>LoadStorageFromEntries</strong>( AEntries: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEntryList.html">TNoReflowTabBarStorageEntryList</a>; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores state from a storage entry list.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="CreateStorageEnumerator-TNoReflowTabBarStorageOptions-"></span><code>Function <strong>CreateStorageEnumerator</strong>(Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>): <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageEnumerator.html">TNoReflowTabBarStorageEnumerator</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Creates an enumerator over a snapshot of the requested state.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SaveStorageToStrings-TStrings-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>SaveStorageToStrings</strong>( AStrings: TStrings; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Saves the requested state to a TStrings instance.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="LoadStorageFromStrings-TStrings-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>LoadStorageFromStrings</strong>( AStrings: TStrings; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores state from a TStrings instance.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SaveStorageToStream-TStream-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>SaveStorageToStream</strong>( AStream: TStream; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Saves the requested state to a UTF-8 stream.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="LoadStorageFromStream-TStream-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>LoadStorageFromStream</strong>( AStream: TStream; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores state from a UTF-8 stream.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SaveStorageToFile-String-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>SaveStorageToFile</strong>( Const AFileName: String; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Saves the requested state to a UTF-8 text file.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="LoadStorageFromFile-String-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>LoadStorageFromFile</strong>( Const AFileName: String; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores state from a UTF-8 text file.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SaveStorageToIni-TCustomIniFile-TNoReflowTabBarStorageOptions-Boolean-"></span><code>Procedure <strong>SaveStorageToIni</strong>( AIni: TCustomIniFile; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>; AClearExisting: Boolean = True);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Saves the requested state to a TCustomIniFile.
+
+<p>When AClearExisting is True, old sections for this bar are removed before writing the new state. This avoids keeping obsolete Item.X sections when items have been deleted.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="LoadStorageFromIni-TCustomIniFile-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>LoadStorageFromIni</strong>( AIni: TCustomIniFile; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores state from a TCustomIniFile.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SaveStorageToIniFile-String-TNoReflowTabBarStorageOptions-Boolean-"></span><code>Procedure <strong>SaveStorageToIniFile</strong>( Const AFileName: String; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>; AClearExisting: Boolean = True);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Saves the requested state to an INI file.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="LoadStorageFromIniFile-String-TNoReflowTabBarStorageOptions-"></span><code>Procedure <strong>LoadStorageFromIniFile</strong>( Const AFileName: String; Const AOptions: <a href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageOptions.html">TNoReflowTabBarStorageOptions</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Restores state from an INI file.</p>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://pasdoc.github.io/">PasDoc 1.0.4</a>. </em>
+</span>
+</div></main>
+<script src="bootstrap.bundle.min.js"></script>
+</body></html>

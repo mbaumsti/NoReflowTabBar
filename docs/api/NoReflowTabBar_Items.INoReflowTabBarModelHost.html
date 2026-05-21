@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NoReflowTabBar API Reference: NoReflowTabBar_Items: Interface INoReflowTabBarModelHost</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 1.0.4">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="bootstrap.min.css">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<nav class="navbar d-md-none sticky-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">NoReflowTabBar API Reference</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="offcanvas-md offcanvas-start navigation" tabindex="-1" id="sidebarNav" data-bs-scroll="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">NoReflowTabBar API Reference</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarNav" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body py-2">
+<h2><a href="index.html">NoReflowTabBar API Reference</a></h2><ul class="nav flex-column px-3"><li class="nav-item"><a class="nav-link px-2 py-1" href="AllUnits.html">Units</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="ClassHierarchy.html">Class Hierarchy</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllTypes.html">Types</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllVariables.html">Variables</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllConstants.html">Constants</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllFunctions.html">Functions and Procedures</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllIdentifiers.html">Identifiers</a></li><li class="nav-item pt-2 px-2"><form class="search-form" action="tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div></div>
+<main class="pasdoc-content content">
+<div class="container-fluid py-3 px-4">
+<span id="INoReflowTabBarModelHost"></span><h1 class="cio">Interface INoReflowTabBarModelHost</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a href="NoReflowTabBar_Items.html">NoReflowTabBar_Items</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type INoReflowTabBarModelHost = interface(IInterface)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Minimal host interface exposed by the owning component to the item model.
+
+<p>The model classes use this interface instead of depending directly on <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html">TNoReflowTabBar</a>. This keeps the item model independent from the final visual control and avoids circular dependencies between units.</p>
+<h6 class="description_section">Attributes</h6>
+<dl class="attributes">
+  <dt>GUID['{D63F0A0B-7E48-4F8D-9F60-8F54A3FC1D21}']</dt>
+  <dd></dd>
+</dl>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">IInterface</li>
+<li class="thisitem">INoReflowTabBarModelHost</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#ItemsChanged">ItemsChanged</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#InvalidateLayout">InvalidateLayout</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#SelectedItemReferenceRemoved-TNoReflowTabBarItem-">SelectedItemReferenceRemoved</a></strong>(AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#FindSignalDefByCode-Integer-">FindSignalDefByCode</a></strong>(ACode: Integer): <a href="NoReflowTabBar_Items.TNoReflowTabBarSignalDef.html">TNoReflowTabBarSignalDef</a>;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#FindSignalDefByName-String-">FindSignalDefByName</a></strong>(Const AName: String): <a href="NoReflowTabBar_Items.TNoReflowTabBarSignalDef.html">TNoReflowTabBarSignalDef</a>;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#IsHostLoading">IsHostLoading</a></strong>: Boolean;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#MoveItemToZone-TNoReflowTabBarItem-TNoReflowTabBarPinZone-Integer-">MoveItemToZone</a></strong>( AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ANewZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ANewZoneIndex: Integer);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#NormalizeItemsOrderByZone">NormalizeItemsOrderByZone</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar_Items.INoReflowTabBarModelHost.html#GetItemsCountInZone-TNoReflowTabBarPinZone-">GetItemsCountInZone</a></strong>(APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>): Integer;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="ItemsChanged"></span><code>Procedure <strong>ItemsChanged</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Notifies the host that item or signal data has changed.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="InvalidateLayout"></span><code>Procedure <strong>InvalidateLayout</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Requests a layout invalidation on the host control.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SelectedItemReferenceRemoved-TNoReflowTabBarItem-"></span><code>Procedure <strong>SelectedItemReferenceRemoved</strong>(AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Notifies the host that a selected item object is being removed.
+
+<p>This lets the host clear or update any selection state stored by object reference before the item is destroyed.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="FindSignalDefByCode-Integer-"></span><code>Function <strong>FindSignalDefByCode</strong>(ACode: Integer): <a href="NoReflowTabBar_Items.TNoReflowTabBarSignalDef.html">TNoReflowTabBarSignalDef</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Finds a signal definition by its logical code.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="FindSignalDefByName-String-"></span><code>Function <strong>FindSignalDefByName</strong>(Const AName: String): <a href="NoReflowTabBar_Items.TNoReflowTabBarSignalDef.html">TNoReflowTabBarSignalDef</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Finds a signal definition by its display name.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="IsHostLoading"></span><code>Function <strong>IsHostLoading</strong>: Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns True while the host is loading streamed component data.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="MoveItemToZone-TNoReflowTabBarItem-TNoReflowTabBarPinZone-Integer-"></span><code>Procedure <strong>MoveItemToZone</strong>( AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ANewZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; ANewZoneIndex: Integer);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Moves an item to a target logical zone and zone-relative index.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="NormalizeItemsOrderByZone"></span><code>Procedure <strong>NormalizeItemsOrderByZone</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Normalizes the physical item collection order by logical zone.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="GetItemsCountInZone-TNoReflowTabBarPinZone-"></span><code>Function <strong>GetItemsCountInZone</strong>(APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>): Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the number of items currently stored in a logical zone.</p>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://pasdoc.github.io/">PasDoc 1.0.4</a>. </em>
+</span>
+</div></main>
+<script src="bootstrap.bundle.min.js"></script>
+</body></html>

@@ -1,0 +1,17 @@
+src\NoReflowTabBar.pas
+src\NoReflowTabBar_CommonTypes.pas
+src\NoReflowTabBar_EventsTypes.pas
+src\NoReflowTabBar_Items.pas
+src\NoReflowTabBar_AppearanceAndLayout.pas
+src\NoReflowTabBar_ZoneHeader.pas
+src\NoReflowTabBar_StorageSupport.pas
+src\NoReflowTabBar_RenderTypes.pas
+src\NoReflowTabBar_Core.pas
+src\NoReflowTabBar_DragSupport.pas
+src\NoReflowTabBar_EditSupport.pas
+src\NoReflowTabBar_HintSupport.pas
+src\NoReflowTabBar_LayoutSupport.pas
+src\NoReflowTabBar_RenderSupport.pas
+src\NoReflowTabBar_ZoneLayout.pas
+src\NoReflowTabBar_Library.pas
+src\NoReflowTabBarReg.pas

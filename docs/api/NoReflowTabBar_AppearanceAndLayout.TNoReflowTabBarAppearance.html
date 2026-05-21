@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NoReflowTabBar API Reference: NoReflowTabBar_AppearanceAndLayout: Class TNoReflowTabBarAppearance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 1.0.4">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="bootstrap.min.css">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<nav class="navbar d-md-none sticky-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">NoReflowTabBar API Reference</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="offcanvas-md offcanvas-start navigation" tabindex="-1" id="sidebarNav" data-bs-scroll="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">NoReflowTabBar API Reference</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarNav" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body py-2">
+<h2><a href="index.html">NoReflowTabBar API Reference</a></h2><ul class="nav flex-column px-3"><li class="nav-item"><a class="nav-link px-2 py-1" href="AllUnits.html">Units</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="ClassHierarchy.html">Class Hierarchy</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllTypes.html">Types</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllVariables.html">Variables</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllConstants.html">Constants</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllFunctions.html">Functions and Procedures</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllIdentifiers.html">Identifiers</a></li><li class="nav-item pt-2 px-2"><form class="search-form" action="tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div></div>
+<main class="pasdoc-content content">
+<div class="container-fluid py-3 px-4">
+<span id="TNoReflowTabBarAppearance"></span><h1 class="cio">Class TNoReflowTabBarAppearance</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a href="NoReflowTabBar_AppearanceAndLayout.html">NoReflowTabBar_AppearanceAndLayout</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TNoReflowTabBarAppearance = class(TPersistent)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Persistent color configuration object used by <a class="normal" href="NoReflowTabBar.html">NoReflowTabBar</a>.
+
+<p>This class stores the custom colors used when BarPaletteMode selects the component-defined palette. It contains separate color groups for tab rendering and button rendering, plus focus and edge colors used by the drawing pipeline.
+
+<p>Instances are owned by the bar and are exposed through the BarAppearance property.</p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor">TPersistent</li>
+<li class="thisitem">TNoReflowTabBarAppearance</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Constructor <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#Create-TPersistent-">Create</a></strong>(AOwner: TPersistent);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#Assign-TPersistent-">Assign</a></strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#BeginUpdate">BeginUpdate</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#EndUpdate">EndUpdate</a></strong>;</code></td>
+</tr>
+</table>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#OnChanged">OnChanged</a></strong>: <a href="NoReflowTabBar_AppearanceAndLayout.html#TNoReflowTabBarObjectChangedEvent">TNoReflowTabBarObjectChangedEvent</a> Read FOnChanged Write FOnChanged;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabNormalTop">TabNormalTop</a></strong>: TColor Read FTabNormalTop Write SetTabNormalTop default clBtnFace;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabNormalBottom">TabNormalBottom</a></strong>: TColor Read FTabNormalBottom Write SetTabNormalBottom default clBtnFace;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabNormalText">TabNormalText</a></strong>: TColor Read FTabNormalText Write SetTabNormalText default clBtnText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabNormalBorder">TabNormalBorder</a></strong>: TColor Read FTabNormalBorder Write SetTabNormalBorder default clBtnShadow;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabHotTop">TabHotTop</a></strong>: TColor Read FTabHotTop Write SetTabHotTop default clHighlight;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabHotBottom">TabHotBottom</a></strong>: TColor Read FTabHotBottom Write SetTabHotBottom default clHighlight;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabHotText">TabHotText</a></strong>: TColor Read FTabHotText Write SetTabHotText default clBtnText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabHotBorder">TabHotBorder</a></strong>: TColor Read FTabHotBorder Write SetTabHotBorder default clActiveBorder;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabSelectedTop">TabSelectedTop</a></strong>: TColor Read FTabSelectedTop Write SetTabSelectedTop default clBtnHighlight;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabSelectedBottom">TabSelectedBottom</a></strong>: TColor Read FTabSelectedBottom Write SetTabSelectedBottom default clBtnHighlight;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabSelectedText">TabSelectedText</a></strong>: TColor Read FTabSelectedText Write SetTabSelectedText default clHighlightText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabSelectedBorder">TabSelectedBorder</a></strong>: TColor Read FTabSelectedBorder Write SetTabSelectedBorder default clActiveBorder;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabPressedTop">TabPressedTop</a></strong>: TColor Read FTabPressedTop Write SetTabPressedTop default clHighlight;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabPressedBottom">TabPressedBottom</a></strong>: TColor Read FTabPressedBottom Write SetTabPressedBottom default clHighlight;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabPressedText">TabPressedText</a></strong>: TColor Read FTabPressedText Write SetTabPressedText default clBtnText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabPressedBorder">TabPressedBorder</a></strong>: TColor Read FTabPressedBorder Write SetTabPressedBorder default clActiveBorder;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabDisabledTop">TabDisabledTop</a></strong>: TColor Read FTabDisabledTop Write SetTabDisabledTop default clBtnFace;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabDisabledBottom">TabDisabledBottom</a></strong>: TColor Read FTabDisabledBottom Write SetTabDisabledBottom default clBtnFace;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabDisabledText">TabDisabledText</a></strong>: TColor Read FTabDisabledText Write SetTabDisabledText default clGrayText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabDisabledBorder">TabDisabledBorder</a></strong>: TColor Read FTabDisabledBorder Write SetTabDisabledBorder default clBtnShadow;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabLightEdge">TabLightEdge</a></strong>: TColor Read FTabLightEdge Write SetTabLightEdge default clBtnHighlight;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#TabShadowEdge">TabShadowEdge</a></strong>: TColor Read FTabShadowEdge Write SetTabShadowEdge default clBtnShadow;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonNormalTop">ButtonNormalTop</a></strong>: TColor Read FButtonNormalTop Write SetButtonNormalTop default clBtnFace;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonNormalBottom">ButtonNormalBottom</a></strong>: TColor Read FButtonNormalBottom Write SetButtonNormalBottom default clBtnFace;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonNormalText">ButtonNormalText</a></strong>: TColor Read FButtonNormalText Write SetButtonNormalText default clBtnText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonNormalBorder">ButtonNormalBorder</a></strong>: TColor Read FButtonNormalBorder Write SetButtonNormalBorder default clBtnShadow;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonHotTop">ButtonHotTop</a></strong>: TColor Read FButtonHotTop Write SetButtonHotTop default clHighlight;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonHotBottom">ButtonHotBottom</a></strong>: TColor Read FButtonHotBottom Write SetButtonHotBottom default clHighlight;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonHotText">ButtonHotText</a></strong>: TColor Read FButtonHotText Write SetButtonHotText default clHighlightText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonHotBorder">ButtonHotBorder</a></strong>: TColor Read FButtonHotBorder Write SetButtonHotBorder default clActiveBorder;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonPressedTop">ButtonPressedTop</a></strong>: TColor Read FButtonPressedTop Write SetButtonPressedTop default clBtnShadow;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonPressedBottom">ButtonPressedBottom</a></strong>: TColor Read FButtonPressedBottom Write SetButtonPressedBottom default clBtnShadow;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonPressedText">ButtonPressedText</a></strong>: TColor Read FButtonPressedText Write SetButtonPressedText default clBtnText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonPressedBorder">ButtonPressedBorder</a></strong>: TColor Read FButtonPressedBorder Write SetButtonPressedBorder default clBtnShadow;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonSelectedTop">ButtonSelectedTop</a></strong>: TColor Read FButtonSelectedTop Write SetButtonSelectedTop default clBtnHighlight;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonSelectedBottom">ButtonSelectedBottom</a></strong>: TColor Read FButtonSelectedBottom Write SetButtonSelectedBottom default clBtnHighlight;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonSelectedText">ButtonSelectedText</a></strong>: TColor Read FButtonSelectedText Write SetButtonSelectedText default clHighlightText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonSelectedBorder">ButtonSelectedBorder</a></strong>: TColor Read FButtonSelectedBorder Write SetButtonSelectedBorder default clActiveBorder;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonDisabledTop">ButtonDisabledTop</a></strong>: TColor Read FButtonDisabledTop Write SetButtonDisabledTop default clBtnFace;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonDisabledBottom">ButtonDisabledBottom</a></strong>: TColor Read FButtonDisabledBottom Write SetButtonDisabledBottom default clBtnFace;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonDisabledText">ButtonDisabledText</a></strong>: TColor Read FButtonDisabledText Write SetButtonDisabledText default clGrayText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonDisabledBorder">ButtonDisabledBorder</a></strong>: TColor Read FButtonDisabledBorder Write SetButtonDisabledBorder default clBtnShadow;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonLightEdge">ButtonLightEdge</a></strong>: TColor Read FButtonLightEdge Write SetButtonLightEdge default clBtnHighlight;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#ButtonShadowEdge">ButtonShadowEdge</a></strong>: TColor Read FButtonShadowEdge Write SetButtonShadowEdge default clBtnShadow;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#FocusColor">FocusColor</a></strong>: TColor Read FFocusColor Write SetFocusColor default clHighlight;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Create-TPersistent-"></span><code>Constructor <strong>Create</strong>(AOwner: TPersistent);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Creates the appearance object and stores its owner.
+
+<p>The owner is used only for persistence ownership and design-time integration; visual invalidation is performed through <a class="normal" href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html#OnChanged">OnChanged</a>.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Assign-TPersistent-"></span><code>Procedure <strong>Assign</strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Copies all appearance properties from another compatible object.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="BeginUpdate"></span><code>Procedure <strong>BeginUpdate</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Starts a grouped update.
+
+<p>While an update is active, individual property changes do not notify the owner immediately.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="EndUpdate"></span><code>Procedure <strong>EndUpdate</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Ends a grouped update and sends one notification when required.</p>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="OnChanged"></span><code>property <strong>OnChanged</strong>: <a href="NoReflowTabBar_AppearanceAndLayout.html#TNoReflowTabBarObjectChangedEvent">TNoReflowTabBarObjectChangedEvent</a> Read FOnChanged Write FOnChanged;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event fired when an appearance property changes.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabNormalTop"></span><code>property <strong>TabNormalTop</strong>: TColor Read FTabNormalTop Write SetTabNormalTop default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a normal tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabNormalBottom"></span><code>property <strong>TabNormalBottom</strong>: TColor Read FTabNormalBottom Write SetTabNormalBottom default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a normal tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabNormalText"></span><code>property <strong>TabNormalText</strong>: TColor Read FTabNormalText Write SetTabNormalText default clBtnText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a normal tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabNormalBorder"></span><code>property <strong>TabNormalBorder</strong>: TColor Read FTabNormalBorder Write SetTabNormalBorder default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a normal tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabHotTop"></span><code>property <strong>TabHotTop</strong>: TColor Read FTabHotTop Write SetTabHotTop default clHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a hot tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabHotBottom"></span><code>property <strong>TabHotBottom</strong>: TColor Read FTabHotBottom Write SetTabHotBottom default clHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a hot tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabHotText"></span><code>property <strong>TabHotText</strong>: TColor Read FTabHotText Write SetTabHotText default clBtnText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a hot tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabHotBorder"></span><code>property <strong>TabHotBorder</strong>: TColor Read FTabHotBorder Write SetTabHotBorder default clActiveBorder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a hot tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabSelectedTop"></span><code>property <strong>TabSelectedTop</strong>: TColor Read FTabSelectedTop Write SetTabSelectedTop default clBtnHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a selected tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabSelectedBottom"></span><code>property <strong>TabSelectedBottom</strong>: TColor Read FTabSelectedBottom Write SetTabSelectedBottom default clBtnHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a selected tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabSelectedText"></span><code>property <strong>TabSelectedText</strong>: TColor Read FTabSelectedText Write SetTabSelectedText default clHighlightText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a selected tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabSelectedBorder"></span><code>property <strong>TabSelectedBorder</strong>: TColor Read FTabSelectedBorder Write SetTabSelectedBorder default clActiveBorder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a selected tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabPressedTop"></span><code>property <strong>TabPressedTop</strong>: TColor Read FTabPressedTop Write SetTabPressedTop default clHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a pressed tab.
+
+<p>By default, the pressed tab state reuses the hot appearance in order to preserve the historical rendering unless explicit colors are set.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabPressedBottom"></span><code>property <strong>TabPressedBottom</strong>: TColor Read FTabPressedBottom Write SetTabPressedBottom default clHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a pressed tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabPressedText"></span><code>property <strong>TabPressedText</strong>: TColor Read FTabPressedText Write SetTabPressedText default clBtnText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a pressed tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabPressedBorder"></span><code>property <strong>TabPressedBorder</strong>: TColor Read FTabPressedBorder Write SetTabPressedBorder default clActiveBorder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a pressed tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabDisabledTop"></span><code>property <strong>TabDisabledTop</strong>: TColor Read FTabDisabledTop Write SetTabDisabledTop default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a disabled tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabDisabledBottom"></span><code>property <strong>TabDisabledBottom</strong>: TColor Read FTabDisabledBottom Write SetTabDisabledBottom default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a disabled tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabDisabledText"></span><code>property <strong>TabDisabledText</strong>: TColor Read FTabDisabledText Write SetTabDisabledText default clGrayText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a disabled tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabDisabledBorder"></span><code>property <strong>TabDisabledBorder</strong>: TColor Read FTabDisabledBorder Write SetTabDisabledBorder default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a disabled tab.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabLightEdge"></span><code>property <strong>TabLightEdge</strong>: TColor Read FTabLightEdge Write SetTabLightEdge default clBtnHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Light edge color optionally used by tab rendering.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabShadowEdge"></span><code>property <strong>TabShadowEdge</strong>: TColor Read FTabShadowEdge Write SetTabShadowEdge default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Shadow edge color optionally used by tab rendering.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonNormalTop"></span><code>property <strong>ButtonNormalTop</strong>: TColor Read FButtonNormalTop Write SetButtonNormalTop default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a normal button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonNormalBottom"></span><code>property <strong>ButtonNormalBottom</strong>: TColor Read FButtonNormalBottom Write SetButtonNormalBottom default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a normal button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonNormalText"></span><code>property <strong>ButtonNormalText</strong>: TColor Read FButtonNormalText Write SetButtonNormalText default clBtnText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a normal button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonNormalBorder"></span><code>property <strong>ButtonNormalBorder</strong>: TColor Read FButtonNormalBorder Write SetButtonNormalBorder default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a normal button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonHotTop"></span><code>property <strong>ButtonHotTop</strong>: TColor Read FButtonHotTop Write SetButtonHotTop default clHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a hot button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonHotBottom"></span><code>property <strong>ButtonHotBottom</strong>: TColor Read FButtonHotBottom Write SetButtonHotBottom default clHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a hot button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonHotText"></span><code>property <strong>ButtonHotText</strong>: TColor Read FButtonHotText Write SetButtonHotText default clHighlightText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a hot button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonHotBorder"></span><code>property <strong>ButtonHotBorder</strong>: TColor Read FButtonHotBorder Write SetButtonHotBorder default clActiveBorder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a hot button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonPressedTop"></span><code>property <strong>ButtonPressedTop</strong>: TColor Read FButtonPressedTop Write SetButtonPressedTop default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a pressed button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonPressedBottom"></span><code>property <strong>ButtonPressedBottom</strong>: TColor Read FButtonPressedBottom Write SetButtonPressedBottom default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a pressed button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonPressedText"></span><code>property <strong>ButtonPressedText</strong>: TColor Read FButtonPressedText Write SetButtonPressedText default clBtnText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a pressed button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonPressedBorder"></span><code>property <strong>ButtonPressedBorder</strong>: TColor Read FButtonPressedBorder Write SetButtonPressedBorder default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a pressed button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonSelectedTop"></span><code>property <strong>ButtonSelectedTop</strong>: TColor Read FButtonSelectedTop Write SetButtonSelectedTop default clBtnHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a selected or checked button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonSelectedBottom"></span><code>property <strong>ButtonSelectedBottom</strong>: TColor Read FButtonSelectedBottom Write SetButtonSelectedBottom default clBtnHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a selected or checked button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonSelectedText"></span><code>property <strong>ButtonSelectedText</strong>: TColor Read FButtonSelectedText Write SetButtonSelectedText default clHighlightText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a selected or checked button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonSelectedBorder"></span><code>property <strong>ButtonSelectedBorder</strong>: TColor Read FButtonSelectedBorder Write SetButtonSelectedBorder default clActiveBorder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a selected or checked button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonDisabledTop"></span><code>property <strong>ButtonDisabledTop</strong>: TColor Read FButtonDisabledTop Write SetButtonDisabledTop default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Top gradient color of a disabled button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonDisabledBottom"></span><code>property <strong>ButtonDisabledBottom</strong>: TColor Read FButtonDisabledBottom Write SetButtonDisabledBottom default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bottom gradient color of a disabled button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonDisabledText"></span><code>property <strong>ButtonDisabledText</strong>: TColor Read FButtonDisabledText Write SetButtonDisabledText default clGrayText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Text color of a disabled button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonDisabledBorder"></span><code>property <strong>ButtonDisabledBorder</strong>: TColor Read FButtonDisabledBorder Write SetButtonDisabledBorder default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Border color of a disabled button.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonLightEdge"></span><code>property <strong>ButtonLightEdge</strong>: TColor Read FButtonLightEdge Write SetButtonLightEdge default clBtnHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Light edge color optionally used by button rendering.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ButtonShadowEdge"></span><code>property <strong>ButtonShadowEdge</strong>: TColor Read FButtonShadowEdge Write SetButtonShadowEdge default clBtnShadow;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Shadow edge color optionally used by button rendering.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="FocusColor"></span><code>property <strong>FocusColor</strong>: TColor Read FFocusColor Write SetFocusColor default clHighlight;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Keyboard focus outline color.</p>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://pasdoc.github.io/">PasDoc 1.0.4</a>. </em>
+</span>
+</div></main>
+<script src="bootstrap.bundle.min.js"></script>
+</body></html>

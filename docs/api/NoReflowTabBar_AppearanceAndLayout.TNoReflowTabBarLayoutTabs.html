@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NoReflowTabBar API Reference: NoReflowTabBar_AppearanceAndLayout: Class TNoReflowTabBarLayoutTabs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 1.0.4">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="bootstrap.min.css">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<nav class="navbar d-md-none sticky-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">NoReflowTabBar API Reference</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="offcanvas-md offcanvas-start navigation" tabindex="-1" id="sidebarNav" data-bs-scroll="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">NoReflowTabBar API Reference</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarNav" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body py-2">
+<h2><a href="index.html">NoReflowTabBar API Reference</a></h2><ul class="nav flex-column px-3"><li class="nav-item"><a class="nav-link px-2 py-1" href="AllUnits.html">Units</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="ClassHierarchy.html">Class Hierarchy</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllTypes.html">Types</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllVariables.html">Variables</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllConstants.html">Constants</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllFunctions.html">Functions and Procedures</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllIdentifiers.html">Identifiers</a></li><li class="nav-item pt-2 px-2"><form class="search-form" action="tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div></div>
+<main class="pasdoc-content content">
+<div class="container-fluid py-3 px-4">
+<span id="TNoReflowTabBarLayoutTabs"></span><h1 class="cio">Class TNoReflowTabBarLayoutTabs</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a href="NoReflowTabBar_AppearanceAndLayout.html">NoReflowTabBar_AppearanceAndLayout</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TNoReflowTabBarLayoutTabs = class(TPersistent)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Layout settings specific to tab rendering.
+
+<p>This class contains only options that describe tab-specific shape and behaviour: - overlap between consecutive tabs; - first and second slants; - first and second corner radii; - optional closing edge drawing.
+
+<p>Common text, signal, glyph and margin settings remain in <a class="normal" href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayout.html">TNoReflowTabBarLayout</a>.</p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor">TPersistent</li>
+<li class="thisitem">TNoReflowTabBarLayoutTabs</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Constructor <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#Create-TPersistent-">Create</a></strong>(AOwner: TPersistent);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#Assign-TPersistent-">Assign</a></strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#BeginUpdate">BeginUpdate</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#EndUpdate">EndUpdate</a></strong>;</code></td>
+</tr>
+</table>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#OnChanged">OnChanged</a></strong>: <a href="NoReflowTabBar_AppearanceAndLayout.html#TNoReflowTabBarObjectChangedEvent">TNoReflowTabBarObjectChangedEvent</a> Read FOnChanged Write FOnChanged;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#TabOverlap">TabOverlap</a></strong>: Integer Read FTabOverlap Write SetTabOverlap default 16;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#ShapeSlantFirst">ShapeSlantFirst</a></strong>: Integer Read FShapeSlantFirst Write SetShapeSlantFirst default 0;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#ShapeSlantSecond">ShapeSlantSecond</a></strong>: Integer Read FShapeSlantSecond Write SetShapeSlantSecond default 37;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#ShapeRadiusFirst">ShapeRadiusFirst</a></strong>: Integer Read FShapeRadiusFirst Write SetShapeRadiusFirst default 3;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#ShapeRadiusSecond">ShapeRadiusSecond</a></strong>: Integer Read FShapeRadiusSecond Write SetShapeRadiusSecond default 0;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html#ShowClosingEdge">ShowClosingEdge</a></strong>: Boolean Read FShowClosingEdge Write SetShowClosingEdge default False;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Create-TPersistent-"></span><code>Constructor <strong>Create</strong>(AOwner: TPersistent);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Creates the tab-layout object and stores its owner.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Assign-TPersistent-"></span><code>Procedure <strong>Assign</strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Copies tab-layout properties from another compatible object.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="BeginUpdate"></span><code>Procedure <strong>BeginUpdate</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Starts a grouped update.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="EndUpdate"></span><code>Procedure <strong>EndUpdate</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Ends a grouped update and sends one notification when required.</p>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="OnChanged"></span><code>property <strong>OnChanged</strong>: <a href="NoReflowTabBar_AppearanceAndLayout.html#TNoReflowTabBarObjectChangedEvent">TNoReflowTabBarObjectChangedEvent</a> Read FOnChanged Write FOnChanged;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event fired when a tab-layout property changes.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabOverlap"></span><code>property <strong>TabOverlap</strong>: Integer Read FTabOverlap Write SetTabOverlap default 16;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Overlap between two consecutive tabs.
+
+<p>Positive values make consecutive tabs overlap. Zero disables overlap.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ShapeSlantFirst"></span><code>property <strong>ShapeSlantFirst</strong>: Integer Read FShapeSlantFirst Write SetShapeSlantFirst default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Value of the first tab-shape slant.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ShapeSlantSecond"></span><code>property <strong>ShapeSlantSecond</strong>: Integer Read FShapeSlantSecond Write SetShapeSlantSecond default 37;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Value of the second tab-shape slant.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ShapeRadiusFirst"></span><code>property <strong>ShapeRadiusFirst</strong>: Integer Read FShapeRadiusFirst Write SetShapeRadiusFirst default 3;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Radius of the first rounded corner.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ShapeRadiusSecond"></span><code>property <strong>ShapeRadiusSecond</strong>: Integer Read FShapeRadiusSecond Write SetShapeRadiusSecond default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Radius of the second rounded corner.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ShowClosingEdge"></span><code>property <strong>ShowClosingEdge</strong>: Boolean Read FShowClosingEdge Write SetShowClosingEdge default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Controls whether non-selected tabs draw a closed border on their contact edge.</p>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://pasdoc.github.io/">PasDoc 1.0.4</a>. </em>
+</span>
+</div></main>
+<script src="bootstrap.bundle.min.js"></script>
+</body></html>

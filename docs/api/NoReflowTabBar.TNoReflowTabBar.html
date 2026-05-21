@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NoReflowTabBar API Reference: NoReflowTabBar: Class TNoReflowTabBar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 1.0.4">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="bootstrap.min.css">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<nav class="navbar d-md-none sticky-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">NoReflowTabBar API Reference</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="offcanvas-md offcanvas-start navigation" tabindex="-1" id="sidebarNav" data-bs-scroll="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">NoReflowTabBar API Reference</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarNav" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body py-2">
+<h2><a href="index.html">NoReflowTabBar API Reference</a></h2><ul class="nav flex-column px-3"><li class="nav-item"><a class="nav-link px-2 py-1" href="AllUnits.html">Units</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="ClassHierarchy.html">Class Hierarchy</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllTypes.html">Types</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllVariables.html">Variables</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllConstants.html">Constants</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllFunctions.html">Functions and Procedures</a></li><li class="nav-item"><a class="nav-link px-2 py-1" href="AllIdentifiers.html">Identifiers</a></li><li class="nav-item pt-2 px-2"><form class="search-form" action="tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div></div>
+<main class="pasdoc-content content">
+<div class="container-fluid py-3 px-4">
+<span id="TNoReflowTabBar"></span><h1 class="cio">Class TNoReflowTabBar</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a href="NoReflowTabBar.html">NoReflowTabBar</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TNoReflowTabBar = class(<a class="normal" href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html">TNoReflowTabBarStorageSupport</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Contrôle principal affichant et pilotant l'ensemble des items.
+
+<p>Pipeline interne : 1) FItems contient les données métier 2) RebuildRenderInfo construit FRenderItems 3) chaque render item reçoit ses métriques, bounds et polygones 4) <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#Paint">Paint</a> dessine la barre à partir de FRenderItems 5) <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#ItemAtPos-TPoint-">ItemAtPos</a> réutilise les polygones calculés pour le hit-test
+
+<p>En pratique, FRenderItems est la représentation intermédiaire centrale entre les données métier et le rendu.</p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TNoReflowTabBarDragSupport</li>
+<li class="ancestor"><a class="normal" href="NoReflowTabBar_StorageSupport.TNoReflowTabBarStorageSupport.html">TNoReflowTabBarStorageSupport</a></li>
+<li class="thisitem">TNoReflowTabBar</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Loaded">Loaded</a></strong>; override;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#GetDragInsertMarkerColor">GetDragInsertMarkerColor</a></strong>: TColor;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DrawDragInsertMarker-TCanvas-">DrawDragInsertMarker</a></strong>(ACanvas: TCanvas);</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Paint">Paint</a></strong>; override;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Resize">Resize</a></strong>; override;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#MouseMove-TShiftState-Integer-Integer-">MouseMove</a></strong>( Shift: TShiftState; X, Y: Integer); override;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#MouseDown-TMouseButton-TShiftState-Integer-Integer-">MouseDown</a></strong>( Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#MouseUp-TMouseButton-TShiftState-Integer-Integer-">MouseUp</a></strong>( Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#KeyDown-Word-TShiftState-">KeyDown</a></strong>( Var Key: Word; Shift: TShiftState); override;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DoEnter">DoEnter</a></strong>; override;</code></td>
+</tr>
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DoExit">DoExit</a></strong>; override;</code></td>
+</tr>
+<tr class="list2 visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DblClick">DblClick</a></strong>; override;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Constructor <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Create-TComponent-">Create</a></strong>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Destructor <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Destroy">Destroy</a></strong>; override;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#GetItemRegionPoints-Integer-">GetItemRegionPoints</a></strong>(AAbsoluteItemIndex: Integer): TArray&lt;TPoint&gt;;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#TryGetItemMetrics-Integer-TNoReflowTabBarItemMetrics-">TryGetItemMetrics</a></strong>( AAbsoluteItemIndex: Integer; Out AMetrics: <a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html">TNoReflowTabBarItemMetrics</a>): Boolean;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#GetItemDisplayText-Integer-">GetItemDisplayText</a></strong>(AAbsoluteItemIndex: Integer): String;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DefaultPaintItemByIndex-Integer-TNoReflowTabBarItemVisualState-">DefaultPaintItemByIndex</a></strong>( AAbsoluteItemIndex: Integer; AVisualState: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemVisualState">TNoReflowTabBarItemVisualState</a>);</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarSelectedItems">GetBarSelectedItems</a></strong>: TArray&lt;<a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>&gt;;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarSelectedCount">GetBarSelectedCount</a></strong>: Integer;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#HasBarSelectedItems">HasBarSelectedItems</a></strong>: Boolean;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarCheckedItems">GetBarCheckedItems</a></strong>: TArray&lt;<a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>&gt;;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarCheckedCount">GetBarCheckedCount</a></strong>: Integer;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ClearBarCheckedItems">ClearBarCheckedItems</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#IsBarItemChecked-Integer-">IsBarItemChecked</a></strong>(AAbsoluteItemIndex: Integer): Boolean;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#SetBarItemChecked-Integer-Boolean-">SetBarItemChecked</a></strong>( AIndex: Integer; AChecked: Boolean);</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Procedure <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ToggleBarItemChecked-Integer-">ToggleBarItemChecked</a></strong>(AIndex: Integer);</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>Function <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ItemAtPos-TPoint-">ItemAtPos</a></strong>(Const P: TPoint): Integer; reintroduce;</code></td>
+</tr>
+</table>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ZoneItemsCount">ZoneItemsCount</a></strong>[APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>]: Integer Read GetItemsCountInZone;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarCurrentItem">BarCurrentItem</a></strong>: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a> Read GetBarCurrentItem;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarSelectedItems">BarSelectedItems</a></strong>: TArray&lt;<a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>&gt; Read <a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarSelectedItems">GetBarSelectedItems</a>;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarSelectedCount">BarSelectedCount</a></strong>: Integer Read <a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarSelectedCount">GetBarSelectedCount</a>;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarCheckedItems">BarCheckedItems</a></strong>: TArray&lt;<a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>&gt; Read <a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarCheckedItems">GetBarCheckedItems</a>;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarCheckedCount">BarCheckedCount</a></strong>: Integer Read <a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarCheckedCount">GetBarCheckedCount</a>;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#FirstItemVisibleByUserId">FirstItemVisibleByUserId</a></strong>[AItemUserId: Integer]: Boolean Read IsItemVisible Write SetItemVisible;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarItemUserId">BarItemUserId</a></strong>: Integer Read GetBarItemUserId;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarAppearance">BarAppearance</a></strong>: <a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html">TNoReflowTabBarAppearance</a> Read FAppearance Write SetAppearance;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarPaletteMode">BarPaletteMode</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPaletteMode">TNoReflowTabBarPaletteMode</a> Read FPaletteMode Write SetPaletteMode default <a href="NoReflowTabBar_CommonTypes.html#nrtcmCustom">nrtcmCustom</a>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarRenderMode">BarRenderMode</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarRenderMode">TNoReflowTabBarRenderMode</a> Read FBarRenderMode Write SetBarRenderMode default <a href="NoReflowTabBar_CommonTypes.html#nrrmAuto">nrrmAuto</a>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarMode">BarMode</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarMode">TNoReflowTabBarMode</a> Read FBarMode Write SetBarMode default <a href="NoReflowTabBar_CommonTypes.html#nrbmTabs">nrbmTabs</a>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarLayoutMode">BarLayoutMode</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarLayoutMode">TNoReflowTabBarLayoutMode</a> Read FLayoutMode Write SetLayoutMode default <a href="NoReflowTabBar_CommonTypes.html#nrblmByZones">nrblmByZones</a>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarFlowOrder">BarFlowOrder</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarFlowOrder">TNoReflowTabBarFlowOrder</a> Read FFlowOrder Write SetFlowOrder default <a href="NoReflowTabBar_CommonTypes.html#nrtfoNormal">nrtfoNormal</a>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarDragReorderMode">BarDragReorderMode</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarDragReorderMode">TNoReflowTabBarDragReorderMode</a> Read FItemsReorderMode Write SetItemsReorderMode default <a href="NoReflowTabBar_CommonTypes.html#nrbrmNone">nrbrmNone</a>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarDragReorderZones">BarDragReorderZones</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarZones">TNoReflowTabBarZones</a> Read FItemsReorderZones Write SetItemsReorderZones default [<a href="NoReflowTabBar_CommonTypes.html#nrtzStart">nrtzStart</a>, <a href="NoReflowTabBar_CommonTypes.html#nrtzCenter">nrtzCenter</a>, <a href="NoReflowTabBar_CommonTypes.html#nrtzEnd">nrtzEnd</a>];</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarDragInterBarMode">BarDragInterBarMode</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarDragInterBarMode">TNoReflowTabBarDragInterBarMode</a> Read FItemsInterBarMode Write FItemsInterBarMode default <a href="NoReflowTabBar_CommonTypes.html#nrtbimNone">nrtbimNone</a>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarDragInterBarGroup">BarDragInterBarGroup</a></strong>: String Read FItemsInterBarGroup Write FItemsInterBarGroup;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarEditEnabled">BarEditEnabled</a></strong>: Boolean Read FItemsEditEnabled Write SetItemsEditEnabled default False;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarEditZones">BarEditZones</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarEditZones">TNoReflowTabBarEditZones</a> Read FItemEditZones Write SetItemEditZones default [<a href="NoReflowTabBar_CommonTypes.html#nrtezStart">nrtezStart</a>, <a href="NoReflowTabBar_CommonTypes.html#nrtezCenter">nrtezCenter</a>, <a href="NoReflowTabBar_CommonTypes.html#nrtezEnd">nrtezEnd</a>];</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarSignals">BarSignals</a></strong>: <a href="NoReflowTabBar_Items.TNoReflowTabBarSignalDefs.html">TNoReflowTabBarSignalDefs</a> Read FSignals Write SetSignals;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarLayout">BarLayout</a></strong>: <a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayout.html">TNoReflowTabBarLayout</a> Read FLayout Write SetLayout;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarLayoutTabs">BarLayoutTabs</a></strong>: <a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html">TNoReflowTabBarLayoutTabs</a> Read FLayoutTabs Write SetLayoutTabs;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarLayoutButtons">BarLayoutButtons</a></strong>: <a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html">TNoReflowTabBarLayoutButtons</a> Read FLayoutButtons Write SetLayoutButtons;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarImages">BarImages</a></strong>: TCustomImageList Read FBarImages Write SetBarImages;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarZoneHeader">BarZoneHeader</a></strong>: <a href="NoReflowTabBar_ZoneHeader.TNoReflowTabBarZoneHeader.html">TNoReflowTabBarZoneHeader</a> Read FZoneHeader Write SetZoneHeader;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarPosition">BarPosition</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPosition">TNoReflowTabBarPosition</a> Read FBarPosition Write SetBarPosition default <a href="NoReflowTabBar_CommonTypes.html#nrtbpTop">nrtbpTop</a>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarSignalPosition">BarSignalPosition</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarSignalPosition">TNoReflowTabBarSignalPosition</a> Read FSignalPosition Write SetSignalPosition default <a href="NoReflowTabBar_CommonTypes.html#nrtspBefore">nrtspBefore</a>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarItems">BarItems</a></strong>: <a href="NoReflowTabBar_Items.TNoReflowTabBarItems.html">TNoReflowTabBarItems</a> Read FItems Write SetItems;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarCurrentItemIndex">BarCurrentItemIndex</a></strong>: Integer Read FItemIndex Write SetBarCurrentItemIndex default -1;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarTextOrientation">BarTextOrientation</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarTextOrientation">TNoReflowTabBarTextOrientation</a> Read FTextOrientation Write SetTextOrientation default <a href="NoReflowTabBar_CommonTypes.html#nrttoAuto">nrttoAuto</a>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarShowFocus">BarShowFocus</a></strong>: Boolean Read FShowFocus Write SetShowFocus default True;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#BarActiveFontStyle">BarActiveFontStyle</a></strong>: TFontStyles Read FSelectedFontStyle Write SetSelectedFontStyle default [fsBold];</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Align">Align</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#AlignWithMargins">AlignWithMargins</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Anchors">Anchors</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Color">Color</a></strong> default clBtnFace;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Constraints">Constraints</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Cursor">Cursor</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DockSite">DockSite</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DoubleBuffered">DoubleBuffered</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DragCursor">DragCursor</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DragKind">DragKind</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#DragMode">DragMode</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Enabled">Enabled</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Font">Font</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#HelpContext">HelpContext</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#HelpKeyword">HelpKeyword</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#HelpType">HelpType</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Hint">Hint</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Margins">Margins</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Padding">Padding</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ParentColor">ParentColor</a></strong> default False;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ParentDoubleBuffered">ParentDoubleBuffered</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ParentFont">ParentFont</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ParentShowHint">ParentShowHint</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#PopupMenu">PopupMenu</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#ShowHint">ShowHint</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#StyleElements">StyleElements</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#TabOrder">TabOrder</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#TabStop">TabStop</a></strong> default True;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Touch">Touch</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#Visible">Visible</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnChanging">OnChanging</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarChangingEvent">TNoReflowTabBarChangingEvent</a> Read FOnChanging Write FOnChanging;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnChange">OnChange</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarChangeEvent">TNoReflowTabBarChangeEvent</a> Read FOnChange Write FOnChange;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnItemClick">OnItemClick</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarClickEvent">TNoReflowTabBarClickEvent</a> Read FOnItemClick Write FOnItemClick;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnItemDblClick">OnItemDblClick</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarDblClickEvent">TNoReflowTabBarDblClickEvent</a> Read FOnItemDblClick Write FOnItemDblClick;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnBeginItemDrag">OnBeginItemDrag</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarBeginDragItemEvent">TNoReflowTabBarBeginDragItemEvent</a> Read FOnBeginItemDrag Write FOnBeginItemDrag;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnEndItemDrag">OnEndItemDrag</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarEndDragItemEvent">TNoReflowTabBarEndDragItemEvent</a> Read FOnEndItemDrag Write FOnEndItemDrag;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnCanReorderItem">OnCanReorderItem</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanReorderItemEvent">TNoReflowTabBarCanReorderItemEvent</a> Read FOnCanReorderItems Write FOnCanReorderItems;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnCanDropItem">OnCanDropItem</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanDropItemEvent">TNoReflowTabBarCanDropItemEvent</a> Read FOnCanDropItem Write FOnCanDropItem;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnItemDropped">OnItemDropped</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDroppedEvent">TNoReflowTabBarItemDroppedEvent</a> Read FOnItemDropped Write FOnItemDropped;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnItemDragOver">OnItemDragOver</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDragOverEvent">TNoReflowTabBarItemDragOverEvent</a> Read FOnItemDragOver Write FOnItemDragOver;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnItemDragLeave">OnItemDragLeave</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDragLeaveEvent">TNoReflowTabBarItemDragLeaveEvent</a> Read FOnItemDragLeave Write FOnItemDragLeave;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnCanEditItemCaption">OnCanEditItemCaption</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanEditItemCaptionEvent">TNoReflowTabBarCanEditItemCaptionEvent</a> Read FOnCanEditItemCaption Write FOnCanEditItemCaption;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnValidateItemCaption">OnValidateItemCaption</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarValidateItemCaptionEvent">TNoReflowTabBarValidateItemCaptionEvent</a> Read FOnValidateItemCaption Write FOnValidateItemCaption;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnItemCaptionEdited">OnItemCaptionEdited</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemCaptionEditedEvent">TNoReflowTabBarItemCaptionEditedEvent</a> Read FOnItemCaptionEdited Write FOnItemCaptionEdited;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnGetItemText">OnGetItemText</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGetItemTextEvent">TNoReflowTabBarGetItemTextEvent</a> Read FOnGetItemText Write FOnGetItemText;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnGetItemHint">OnGetItemHint</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGetItemHintEvent">TNoReflowTabBarGetItemHintEvent</a> Read FOnGetItemHint Write FOnGetItemHint;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnMeasureItem">OnMeasureItem</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMeasureItemEvent">TNoReflowTabBarMeasureItemEvent</a> Read FOnMeasureItem Write FOnMeasureItem;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnPaintItem">OnPaintItem</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarPaintEvent">TNoReflowTabBarPaintEvent</a> Read FOnPaintItem Write FOnPaintItem;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnItemMouseEnter">OnItemMouseEnter</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMouseEvent">TNoReflowTabBarMouseEvent</a> Read FOnItemMouseEnter Write FOnItemMouseEnter;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnItemMouseLeave">OnItemMouseLeave</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMouseEvent">TNoReflowTabBarMouseEvent</a> Read FOnItemMouseLeave Write FOnItemMouseLeave;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnZoneMouseEnter">OnZoneMouseEnter</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarZoneMouseEvent">TNoReflowTabBarZoneMouseEvent</a> Read FOnZoneMouseEnter Write FOnZoneMouseEnter;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnZoneMouseLeave">OnZoneMouseLeave</a></strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarZoneMouseEvent">TNoReflowTabBarZoneMouseEvent</a> Read FOnZoneMouseLeave Write FOnZoneMouseLeave;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnContextPopup">OnContextPopup</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnEnter">OnEnter</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnExit">OnExit</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnGesture">OnGesture</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnMouseDown">OnMouseDown</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnMouseMove">OnMouseMove</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnMouseUp">OnMouseUp</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnMouseEnter">OnMouseEnter</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnMouseLeave">OnMouseLeave</a></strong>;</code></td>
+</tr>
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnMouseActivate">OnMouseActivate</a></strong>;</code></td>
+</tr>
+<tr class="list2 visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar.TNoReflowTabBar.html#OnResize">OnResize</a></strong>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="Loaded"></span><code>Procedure <strong>Loaded</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Finalise l'état du composant après chargement.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="GetDragInsertMarkerColor"></span><code>Function <strong>GetDragInsertMarkerColor</strong>: TColor;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne la couleur du marqueur d'insertion de drag.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="DrawDragInsertMarker-TCanvas-"></span><code>Procedure <strong>DrawDragInsertMarker</strong>(ACanvas: TCanvas);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Dessine le marqueur d'insertion du drag : trait + petite flèche orientée vers la zone d'insertion.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="Paint"></span><code>Procedure <strong>Paint</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Peinture complète de la barre. Les items non sélectionnés sont peints d'abord selon l'ordre de recouvrement, puis l'item sélectionné est peint en dernier.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="Resize"></span><code>Procedure <strong>Resize</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Réagit à un redimensionnement du contrôle.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="MouseMove-TShiftState-Integer-Integer-"></span><code>Procedure <strong>MouseMove</strong>( Shift: TShiftState; X, Y: Integer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Met à jour l'item survolé en fonction de la souris.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="MouseDown-TMouseButton-TShiftState-Integer-Integer-"></span><code>Procedure <strong>MouseDown</strong>( Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Gère la sélection d'un item au clic.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="MouseUp-TMouseButton-TShiftState-Integer-Integer-"></span><code>Procedure <strong>MouseUp</strong>( Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="KeyDown-Word-TShiftState-"></span><code>Procedure <strong>KeyDown</strong>( Var Key: Word; Shift: TShiftState); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Gère la navigation clavier entre les items.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="DoEnter"></span><code>Procedure <strong>DoEnter</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Réagit à l'obtention du focus clavier.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="DoExit"></span><code>Procedure <strong>DoExit</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Réagit à la perte du focus clavier.</p>
+</td></tr>
+</table>
+<table class="detail visibility-protected wide_list">
+<tr class="list visibility-protected">
+<td class="visibility"><span class="badge vis-protected">Protected</span></td>
+<td class="itemcode"><span id="DblClick"></span><code>Procedure <strong>DblClick</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Gère le double-clic métier sur un item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Create-TComponent-"></span><code>Constructor <strong>Create</strong>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="Destroy"></span><code>Destructor <strong>Destroy</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="GetItemRegionPoints-Integer-"></span><code>Function <strong>GetItemRegionPoints</strong>(AAbsoluteItemIndex: Integer): TArray&lt;TPoint&gt;;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne le contour polygonal actuellement calcul pour un item.
+
+<p>Ce helper permet à un code externe de récupérer le bord réel de la rgion d'un item sans dépendre directement de la structure interne FRenderItems.
+
+<p>Si l'index n'est pas valide, un tableau vide est renvoy.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="TryGetItemMetrics-Integer-TNoReflowTabBarItemMetrics-"></span><code>Function <strong>TryGetItemMetrics</strong>( AAbsoluteItemIndex: Integer; Out AMetrics: <a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html">TNoReflowTabBarItemMetrics</a>): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne les métriques actuellement calculées pour un item.
+
+<p>Ces métriques décrivent l'implantation interne du texte et du voyant. Si l'index n'est pas valide, la fonction renvoie False et AMetrics est remis à zéro.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="GetItemDisplayText-Integer-"></span><code>Function <strong>GetItemDisplayText</strong>(AAbsoluteItemIndex: Integer): String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne le texte réellement affiché pour un item.
+
+<p>Cette méthode applique la même logique que le pipeline interne : - Caption de l'item - puis <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#OnGetItemText">OnGetItemText</a> si un handler est affecté
+
+<p>Elle permet au code applicatif, notamment dans <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#OnPaintItem">OnPaintItem</a>, de récupérer le libellé final sans dupliquer la logique du composant.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="DefaultPaintItemByIndex-Integer-TNoReflowTabBarItemVisualState-"></span><code>Procedure <strong>DefaultPaintItemByIndex</strong>( AAbsoluteItemIndex: Integer; AVisualState: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemVisualState">TNoReflowTabBarItemVisualState</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Exécute le rendu standard complet d'un item à partir de son index.
+
+<p>Cette méthode sert principalement aux handlers <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#OnPaintItem">OnPaintItem</a> qui veulent prendre la main sur un item tout en pouvant réutiliser le rendu standard du composant sans dépendre de TNoReflowTabBarRenderItem. Si l'index est invalide ou si l'item n'est pas <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#Visible">visible</a>, la méthode ne fait rien.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="GetBarSelectedItems"></span><code>Function <strong>GetBarSelectedItems</strong>: TArray&lt;<a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>&gt;;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne les items considérés comme sélectionnés ou actifs selon le mode fonctionnel courant de la barre.
+
+<p>- nrbmItems : retourne l'item courant si un item est sélectionné.
+
+<p>- <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmSelectButtons">nrbmSelectButtons</a> : retourne le bouton sélectionné si un bouton est sélectionné.
+
+<p>- <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmCheckButtons">nrbmCheckButtons</a> : retourne tous les boutons cochés.
+
+<p>- <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmPushButtons">nrbmPushButtons</a> : retourne un tableau vide, car un bouton push ne porte pas d'état sélectionné persistant.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="GetBarSelectedCount"></span><code>Function <strong>GetBarSelectedCount</strong>: Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne le nombre d'items sélectionnés ou actifs selon le mode courant.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="HasBarSelectedItems"></span><code>Function <strong>HasBarSelectedItems</strong>: Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne True si au moins un item est sélectionné ou actif.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="GetBarCheckedItems"></span><code>Function <strong>GetBarCheckedItems</strong>: TArray&lt;<a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>&gt;;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne tous les items cochés, indépendamment du <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarMode">BarMode</a>.
+
+<p>Cette méthode est plus explicite que SelectedItems lorsque le code appelant veut réellement interroger l'état Checked porté par les items.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="GetBarCheckedCount"></span><code>Function <strong>GetBarCheckedCount</strong>: Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne le nombre d'items Checked=True.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="ClearBarCheckedItems"></span><code>Procedure <strong>ClearBarCheckedItems</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Décoche tous les items.
+
+<p>Utile surtout en mode <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmCheckButtons">nrbmCheckButtons</a>. En mode <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmTabs">nrbmTabs</a> / <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmSelectButtons">nrbmSelectButtons</a>, un prochain changement de <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarCurrentItemIndex">BarCurrentItemIndex</a> resynchronisera l'état exclusif.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="IsBarItemChecked-Integer-"></span><code>Function <strong>IsBarItemChecked</strong>(AAbsoluteItemIndex: Integer): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne l'état Checked d'un item par index absolu.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="SetBarItemChecked-Integer-Boolean-"></span><code>Procedure <strong>SetBarItemChecked</strong>( AIndex: Integer; AChecked: Boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Affecte l'état Checked d'un item par index absolu.
+
+<p>En <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmCheckButtons">nrbmCheckButtons</a>, c'est l'API normale pour cocher/décocher un item. En <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmTabs">nrbmTabs</a> / <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmSelectButtons">nrbmSelectButtons</a>, il vaut mieux utiliser <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarCurrentItemIndex">BarCurrentItemIndex</a>, car ces modes imposent normalement une sélection exclusive.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="ToggleBarItemChecked-Integer-"></span><code>Procedure <strong>ToggleBarItemChecked</strong>(AIndex: Integer);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Inverse l'état Checked d'un item par index absolu.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="ItemAtPos-TPoint-"></span><code>Function <strong>ItemAtPos</strong>(Const P: TPoint): Integer; reintroduce;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne l'index de l'item situé sous un point client.
+
+<p>Cette méthode expose publiquement le hit-test interne du composant. Le test utilisée le polygone réel de l'item, et non son simple rectangle englobant. Il respecte donc les formes inclinées, recouvrements, coins arrondis et layouts multi-lignes.
+
+<p>Retourne -1 si aucun item n'est trouvé.</p>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="ZoneItemsCount"></span><code>property <strong>ZoneItemsCount</strong>[APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>]: Integer Read GetItemsCountInZone;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Accès pratique au nombre d'items par zone.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="BarCurrentItem"></span><code>property <strong>BarCurrentItem</strong>: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a> Read GetBarCurrentItem;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne l'item courant principal.
+
+<p>Selon <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarMode">BarMode</a> : - nrbmItems : item sélectionné ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmSelectButtons">nrbmSelectButtons</a> : bouton sélectionné ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmCheckButtons">nrbmCheckButtons</a> : dernier bouton courant / dernier activé ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmPushButtons">nrbmPushButtons</a> : item courant éventuel, sans état sélectionné persistant.
+
+<p>Pour obtenir tous les items actifs dans le mode courant, utiliser SelectedItems.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="BarSelectedItems"></span><code>property <strong>BarSelectedItems</strong>: TArray&lt;<a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>&gt; Read <a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarSelectedItems">GetBarSelectedItems</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Accès pluriel aux items actifs selon <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarMode">BarMode</a>.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="BarSelectedCount"></span><code>property <strong>BarSelectedCount</strong>: Integer Read <a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarSelectedCount">GetBarSelectedCount</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Nombre d'items actifs selon <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarMode">BarMode</a>.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="BarCheckedItems"></span><code>property <strong>BarCheckedItems</strong>: TArray&lt;<a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>&gt; Read <a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarCheckedItems">GetBarCheckedItems</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Accès explicite aux items Checked=True.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="BarCheckedCount"></span><code>property <strong>BarCheckedCount</strong>: Integer Read <a href="NoReflowTabBar.TNoReflowTabBar.html#GetBarCheckedCount">GetBarCheckedCount</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Nombre d'items Checked=True.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="FirstItemVisibleByUserId"></span><code>property <strong>FirstItemVisibleByUserId</strong>[AItemUserId: Integer]: Boolean Read IsItemVisible Write SetItemVisible;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Accès indexé à la visibilitéé via identifiant métier.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="BarItemUserId"></span><code>property <strong>BarItemUserId</strong>: Integer Read GetBarItemUserId;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Retourne le Id de l'item courant principal.
+
+<p>Renvoie 0 si aucun item courant n'est défini.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarAppearance"></span><code>property <strong>BarAppearance</strong>: <a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarAppearance.html">TNoReflowTabBarAppearance</a> Read FAppearance Write SetAppearance;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sous-objet contenant toutes les couleurs custom du composant.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarPaletteMode"></span><code>property <strong>BarPaletteMode</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPaletteMode">TNoReflowTabBarPaletteMode</a> Read FPaletteMode Write SetPaletteMode default <a href="NoReflowTabBar_CommonTypes.html#nrtcmCustom">nrtcmCustom</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Détermine si les couleurs proviennent de <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarAppearance">BarAppearance</a> ou du style VCL actif.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarRenderMode"></span><code>property <strong>BarRenderMode</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarRenderMode">TNoReflowTabBarRenderMode</a> Read FBarRenderMode Write SetBarRenderMode default <a href="NoReflowTabBar_CommonTypes.html#nrrmAuto">nrrmAuto</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Détermine la stratégie de rendu commune aux onglets et aux boutons.
+
+<p>- <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrrmAuto">nrrmAuto</a> : choix automatique selon <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarPaletteMode">BarPaletteMode</a>.
+
+<p>- <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrrmFlat">nrrmFlat</a> : rendu maison plat. Les couleurs viennent de <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarPaletteMode">BarPaletteMode</a>.
+
+<p>- <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrrmGradient">nrrmGradient</a> : rendu maison dégradé. Les couleurs viennent de <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarPaletteMode">BarPaletteMode</a>.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarMode"></span><code>property <strong>BarMode</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarMode">TNoReflowTabBarMode</a> Read FBarMode Write SetBarMode default <a href="NoReflowTabBar_CommonTypes.html#nrbmTabs">nrbmTabs</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Mode fonctionnel global de la barre.
+
+<p>Ce mode exprime l'intention principale du composant : - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmTabs">nrbmTabs</a> : barre d'onglets classique ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmPushButtons">nrbmPushButtons</a> : boutons d'action sans sélection persistante ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmSelectButtons">nrbmSelectButtons</a> : boutons avec sélection unique ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmCheckButtons">nrbmCheckButtons</a> : boutons cochables indépendants.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarLayoutMode"></span><code>property <strong>BarLayoutMode</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarLayoutMode">TNoReflowTabBarLayoutMode</a> Read FLayoutMode Write SetLayoutMode default <a href="NoReflowTabBar_CommonTypes.html#nrblmByZones">nrblmByZones</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Choisit le moteur de placement utilisé par la barre.
+
+<p>- nrtlmSequential : placement séquentiel historique, avec séparation simple par zones.
+
+<p>- nrtlmByZones : placement par zones Start / Center / End, avec calcul canonique commun aux orientations Top / Bottom / Left / Right.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarFlowOrder"></span><code>property <strong>BarFlowOrder</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarFlowOrder">TNoReflowTabBarFlowOrder</a> Read FFlowOrder Write SetFlowOrder default <a href="NoReflowTabBar_CommonTypes.html#nrtfoNormal">nrtfoNormal</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Ordre logique présenté au moteur de layout par zones.
+
+<p>Cette propriété ne modifie pas l'ordre physique des items dans la collection et ne modifie pas les transformations géométriques.
+
+<p>Elle sert uniquement à changer l'ordre dans lequel le layout parcourt les zones et, selon le mode choisi, les items dans chaque zone.
+
+<p>Modes : - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtfoNormal">nrtfoNormal</a> : Start -&gt; Center -&gt; End, items dans leur ordre naturel.
+
+<p>- <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtfoReverseZones">nrtfoReverseZones</a> : End -&gt; Center -&gt; Start, items dans leur ordre naturel.
+
+<p>- <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrtfoReverseZonesAndItems">nrtfoReverseZonesAndItems</a> : End -&gt; Center -&gt; Start, items inversés dans chaque zone.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarDragReorderMode"></span><code>property <strong>BarDragReorderMode</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarDragReorderMode">TNoReflowTabBarDragReorderMode</a> Read FItemsReorderMode Write SetItemsReorderMode default <a href="NoReflowTabBar_CommonTypes.html#nrbrmNone">nrbrmNone</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Détermine si l'utilisateur peut réordonner les items par drag souris.
+
+<p>- nrttrmNone : aucun réordonnancement - nrttrmSameZoneOnly : réordonnancement uniquement dans la zone de départ - nrttrmAllZones : réordonnancement complet, y compris changement de zone</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarDragReorderZones"></span><code>property <strong>BarDragReorderZones</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarZones">TNoReflowTabBarZones</a> Read FItemsReorderZones Write SetItemsReorderZones default [<a href="NoReflowTabBar_CommonTypes.html#nrtzStart">nrtzStart</a>, <a href="NoReflowTabBar_CommonTypes.html#nrtzCenter">nrtzCenter</a>, <a href="NoReflowTabBar_CommonTypes.html#nrtzEnd">nrtzEnd</a>];</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Détermine quelles zones acceptent le réordonnancement par drag.
+
+<p>Cette propriété complète <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarDragReorderMode">BarDragReorderMode</a> : - si <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarDragReorderMode">BarDragReorderMode</a> = nrttrmNone, aucun drag n'est possible - sinon, seules les zones cochées peuvent servir de source et de cible
+
+<p>Par défaut, les trois zones acceptent le drag.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarDragInterBarMode"></span><code>property <strong>BarDragInterBarMode</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarDragInterBarMode">TNoReflowTabBarDragInterBarMode</a> Read FItemsInterBarMode Write FItemsInterBarMode default <a href="NoReflowTabBar_CommonTypes.html#nrtbimNone">nrtbimNone</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Mode de dialogue drag/drop avec les autres barres.
+
+<p>Cette propriété ne concerne que le drag inter-barres. Le drag interne reste piloté par <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarDragReorderMode">BarDragReorderMode</a> et <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarDragReorderZones">BarDragReorderZones</a>.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarDragInterBarGroup"></span><code>property <strong>BarDragInterBarGroup</strong>: String Read FItemsInterBarGroup Write FItemsInterBarGroup;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Groupe logique de dialogue entre barres.
+
+<p>Le drag inter-barres automatique n'est autorisé que si la barre source et la barre cible portent exactement le même groupe. La chaîne vide est le groupe par défaut.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarEditEnabled"></span><code>property <strong>BarEditEnabled</strong>: Boolean Read FItemsEditEnabled Write SetItemsEditEnabled default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Active ou désactive l'édition directe du texte des items.
+
+<p>Quand cette propriété vaut True, l'utilisateur peut renommer un item autorisé : - par double-clic ; - par F2 sur l'item sélectionné.
+
+<p>La validation se fait par Entrée ou perte de focus. L'annulation se fait par Échap.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarEditZones"></span><code>property <strong>BarEditZones</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarEditZones">TNoReflowTabBarEditZones</a> Read FItemEditZones Write SetItemEditZones default [<a href="NoReflowTabBar_CommonTypes.html#nrtezStart">nrtezStart</a>, <a href="NoReflowTabBar_CommonTypes.html#nrtezCenter">nrtezCenter</a>, <a href="NoReflowTabBar_CommonTypes.html#nrtezEnd">nrtezEnd</a>];</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Détermine quelles zones autorisent l'édition directe du texte.
+
+<p>Cette propriété est indépendante de BarItemsReorderZones. Une zone peut donc être déplaçable sans être renommable, ou renommable sans être déplaçable.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarSignals"></span><code>property <strong>BarSignals</strong>: <a href="NoReflowTabBar_Items.TNoReflowTabBarSignalDefs.html">TNoReflowTabBarSignalDefs</a> Read FSignals Write SetSignals;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Collection des voyants disponibles pour les items.
+
+<p>Cette collection est préremplie avec les 4 voyants historiques du composant, mais l'utilisateur peut la compléter librement.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarLayout"></span><code>property <strong>BarLayout</strong>: <a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayout.html">TNoReflowTabBarLayout</a> Read FLayout Write SetLayout;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sous-objet contenant les espacements communs aux onglets et aux boutons.
+
+<p>Ce layout regroupe uniquement ce qui décrit le contenu et le placement : - marges générales ; - espacements entre zones ; - espacements entre lignes ou colonnes ; - espaces autour du texte ; - voyant ; - glyph.
+
+<p>Il ne contient pas la forme propre des items : les slants, rayons et recouvrements sont maintenant dans <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarLayoutTabs">BarLayoutTabs</a>.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarLayoutTabs"></span><code>property <strong>BarLayoutTabs</strong>: <a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutTabs.html">TNoReflowTabBarLayoutTabs</a> Read FLayoutTabs Write SetLayoutTabs;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sous-objet contenant la géométrie spécifique au mode onglets.
+
+<p>Ce layout regroupe les propriétés qui n'ont de sens que pour le rendu classique en onglets : - éégalisation de longueur ; - éégalisation d'éépaisseur ; - recouvrement entre onglets ; - slants ; - rayons de forme.
+
+<p>Cette séparation évite de polluer le mode boutons avec des notions propres aux onglets, comme le recouvrement ou les pentes.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarLayoutButtons"></span><code>property <strong>BarLayoutButtons</strong>: <a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html">TNoReflowTabBarLayoutButtons</a> Read FLayoutButtons Write SetLayoutButtons;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sous-objet contenant la géométrie spécifique au mode boutons.
+
+<p>Ce layout est prévu pour le mode boutons : - largeur force optionnelle ; - hauteur force optionnelle ; - espacement entre boutons ; - rayon de bouton ;</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarImages"></span><code>property <strong>BarImages</strong>: TCustomImageList Read FBarImages Write SetBarImages;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+ImageList globale utilisée comme source d'images pour les items.
+
+<p>Cette ImageList est utilisée lorsqu'un item ne possède pas de Glyph local exploitable, mais possède un GlyphIndex valide.
+
+<p>Ordre de priorité prévu pour le rendu : 1) Glyph local de l'item ; 2) <code>BarImages</code> + GlyphIndex ; 3) éventuellement plus tard GlyphName ou événement dédié.
+
+<p>Le composant ne devient pas propriétaire de cette ImageList. Elle peut donc être partagée avec d'autres contrôles VCL.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarZoneHeader"></span><code>property <strong>BarZoneHeader</strong>: <a href="NoReflowTabBar_ZoneHeader.TNoReflowTabBarZoneHeader.html">TNoReflowTabBarZoneHeader</a> Read FZoneHeader Write SetZoneHeader;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sous-objet contenant la configuration du header décoratif des zones.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarPosition"></span><code>property <strong>BarPosition</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPosition">TNoReflowTabBarPosition</a> Read FBarPosition Write SetBarPosition default <a href="NoReflowTabBar_CommonTypes.html#nrtbpTop">nrtbpTop</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Détermine l'orientation visuelle interne de la barre.
+
+<p>Cette propriété est indépendante de <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#Align">Align</a>.
+
+<p>- <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#Align">Align</a> contrôle la position VCL du contrôle dans son parent - <code>BarPosition</code> contrôle le sens du layout, la géométrie des items et l'orientation automatique du texte
+
+<p>Cette dissociation permet des combinaisons libres entre le positionnement VCL du contrôle et l'orientation visuelle des items.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarSignalPosition"></span><code>property <strong>BarSignalPosition</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarSignalPosition">TNoReflowTabBarSignalPosition</a> Read FSignalPosition Write SetSignalPosition default <a href="NoReflowTabBar_CommonTypes.html#nrtspBefore">nrtspBefore</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Position logique du voyant : avant le texte, après le texte ou au bout utile de l’item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarItems"></span><code>property <strong>BarItems</strong>: <a href="NoReflowTabBar_Items.TNoReflowTabBarItems.html">TNoReflowTabBarItems</a> Read FItems Write SetItems;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Collection des items métier gérés par la barre.
+
+<p>La collection reste physiquement ordonnée selon les trois zones réelles : - Start - Center - End
+
+<p>Pour le code applicatif, les helpers Add*/Insert*/Clear*/Move* restent l'API recommandée, car ils expriment directement l'intention métier et respectent naturéellement cette organisation.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarCurrentItemIndex"></span><code>property <strong>BarCurrentItemIndex</strong>: Integer Read FItemIndex Write SetBarCurrentItemIndex default -1;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Index absolu de l'item courant.
+
+<p>Selon <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#BarMode">BarMode</a> : - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmTabs">nrbmTabs</a> : item sélectionné ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmSelectButtons">nrbmSelectButtons</a> : bouton sélectionné ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmCheckButtons">nrbmCheckButtons</a> : dernier item courant ou dernier item activé ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmPushButtons">nrbmPushButtons</a> : dernier item activé, sans état persistant.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarTextOrientation"></span><code>property <strong>BarTextOrientation</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarTextOrientation">TNoReflowTabBarTextOrientation</a> Read FTextOrientation Write SetTextOrientation default <a href="NoReflowTabBar_CommonTypes.html#nrttoAuto">nrttoAuto</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Orientation du texte ; <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrttoAuto">nrttoAuto</a> délègue le choix à la position de barre.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarShowFocus"></span><code>property <strong>BarShowFocus</strong>: Boolean Read FShowFocus Write SetShowFocus default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Active le dessin d'un focus visuel sur l'item courant.
+
+<p>Selon le mode : - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmTabs">nrbmTabs</a> / <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmSelectButtons">nrbmSelectButtons</a> : item sélectionné ; - <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmPushButtons">nrbmPushButtons</a> / <a class="normal" href="NoReflowTabBar_CommonTypes.html#nrbmCheckButtons">nrbmCheckButtons</a> : item courant de navigation / dernier item activé.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="BarActiveFontStyle"></span><code>property <strong>BarActiveFontStyle</strong>: TFontStyles Read FSelectedFontStyle Write SetSelectedFontStyle default [fsBold];</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Style de police supplémentaire appliqué à l'item sélectionné.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Align"></span><code>property <strong>Align</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Propriétés VCL standard.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="AlignWithMargins"></span><code>property <strong>AlignWithMargins</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Anchors"></span><code>property <strong>Anchors</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Color"></span><code>property <strong>Color</strong> default clBtnFace;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Constraints"></span><code>property <strong>Constraints</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Cursor"></span><code>property <strong>Cursor</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="DockSite"></span><code>property <strong>DockSite</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="DoubleBuffered"></span><code>property <strong>DoubleBuffered</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="DragCursor"></span><code>property <strong>DragCursor</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="DragKind"></span><code>property <strong>DragKind</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="DragMode"></span><code>property <strong>DragMode</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Enabled"></span><code>property <strong>Enabled</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Font"></span><code>property <strong>Font</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="HelpContext"></span><code>property <strong>HelpContext</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="HelpKeyword"></span><code>property <strong>HelpKeyword</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="HelpType"></span><code>property <strong>HelpType</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Hint"></span><code>property <strong>Hint</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Margins"></span><code>property <strong>Margins</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Padding"></span><code>property <strong>Padding</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ParentColor"></span><code>property <strong>ParentColor</strong> default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ParentDoubleBuffered"></span><code>property <strong>ParentDoubleBuffered</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ParentFont"></span><code>property <strong>ParentFont</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ParentShowHint"></span><code>property <strong>ParentShowHint</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="PopupMenu"></span><code>property <strong>PopupMenu</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="ShowHint"></span><code>property <strong>ShowHint</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="StyleElements"></span><code>property <strong>StyleElements</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabOrder"></span><code>property <strong>TabOrder</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="TabStop"></span><code>property <strong>TabStop</strong> default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Touch"></span><code>property <strong>Touch</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="Visible"></span><code>property <strong>Visible</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnChanging"></span><code>property <strong>OnChanging</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarChangingEvent">TNoReflowTabBarChangingEvent</a> Read FOnChanging Write FOnChanging;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événements. événement déclenché juste avant un changement de sélection.
+
+<p>Le handler reçoit directement l'ancien item et le nouvel item. Il peut refuser la transition en positionnant Allow à False.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnChange"></span><code>property <strong>OnChange</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarChangeEvent">TNoReflowTabBarChangeEvent</a> Read FOnChange Write FOnChange;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement déclenché après application effective d'une nouvelle sélection.
+
+<p>Le handler reçoit directement l'ancien item et le nouvel item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnItemClick"></span><code>property <strong>OnItemClick</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarClickEvent">TNoReflowTabBarClickEvent</a> Read FOnItemClick Write FOnItemClick;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnItemDblClick"></span><code>property <strong>OnItemDblClick</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarDblClickEvent">TNoReflowTabBarDblClickEvent</a> Read FOnItemDblClick Write FOnItemDblClick;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnBeginItemDrag"></span><code>property <strong>OnBeginItemDrag</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarBeginDragItemEvent">TNoReflowTabBarBeginDragItemEvent</a> Read FOnBeginItemDrag Write FOnBeginItemDrag;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement déclenché lorsque le drag d'un item devient réellement actif.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnEndItemDrag"></span><code>property <strong>OnEndItemDrag</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarEndDragItemEvent">TNoReflowTabBarEndDragItemEvent</a> Read FOnEndItemDrag Write FOnEndItemDrag;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement déclenché à la fin d'un drag d'item.
+
+<p>ADropped vaut True uniquement si un déplacement a réellement t appliqu.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnCanReorderItem"></span><code>property <strong>OnCanReorderItem</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanReorderItemEvent">TNoReflowTabBarCanReorderItemEvent</a> Read FOnCanReorderItems Write FOnCanReorderItems;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement permettant dautoriser ou refuser un réordonnancement.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnCanDropItem"></span><code>property <strong>OnCanDropItem</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanDropItemEvent">TNoReflowTabBarCanDropItemEvent</a> Read FOnCanDropItem Write FOnCanDropItem;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement permettant d'autoriser ou refuser le dépôt d'un item.
+
+<p>Il couvre à la fois le drag interne et le drag inter-barres.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnItemDropped"></span><code>property <strong>OnItemDropped</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDroppedEvent">TNoReflowTabBarItemDroppedEvent</a> Read FOnItemDropped Write FOnItemDropped;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement déclenché après un dépôt accepté par cette barre.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnItemDragOver"></span><code>property <strong>OnItemDragOver</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDragOverEvent">TNoReflowTabBarItemDragOverEvent</a> Read FOnItemDragOver Write FOnItemDragOver;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Déclenché lorsqu'un item est survolé pendant le drag d'un item.
+
+<p>Cet événement ne remplace pas <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#OnCanDropItem">OnCanDropItem</a> : il sert aux réactions fonctionnelles au survol, par exemple activer une page de menu lorsque l'utilisateur déplace un bouton au-dessus d'un onglet.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnItemDragLeave"></span><code>property <strong>OnItemDragLeave</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemDragLeaveEvent">TNoReflowTabBarItemDragLeaveEvent</a> Read FOnItemDragLeave Write FOnItemDragLeave;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Déclenché lorsque le drag quitte l'item précédemment survolé.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnCanEditItemCaption"></span><code>property <strong>OnCanEditItemCaption</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarCanEditItemCaptionEvent">TNoReflowTabBarCanEditItemCaptionEvent</a> Read FOnCanEditItemCaption Write FOnCanEditItemCaption;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement appelé avant de démarrer l'édition directe du Caption.
+
+<p>Le handler peut refuser l'édition en mettant Allow à False.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnValidateItemCaption"></span><code>property <strong>OnValidateItemCaption</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarValidateItemCaptionEvent">TNoReflowTabBarValidateItemCaptionEvent</a> Read FOnValidateItemCaption Write FOnValidateItemCaption;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement appelé avant d'accepter le nouveau Caption.
+
+<p>ANewCaption peut être modifié par le handler. Accept permet de refuser la modification.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnItemCaptionEdited"></span><code>property <strong>OnItemCaptionEdited</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemCaptionEditedEvent">TNoReflowTabBarItemCaptionEditedEvent</a> Read FOnItemCaptionEdited Write FOnItemCaptionEdited;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement appelé après modification effective du Caption.
+
+<p>C'est l'événement à brancher côté application pour sauvegarder le renommage dans une base, un fichier ou un profil utilisateur.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnGetItemText"></span><code>property <strong>OnGetItemText</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGetItemTextEvent">TNoReflowTabBarGetItemTextEvent</a> Read FOnGetItemText Write FOnGetItemText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnGetItemHint"></span><code>property <strong>OnGetItemHint</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGetItemHintEvent">TNoReflowTabBarGetItemHintEvent</a> Read FOnGetItemHint Write FOnGetItemHint;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnMeasureItem"></span><code>property <strong>OnMeasureItem</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMeasureItemEvent">TNoReflowTabBarMeasureItemEvent</a> Read FOnMeasureItem Write FOnMeasureItem;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnPaintItem"></span><code>property <strong>OnPaintItem</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarPaintEvent">TNoReflowTabBarPaintEvent</a> Read FOnPaintItem Write FOnPaintItem;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnItemMouseEnter"></span><code>property <strong>OnItemMouseEnter</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMouseEvent">TNoReflowTabBarMouseEvent</a> Read FOnItemMouseEnter Write FOnItemMouseEnter;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement déclenché lorsque la souris entre dans un item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnItemMouseLeave"></span><code>property <strong>OnItemMouseLeave</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMouseEvent">TNoReflowTabBarMouseEvent</a> Read FOnItemMouseLeave Write FOnItemMouseLeave;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement déclenché lorsque la souris quitte un item.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnZoneMouseEnter"></span><code>property <strong>OnZoneMouseEnter</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarZoneMouseEvent">TNoReflowTabBarZoneMouseEvent</a> Read FOnZoneMouseEnter Write FOnZoneMouseEnter;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement déclenché lorsque la souris entre dans une zone logique.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnZoneMouseLeave"></span><code>property <strong>OnZoneMouseLeave</strong>: <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarZoneMouseEvent">TNoReflowTabBarZoneMouseEvent</a> Read FOnZoneMouseLeave Write FOnZoneMouseLeave;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Événement déclenché lorsque la souris quitte une zone logique.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnContextPopup"></span><code>property <strong>OnContextPopup</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnEnter"></span><code>property <strong>OnEnter</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnExit"></span><code>property <strong>OnExit</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnGesture"></span><code>property <strong>OnGesture</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnMouseDown"></span><code>property <strong>OnMouseDown</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnMouseMove"></span><code>property <strong>OnMouseMove</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnMouseUp"></span><code>property <strong>OnMouseUp</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnMouseEnter"></span><code>property <strong>OnMouseEnter</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnMouseLeave"></span><code>property <strong>OnMouseLeave</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnMouseActivate"></span><code>property <strong>OnMouseActivate</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="OnResize"></span><code>property <strong>OnResize</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p class="nodescription">This item has no description.</p></td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://pasdoc.github.io/">PasDoc 1.0.4</a>. </em>
+</span>
+</div></main>
+<script src="bootstrap.bundle.min.js"></script>
+</body></html>

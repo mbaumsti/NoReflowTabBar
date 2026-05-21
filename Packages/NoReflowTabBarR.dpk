@@ -1,0 +1,55 @@
+package NoReflowTabBarR;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'RsTabBar Runtime Package'}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl,
+  vclx,
+  vclwinx;
+
+contains
+  NoReflowTabBar in '..\Src\NoReflowTabBar.pas',
+  NoReflowTabBar_AppearanceAndLayout in '..\Src\NoReflowTabBar_AppearanceAndLayout.pas',
+  NoReflowTabBar_CommonTypes in '..\Src\NoReflowTabBar_CommonTypes.pas',
+  NoReflowTabBar_Core in '..\Src\NoReflowTabBar_Core.pas',
+  NoReflowTabBar_DragSupport in '..\Src\NoReflowTabBar_DragSupport.pas',
+  NoReflowTabBar_EditSupport in '..\Src\NoReflowTabBar_EditSupport.pas',
+  NoReflowTabBar_EventsTypes in '..\Src\NoReflowTabBar_EventsTypes.pas',
+  NoReflowTabBar_HintSupport in '..\Src\NoReflowTabBar_HintSupport.pas',
+  NoReflowTabBar_Items in '..\Src\NoReflowTabBar_Items.pas',
+  NoReflowTabBar_LayoutSupport in '..\Src\NoReflowTabBar_LayoutSupport.pas',
+  NoReflowTabBar_Library in '..\Src\NoReflowTabBar_Library.pas',
+  NoReflowTabBar_RenderSupport in '..\Src\NoReflowTabBar_RenderSupport.pas',
+  NoReflowTabBar_RenderTypes in '..\Src\NoReflowTabBar_RenderTypes.pas',
+  NoReflowTabBar_StorageSupport in '..\Src\NoReflowTabBar_StorageSupport.pas',
+  NoReflowTabBar_ZoneHeader in '..\Src\NoReflowTabBar_ZoneHeader.pas',
+  NoReflowTabBar_ZoneLayout in '..\Src\NoReflowTabBar_ZoneLayout.pas';
+
+end.
