@@ -32,6 +32,35 @@ The component has since evolved into a more complete navigation surface with gro
 - Runtime and design-time Delphi packages
 - No dependency on large third-party component suites
 
+## Screenshots
+
+### Overview
+
+![NoReflowTabBar overview](docs/images/noreflowtabbar-overview.png)
+
+### Responsive no-reflow layout
+
+![NoReflowTabBar responsive layout](docs/images/noreflowtabbar-responsive-layout.png)
+
+### Vertical orientation
+
+![NoReflowTabBar left orientation](docs/images/noreflowtabbar-left-orientation.png)
+
+![NoReflowTabBar left bar](docs/images/noreflowtabbar-left.png)
+
+### Button modes
+
+![NoReflowTabBar button mode](docs/images/noreflowtabbar-button-mode.png)
+
+### Multi-bar drag and drop
+
+![NoReflowTabBar drag and drop](docs/images/noreflowtabbar-drag-drop.png)
+
+### Inline editing
+
+![NoReflowTabBar inline editing](docs/images/noreflowtabbar-inline-editing.png)
+
+
 ## Why NoReflowTabBar?
 
 Classic tab controls work well for simple interfaces, but they become limiting when an application needs many visible entries, grouped commands, stable multi-row behaviour or user-customisable navigation.
