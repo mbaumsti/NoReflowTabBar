@@ -9,10 +9,10 @@
   Main public facade of the NoReflowTabBar VCL component.
 
   Repository:
-    https://github.com/mbaumsti/NoReflowTabBar
+  https://github.com/mbaumsti/NoReflowTabBar
 
   License:
-    See LICENSE file.
+  See LICENSE file.
 
   ------------------------------------------------------------------------------
 
@@ -31,10 +31,10 @@
   Ce que cette unité ajoute par rapport à NoReflowTabBar_Core :
   - les propriétés published visibles dans l'inspecteur d'objets ;
   - les messages VCL :
-    - changement de couleur ;
-    - changement de style ;
-    - changement de police ;
-    - gestion souris et clavier ;
+  - changement de couleur ;
+  - changement de style ;
+  - changement de police ;
+  - gestion souris et clavier ;
   - la peinture finale et le marqueur de drag ;
   - quelques helpers publics de façade.
 
@@ -60,9 +60,9 @@
   Remarques :
   - cette unité constitue le point d'entrée normal pour utiliser le composant ;
   - la majorité de la mécanique interne reste volontairement dans
-    NoReflowTabBar_Core ;
+  NoReflowTabBar_Core ;
   - la séparation entre façade publiée et moteur facilite la maintenance,
-    le refactoring et l'extension future du composant.
+  le refactoring et l'extension future du composant.
 }
 
 Interface
@@ -431,13 +431,13 @@ Type
         //
         //Modes :
         //- nrtfoNormal :
-        //  Start -> Center -> End, items dans leur ordre naturel.
+        //Start -> Center -> End, items dans leur ordre naturel.
         //
         //- nrtfoReverseZones :
-        //  End -> Center -> Start, items dans leur ordre naturel.
+        //End -> Center -> Start, items dans leur ordre naturel.
         //
         //- nrtfoReverseZonesAndItems :
-        //  End -> Center -> Start, items inversés dans chaque zone.
+        //End -> Center -> Start, items inversés dans chaque zone.
         Property BarFlowOrder: TNoReflowTabBarFlowOrder Read FFlowOrder Write SetFlowOrder default nrtfoNormal;
 
         //Détermine si l'utilisateur peut réordonner les items par drag souris.
@@ -809,8 +809,10 @@ Begin
         Exit;
 
     FSignals.BeginUpdate;
-    Try FSignals.Assign(Value);
-    Finally FSignals.EndUpdate;
+    Try
+        FSignals.Assign(Value);
+    Finally
+        FSignals.EndUpdate;
     End;
 
     InvalidateLayout;
@@ -1159,7 +1161,8 @@ Begin
             0,
             0,
             SRCCOPY);
-    Finally Buffer.Free;
+    Finally
+        Buffer.Free;
     End;
 End;
 
@@ -1961,10 +1964,8 @@ Begin
 
     If CanFocus And (Not Focused) Then Begin
         FSuppressFocusInvalidate := True;
-        Try
-            SetFocus;
-        Finally
-            FSuppressFocusInvalidate := False;
+        Try SetFocus;
+        Finally FSuppressFocusInvalidate := False;
         End;
     End;
 
@@ -2151,9 +2152,7 @@ Begin
         Exit;
     End;
 
-      If (FMouseDownItemIndex >= 0) And
-       (FMouseDownItemIndex = LMouseUpIndex) And
-       IsItemSelectable(LMouseUpIndex) Then Begin
+    If (FMouseDownItemIndex >= 0) And (FMouseDownItemIndex = LMouseUpIndex) And IsItemSelectable(LMouseUpIndex) Then Begin
 
         //-------------------------------------------------------------------------
         //Si un gestionnaire de double-clic est branché, le simple clic doit être
@@ -2166,13 +2165,54 @@ Begin
         //Si aucun OnItemDblClick n'est branché, on conserve le comportement
         //immédiat historique.
         //-------------------------------------------------------------------------
-        If Assigned(FOnItemDblClick) Then
+        //If Assigned(FOnItemDblClick) Then
+        //ScheduleDelayedItemClick(
+        //LMouseUpIndex,
+        //Button,
+        //Shift,
+        //X,
+        //Y)
+        //Else
+        //ExecuteItemActivation(
+        //LMouseUpIndex,
+        //Button,
+        //Shift,
+        //X,
+        //Y);
+        If Assigned(FOnItemDblClick) Then Begin
+            //-------------------------------------------------------------------------
+            //Un gestionnaire de double-clic est branché.
+            //
+            //On sépare volontairement deux responsabilités :
+            //
+            //1) Activation interne immédiate :
+            //- sélection visuelle ;
+            //- BarCurrentItemIndex ;
+            //- état Checked éventuel ;
+            //- OnChanging / OnChange.
+            //
+            //Cette partie doit rester immédiate, sinon un simple clic semble ne rien
+            //faire tant que le délai de double-clic n'est pas écoulé.
+            //
+            //2) Notification applicative OnItemClick :
+            //- elle est différée pendant le délai système de double-clic ;
+            //- elle sera annulée si un vrai double-clic est confirmé.
+            //
+            //Cette organisation évite la séquence indésirable :
+            //premier MouseUp -> OnItemClick
+            //DblClick        -> OnItemDblClick
+            //
+            //tout en conservant une interface immédiatement réactive.
+            //-------------------------------------------------------------------------
+            ApplyItemActivationState(LMouseUpIndex);
+
             ScheduleDelayedItemClick(
                 LMouseUpIndex,
                 Button,
                 Shift,
                 X,
-                Y)
+                Y);
+        End
         Else
             ExecuteItemActivation(
                 LMouseUpIndex,
@@ -2532,4 +2572,3 @@ Finalization
 ShutdownGDIPlus;
 
 End.
-
