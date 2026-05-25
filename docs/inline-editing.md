@@ -15,7 +15,42 @@ When enabled, editing can usually be started by:
 - double-clicking an editable item;
 - pressing `F2` on the current item.
 
-For horizontal text, the editor is positioned from the computed text rectangle returned by the layout engine. This keeps editing aligned with the visible caption even when the caption is ellipsized or when the item uses forced length or forced thickness.
+The editor receives an explicit text geometry from the layout engine: text center, logical text length, logical text thickness and rendered text orientation. The active editor is then responsible for converting that geometry into its own position and dimensions. This keeps the bar independent from the concrete editor implementation.
+
+
+## Inline editor architecture
+
+The built-in editor is a standard VCL `TEdit`. NoReflowTabBar therefore works out of the box without any additional dependency.
+
+The editing layer is extensible through `NoReflowTabBar_CaptionEditor.pas`. This unit defines the editor interface, the geometry record passed by the bar and the factory registration helpers used by optional editor adapters.
+
+The geometry passed to an editor is intentionally explicit rather than a raw final `TRect`:
+
+- `TextCenter`: center of the text reference area in the editor host coordinates;
+- `TextLength`: useful logical text length;
+- `TextThickness`: useful logical text thickness;
+- `TextOrientation`: effective rendered text orientation.
+
+A standard `TEdit` converts this geometry into a horizontal edit control. An orientation-aware editor can instead use the same geometry to align itself with horizontal or vertical captions.
+
+## Optional VclRotatedEdit adapter
+
+The repository includes an optional adapter for [`VclRotatedEdit`](https://github.com/mbaumsti/VclRotatedEdit). It allows NoReflowTabBar to use `TRotatedEdit` as its inline caption editor, which is especially useful when item captions are rendered vertically.
+
+The adapter is located under:
+
+```text
+Optional_Packages/VclRotatedEdit/
+```
+
+It is not required by the main component. Install it only if `VclRotatedEdit` is also installed and you want rotated inline caption editing.
+
+For applications compiled without runtime packages, add the adapter unit explicitly so its initialization section is linked and executed:
+
+```pascal
+uses
+    NoReflowTabBar_VclRotatedEditAdapter;
+```
 
 ## Editable zones
 

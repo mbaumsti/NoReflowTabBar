@@ -111,6 +111,28 @@ end;
 
 In `nrbmPushButtons`, a click does not create a persistent selection, so `OnItemClick` is usually more important than `OnChange`.
 
+
+## Optional rotated inline editor
+
+NoReflowTabBar uses a standard VCL `TEdit` for inline caption editing by default. This requires no additional component.
+
+If you also want inline editing to follow vertical caption orientation, install the optional [`VclRotatedEdit`](https://github.com/mbaumsti/VclRotatedEdit) adapter:
+
+1. Download or clone `VclRotatedEdit` from `https://github.com/mbaumsti/VclRotatedEdit`.
+2. Build and install `VclRotatedEditR` and `VclRotatedEditDesign`.
+3. Build NoReflowTabBar runtime and design-time packages.
+4. Build `Optional_Packages/VclRotatedEdit/Packages/NoReflowTabBarVclRotatedEditAdapterR.dpk`.
+5. Install `Optional_Packages/VclRotatedEdit/Packages/NoReflowTabBarVclRotatedEditAdapterDesign.dpk`.
+
+For applications compiled without runtime packages, add the adapter unit to the project uses clause:
+
+```pascal
+uses
+    NoReflowTabBar_VclRotatedEditAdapter;
+```
+
+Without this optional adapter, NoReflowTabBar continues to use the built-in standard `TEdit` editor.
+
 ## Use the demo as a reference
 
 The demo application is the best starting point for visual configuration. It shows:

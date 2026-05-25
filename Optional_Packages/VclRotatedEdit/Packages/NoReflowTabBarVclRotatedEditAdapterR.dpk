@@ -1,11 +1,11 @@
-package NoReflowTabBarDesign;
+﻿package NoReflowTabBarVclRotatedEditAdapterR;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -25,16 +25,16 @@ package NoReflowTabBarDesign;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'RsTabBar Design-time Package'}
+{$DESCRIPTION 'NoReflowTabBar optional VclRotatedEdit adapter runtime package'}
 {$IMPLICITBUILD ON}
 
 requires
   rtl,
   vcl,
-  vclx,
-  designide;
+  NoReflowTabBarR,
+  VclRotatedEditR;
 
 contains
-  NoReflowTabBarReg in '..\Src\NoReflowTabBarReg.pas';
+  NoReflowTabBar_VclRotatedEditAdapter in '..\Src\NoReflowTabBar_VclRotatedEditAdapter.pas';
 
-end.
+End.

@@ -349,7 +349,18 @@ Type
         //Palette / couleurs / états visuels
         //-----------------------------------------------------------------
 
-        //Construit une palette à partir du style VCL actif.
+        //Retourne les services de style VCL à utiliser pour résoudre
+        //les couleurs et les fonds du composant.
+        //
+        //Règle importante en design-time : lorsque la barre est posée sur une
+        //fiche ou un conteneur dans le designer Delphi, le style réellement
+        //visible est porté par le contexte parent. On privilégie donc le parent
+        //en conception, puis on retombe sur le contrôle lui-même et enfin sur
+        //le style actif global.
+        Function ResolveControlStyleServices: TCustomStyleServices;
+
+        //Construit une palette à partir du style VCL actif ou du style résolu
+        //dans le contexte design-time du contrôle.
         Function BuildStylePalette: TNoReflowTabBarPalette;
 
         //Invalide le cache de palette résolue.
@@ -3457,6 +3468,36 @@ Begin
 End;
 {$ENDIF}
 
+Function TNoReflowTabBarCore.ResolveControlStyleServices: TCustomStyleServices;
+Begin
+    //-------------------------------------------------------------------------
+    //Résout les services de style à utiliser par NoReflowTabBar.
+    //
+    //En runtime, StyleServices(Self) suffit généralement : le contrôle est dans
+    //son contexte VCL réel.
+    //
+    //En design-time, les couleurs réellement visibles dans le designer sont
+    //souvent déterminées par le conteneur parent. C'est le même principe que
+    //celui validé dans VclRotatedEdit : on privilégie donc StyleServices(Parent)
+    //lorsque le composant est en conception.
+    //
+    //Le parent n'est pas supposé être "le designer Delphi". Il représente
+    //simplement le contexte visuel dans lequel la TabBar est placée : fiche,
+    //frame, panel, page, card, etc.
+    //-------------------------------------------------------------------------
+
+    Result := Nil;
+
+    If (csDesigning In ComponentState) And (Parent <> Nil) Then
+        Result := StyleServices(Parent);
+
+    If Result = Nil Then
+        Result := StyleServices(Self);
+
+    If Result = Nil Then
+        Result := TStyleManager.ActiveStyle;
+End;
+
 Function TNoReflowTabBarCore.BuildStylePalette: TNoReflowTabBarPalette;
 Var
     LStyle:                  TCustomStyleServices;
@@ -3644,7 +3685,7 @@ Begin
     //fabrique une couleur soutenue à partir de Highlight.
     //-------------------------------------------------------------------------
 
-    LStyle := TStyleManager.ActiveStyle;
+    LStyle := ResolveControlStyleServices;
 
     If LStyle <> Nil Then Begin
         //---------------------------------------------------------------------

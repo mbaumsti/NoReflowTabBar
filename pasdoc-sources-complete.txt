@@ -5,6 +5,7 @@ src\NoReflowTabBar_Items.pas
 src\NoReflowTabBar_AppearanceAndLayout.pas
 src\NoReflowTabBar_ZoneHeader.pas
 src\NoReflowTabBar_StorageSupport.pas
+src\NoReflowTabBar_CaptionEditor.pas
 src\NoReflowTabBar_RenderTypes.pas
 src\NoReflowTabBar_Core.pas
 src\NoReflowTabBar_DragSupport.pas
@@ -15,3 +16,5 @@ src\NoReflowTabBar_RenderSupport.pas
 src\NoReflowTabBar_ZoneLayout.pas
 src\NoReflowTabBar_Library.pas
 src\NoReflowTabBarReg.pas
+Optional_Packages\VclRotatedEdit\Src\NoReflowTabBar_VclRotatedEditAdapter.pas
+Optional_Packages\VclRotatedEdit\Src\NoReflowTabBar_VclRotatedEditAdapterReg.pas

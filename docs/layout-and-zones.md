@@ -119,6 +119,11 @@ This avoids overlapping text, glyphs and signals. A visible status signal is pre
 
 Automatic orientation follows the bar position. Explicit orientation can be useful for special side navigation designs.
 
+
+## Style-aware design-time rendering
+
+When `BarPaletteMode` is configured to use VCL styles, NoReflowTabBar also resolves style colors at design time. In design mode, the component gives priority to the parent style context before falling back to the control style and then to the active global style. This makes the Object Inspector/design surface preview closer to the final styled runtime appearance.
+
 ## Shape options
 
 Tab-like rendering can use additional shape options:

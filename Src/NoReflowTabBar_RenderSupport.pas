@@ -2170,25 +2170,25 @@ Begin
 End;
 
 Procedure TNoReflowTabBarRenderSupport.DrawTabBackground(
-    Const ABounds: TRect;
-    Const ARegionPoints: TArray<TPoint>;
-    ATopColor: TColor;
-    ABottomColor: TColor);
+Const ABounds: TRect;
+Const ARegionPoints: TArray<TPoint>;
+ATopColor: TColor;
+ABottomColor: TColor);
 Var
-    ClipRgn:   HRGN;
-    SavedDC:   Integer;
-    FillColor: TColor;
+ClipRgn:   HRGN;
+SavedDC:   Integer;
+FillColor: TColor;
 Begin
-    //-------------------------------------------------------------------------
-    //Dessine le fond complet d’un onglet.
-    //
-    //Le fond n’est jamais dessiné comme un simple rectangle :
-    //il est limité au contour polygonal réel de l’onglet
-    //(avec slants et coins arrondis).
-    //
-    //Stratégie :
-    //- si GDI+ est disponible :
-    //1) pré-remplissage plein de la forme
+ //-------------------------------------------------------------------------
+ //Dessine le fond complet d’un onglet.
+ //
+ //Le fond n’est jamais dessiné comme un simple rectangle :
+ //il est limité au contour polygonal réel de l’onglet
+ //(avec slants et coins arrondis).
+ //
+ //Stratégie :
+ //- si GDI+ est disponible :
+ //1) pré-remplissage plein de la forme
     //2) remplissage dégradé dans le path
     //
     //- sinon en GDI classique :
@@ -2275,11 +2275,13 @@ Begin
                     ABottomColor,
                     ATopColor,
                     IsVerticalBar);
-            Finally RestoreDC(
+            Finally
+                RestoreDC(
                     PaintCanvas.Handle,
                     SavedDC);
             End;
-        Finally DeleteObject(ClipRgn);
+        Finally
+            DeleteObject(ClipRgn);
         End;
     End;
 End;
@@ -4139,6 +4141,7 @@ Procedure TNoReflowTabBarRenderSupport.DrawBarBackground;
 Var
     R:       TRect;
     Palette: TNoReflowTabBarPalette;
+    LStyle:  TCustomStyleServices;
 Begin
     //-------------------------------------------------------------------------
     //Dessine le fond général de la barre.
@@ -4169,8 +4172,13 @@ Begin
     //seClient est respecté afin de ne pas imposer un rendu stylé si le contrôle
     //a explicitement exclu les éléments client de StyleElements.
     //-------------------------------------------------------------------------
-    If (FPaletteMode = nrtcmStyle) And StyleServices.Enabled And (seClient In StyleElements) Then Begin
-        StyleServices.DrawParentBackground(
+    LStyle := ResolveControlStyleServices;
+
+    If (FPaletteMode = nrtcmStyle) And
+       (LStyle <> Nil) And
+       LStyle.Enabled And
+       (seClient In StyleElements) Then Begin
+        LStyle.DrawParentBackground(
             Handle,
             PaintCanvas.Handle,
             Nil,

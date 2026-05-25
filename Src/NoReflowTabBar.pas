@@ -809,10 +809,8 @@ Begin
         Exit;
 
     FSignals.BeginUpdate;
-    Try
-        FSignals.Assign(Value);
-    Finally
-        FSignals.EndUpdate;
+    Try FSignals.Assign(Value);
+    Finally FSignals.EndUpdate;
     End;
 
     InvalidateLayout;
@@ -1161,8 +1159,7 @@ Begin
             0,
             0,
             SRCCOPY);
-    Finally
-        Buffer.Free;
+    Finally Buffer.Free;
     End;
 End;
 
@@ -1920,7 +1917,8 @@ Procedure TNoReflowTabBar.MouseDown(
     Shift: TShiftState;
     X, Y: Integer);
 Var
-    Idx: Integer;
+    Idx:           Integer;
+    EditorControl: TWinControl;
 Begin
     //-------------------------------------------------------------------------
     //Gère le bouton souris enfoncé.
@@ -1934,8 +1932,30 @@ Begin
 
     Inherited;
 
+    //-------------------------------------------------------------------------
+    //Si une édition inline est en cours, un clic souris sur la TabBar doit
+    //d'abord décider du sort de l'éditeur.
+    //
+    //Cas important :
+    //- si le contrôle éditeur possède encore le focus, le MouseDown provient
+    //  normalement de l'éditeur lui-même ou d'une séquence qui doit lui rester
+    //  propre ; on laisse donc l'éditeur traiter l'événement.
+    //
+    //- si le focus n'est plus sur l'éditeur, le clic concerne la barre ou un
+    //  autre contrôle ; on valide l'édition avant de poursuivre le traitement
+    //  normal du MouseDown.
+    //
+    //Depuis l'abstraction INoReflowTabBarCaptionEditor, FItemEdit n'est plus
+    //un TEdit concret. Les propriétés VCL comme Focused doivent donc être
+    //consultées sur le TWinControl réel retourné par GetEditorControl.
+    //-------------------------------------------------------------------------
     If IsEditingItemCaption Then Begin
-        If (FItemEdit <> Nil) And FItemEdit.Focused Then
+        EditorControl := Nil;
+
+        If FItemEdit <> Nil Then
+            EditorControl := FItemEdit.GetEditorControl;
+
+        If (EditorControl <> Nil) And EditorControl.Focused Then
             Exit;
 
         EndEditItemCaption(True);
@@ -1964,8 +1984,10 @@ Begin
 
     If CanFocus And (Not Focused) Then Begin
         FSuppressFocusInvalidate := True;
-        Try SetFocus;
-        Finally FSuppressFocusInvalidate := False;
+        Try
+            SetFocus;
+        Finally
+            FSuppressFocusInvalidate := False;
         End;
     End;
 

@@ -9,4 +9,5 @@ This complete reference includes:
 - internal core, layout, render, hint, edit, drag and storage support layers;
 - the canonical zone layout engine;
 - shared utility helpers;
-- the design-time registration unit.
+- the design-time registration unit;
+- the caption editor abstraction and optional VclRotatedEdit adapter integration points.

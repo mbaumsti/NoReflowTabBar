@@ -50,6 +50,7 @@ contains
   NoReflowTabBar_RenderTypes in '..\Src\NoReflowTabBar_RenderTypes.pas',
   NoReflowTabBar_StorageSupport in '..\Src\NoReflowTabBar_StorageSupport.pas',
   NoReflowTabBar_ZoneHeader in '..\Src\NoReflowTabBar_ZoneHeader.pas',
-  NoReflowTabBar_ZoneLayout in '..\Src\NoReflowTabBar_ZoneLayout.pas';
+  NoReflowTabBar_ZoneLayout in '..\Src\NoReflowTabBar_ZoneLayout.pas',
+  NoReflowTabBar_CaptionEditor in '..\Src\NoReflowTabBar_CaptionEditor.pas';
 
 end.

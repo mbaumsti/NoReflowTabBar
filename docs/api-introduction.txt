@@ -11,5 +11,6 @@ Recommended reading order:
 - TNoReflowTabBarPosition
 - TNoReflowTabBarLayout and related layout classes
 - TNoReflowTabBarStorageOptions
+- NoReflowTabBar_CaptionEditor for inline editor extension points
 
-This public reference intentionally focuses on the units normally useful to application developers.
+This public reference intentionally focuses on the units normally useful to application developers, including the public caption editor abstraction used by optional adapters.

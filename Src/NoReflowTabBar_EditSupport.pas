@@ -27,8 +27,8 @@
   - isolate all inline caption editing logic;
   - keep NoReflowTabBar.pas focused on the final facade and VCL messages;
   - preserve a clean published API in the final component;
-  - use a standard VCL TEdit to remain as consistent as possible with the active
-    VCL style.
+  - use an abstract inline caption editor contract;
+  - keep the default implementation based on the standard VCL TEdit.
 
   Behaviour:
   - editing can be started by double-click or F2;
@@ -57,21 +57,21 @@ Uses
     System.SysUtils,
     System.Math,
     Vcl.Controls,
-    Vcl.StdCtrls,
     Vcl.Graphics,
     Vcl.Forms,
     Vcl.Themes,
     NoReflowTabBar_CommonTypes,
     NoReflowTabBar_Items,
     NoReflowTabBar_EventsTypes,
+    NoReflowTabBar_CaptionEditor,
     NoReflowTabBar_HintSupport;
 
 Type
     {
       Inline caption editing support layer.
 
-      This class owns the lazily created TEdit used for item caption editing and
-      implements the full edit lifecycle: authorisation, editor placement,
+      This class owns the lazily created caption editor used for item caption
+      editing and implements the full edit lifecycle: authorisation, editor placement,
       validation, cancellation, application of the new caption and final
       notification.
 
@@ -91,8 +91,12 @@ Type
 
         {
           Lazily created editor used to edit the current item caption.
+
+          The editor is held through INoReflowTabBarCaptionEditor so this layer
+          does not depend on the concrete TEdit implementation anymore. The
+          default implementation is still TNoReflowTabBarStandardCaptionEdit.
         }
-        FItemEdit: TEdit;
+        FItemEdit: INoReflowTabBarCaptionEditor;
 
         {
           Absolute index of the item currently being edited.
@@ -136,6 +140,16 @@ Type
 
         Constructor Create(AOwner: TComponent); override;
         Destructor Destroy; override;
+
+        {
+          Creates the concrete inline editor.
+
+          The actual creation is delegated to NoReflowTabBar_CaptionEditor so
+          that optional packages may register another editor factory later.
+          Without such a package, the default implementation still returns the
+          historical TEdit-based editor.
+        }
+        Function CreateItemCaptionEditor: INoReflowTabBarCaptionEditor; virtual;
 
         {
           Creates the inline editor when needed.
@@ -227,17 +241,22 @@ Type
         Function GetItemEditHost: TWinControl;
 
         {
-          Computes the editor bounds for the specified item and host control.
+          Computes the explicit text geometry for the specified item and host
+          control.
+
+          The returned record is not a final editor rectangle. It contains the
+          neutral information needed by concrete editors: center point, logical
+          length, logical thickness and effective text orientation.
         }
-        Function GetItemEditBounds(
+        Function GetItemEditTextGeometry(
             AIndex: Integer;
-            AHost: TWinControl): TRect;
+            AHost: TWinControl): TNoReflowTabBarCaptionEditorGeometry;
 
         {
           Updates the visual appearance of the inline editor for the edited item.
         }
         Procedure UpdateItemEditAppearance(
-            AEdit: TEdit;
+            AEdit: INoReflowTabBarCaptionEditor;
             AIndex: Integer;
             AItem: TNoReflowTabBarItem);
 
@@ -329,21 +348,28 @@ Begin
 End;
 
 Destructor TNoReflowTabBarEditSupport.Destroy;
+Var
+    EditorControl: TWinControl;
 Begin
     //-------------------------------------------------------------------------
-    //FItemEdit appartient à Self s'il a été créé.
+    //The concrete editor control belongs to Self when it has been created.
     //
-    //On ne le libère donc pas manuellement. On neutralise seulement les
-    //événements pour éviter toute réentrée pendant la destruction VCL.
+    //It is therefore not freed manually here. The VCL component ownership chain
+    //will destroy it. We only detach events and parentage to prevent reentrancy
+    //while the component is being destroyed.
     //-------------------------------------------------------------------------
 
     FItemEditEnding := True;
     Try
         If FItemEdit <> Nil Then Begin
-            FItemEdit.OnExit := Nil;
-            FItemEdit.OnKeyDown := Nil;
-            FItemEdit.Visible := False;
-            FItemEdit.Parent := Nil;
+            FItemEdit.ClearEditorEvents;
+
+            EditorControl := FItemEdit.GetEditorControl;
+
+            If EditorControl <> Nil Then Begin
+                EditorControl.Visible := False;
+                EditorControl.Parent := Nil;
+            End;
         End;
 
         FItemEditIndex := -1;
@@ -357,7 +383,22 @@ Begin
     Inherited Destroy;
 End;
 
+Function TNoReflowTabBarEditSupport.CreateItemCaptionEditor: INoReflowTabBarCaptionEditor;
+Begin
+    //-------------------------------------------------------------------------
+    //Delegates editor creation to the shared factory layer.
+    //
+    //Without an optional package, this still creates the standard TEdit-based
+    //editor. Once the future VclRotatedEdit optional package is installed, the
+    //same call will be able to return the registered rotated editor adapter.
+    //-------------------------------------------------------------------------
+
+    Result := CreateNoReflowTabBarCaptionEditor(Self);
+End;
+
 Function TNoReflowTabBarEditSupport.EnsureItemCaptionEditor: Boolean;
+Var
+    EditorControl: TWinControl;
 Begin
     //-------------------------------------------------------------------------
     //Crée l'éditeur inline uniquement quand il devient nécessaire.
@@ -377,19 +418,31 @@ Begin
     If csDesigning In ComponentState Then
         Exit;
 
-    FItemEdit := TEdit.Create(Self);
-    FItemEdit.Parent := Self;
-    FItemEdit.Visible := False;
-    FItemEdit.BorderStyle := bsSingle;
-    FItemEdit.TabStop := False;
+    FItemEdit := CreateItemCaptionEditor;
 
-    FItemEdit.ParentFont := True;
-    FItemEdit.ParentColor := True;
-    FItemEdit.StyleElements := StyleElements;
+    If FItemEdit = Nil Then
+        Exit;
 
-    FItemEdit.OnExit := ItemEditExit;
-    FItemEdit.OnKeyDown := ItemEditKeyDown;
-    FItemEdit.OnKeyPress := ItemEditKeyPress;
+    EditorControl := FItemEdit.GetEditorControl;
+
+    If EditorControl = Nil Then Begin
+        FItemEdit := Nil;
+        Exit;
+    End;
+
+    EditorControl.Parent := Self;
+    EditorControl.Visible := False;
+
+    FItemEdit.ApplyEditorBaseSettings(
+        True,
+        True,
+        StyleElements,
+        False);
+
+    FItemEdit.AssignEditorEvents(
+        ItemEditExit,
+        ItemEditKeyDown,
+        ItemEditKeyPress);
 
     Result := True;
 End;
@@ -441,8 +494,20 @@ Begin
 End;
 
 Function TNoReflowTabBarEditSupport.IsEditingItemCaption: Boolean;
+Var
+    EditorControl: TWinControl;
 Begin
-    Result := (FItemEdit <> Nil) And FItemEdit.Visible And (FItemEditIndex >= 0);
+    Result := False;
+
+    If FItemEdit = Nil Then
+        Exit;
+
+    EditorControl := FItemEdit.GetEditorControl;
+
+    If EditorControl = Nil Then
+        Exit;
+
+    Result := EditorControl.Visible And (FItemEditIndex >= 0);
 End;
 
 Function TNoReflowTabBarEditSupport.CanEditItemCaption(
@@ -503,24 +568,40 @@ Begin
         Result := Self;
 End;
 
-Function TNoReflowTabBarEditSupport.GetItemEditBounds(
+Function TNoReflowTabBarEditSupport.GetItemEditTextGeometry(
     AIndex: Integer;
-    AHost: TWinControl): TRect;
+    AHost: TWinControl): TNoReflowTabBarCaptionEditorGeometry;
 Var
-    R:                 TRect;
-    M:                 TNoReflowTabBarItemMetrics;
-    TextRect:          TRect;
-    ScreenTopLeft:     TPoint;
-    ScreenBottomRight: TPoint;
-    HostTopLeft:       TPoint;
-    HostBottomRight:   TPoint;
-    EditHeight:        Integer;
-    EditWidth:         Integer;
-    CenterX:           Integer;
-    CenterY:           Integer;
-    HostClientRect:    TRect;
+    R:             TRect;
+    M:             TNoReflowTabBarItemMetrics;
+    AnchorClient:  TPoint;
+    AnchorScreen:  TPoint;
+    AnchorHost:    TPoint;
+    TextLength:    Integer;
+    TextThickness: Integer;
 Begin
-    SetRectEmpty(Result);
+    //-------------------------------------------------------------------------
+    //Builds the neutral text geometry used by the inline caption editor.
+    //
+    //Important:
+    //the TabBar does not compute the final editor control bounds here. It only
+    //provides explicit text information:
+    //- the center of the rendered text reference in host coordinates;
+    //- the logical text length;
+    //- the logical text thickness;
+    //- the effective text orientation.
+    //
+    //This method deliberately uses the same text anchor convention as the
+    //renderer. The renderer does not draw vertical text from the top-left corner
+    //of a final physical rectangle; it uses TextOut with orientation-specific
+    //alignment. Therefore the editor geometry must be derived from TextX/TextY,
+    //not from the naive center of TextRect.
+    //-------------------------------------------------------------------------
+
+    Result.TextCenter := Point(0, 0);
+    Result.TextLength := 0;
+    Result.TextThickness := 0;
+    Result.TextOrientation := nrttoHorizontal;
 
     If AHost = Nil Then
         Exit;
@@ -536,132 +617,65 @@ Begin
     R := FRenderItems[AIndex].Bounds;
     M := FRenderItems[AIndex].Metrics;
 
+    Result.TextOrientation := M.TextOrientation;
+
+    TextLength := M.TextWidth;
+    TextThickness := M.TextHeight;
+
+    If TextLength < 1 Then
+        TextLength := 1;
+
+    If TextThickness < 1 Then
+        TextThickness := 1;
+
     //-------------------------------------------------------------------------
-    //Cas naturel : texte horizontal.
-    //
-    //Depuis le nouveau moteur de layout de contenu, TextRect est la source de
-    //vérité pour la zone texte réellement affichée :
-    //- il inclut les marges intérieures décidées par ZoneLayout ;
-    //- il tient compte des fallbacks du moteur de composition ;
-    //- il peut être plus court que le texte complet en cas de ForcedLength.
-    //
-    //L'éditeur doit donc s'ancrer sur ce rectangle plutôt que reconstruire une
-    //ancienne emprise à partir de TextX / TextY / TextWidth / TextHeight.
-    //
-    //On garde une petite respiration autour du rectangle, mais on ne cherche
-    //pas à recalculer la largeur du texte complet : l'éditeur est placé sur la
-    //zone visible. Les contraintes minimales plus bas garantissent malgré tout
-    //une surface éditable.
+    //TextX/TextY are renderer anchors, not a generic top-left text rectangle.
+    //They are the coordinates passed to TextOut after the item bounds are
+    //applied. We convert that anchor into the editor host coordinate system.
     //-------------------------------------------------------------------------
+    AnchorClient := Point(
+        R.Left + M.TextX,
+        R.Top + M.TextY);
 
-    If M.TextOrientation = nrttoHorizontal Then Begin
-        If Not IsRectEmpty(M.TextRect) Then Begin
-            TextRect := M.TextRect;
+    AnchorScreen := ClientToScreen(AnchorClient);
+    AnchorHost := AHost.ScreenToClient(AnchorScreen);
 
-            OffsetRect(
-                TextRect,
-                R.Left,
-                R.Top);
+    Result.TextLength := TextLength;
+    Result.TextThickness := TextThickness;
 
-            InflateRect(
-                TextRect,
-                4,
-                3);
-        End Else Begin
+    Case M.TextOrientation Of
+        nrttoVerticalUp: Begin
             //-----------------------------------------------------------------
-            //Fallback défensif.
-            //
-            //Ce cas ne devrait normalement plus arriver, mais il évite de rendre
-            //l'édition impossible si une ancienne métrique ou un handler externe
-            //fournit encore un rectangle texte vide.
+            //VerticalUp is rendered with a 90 degree font orientation and a
+            //left / bottom text anchor. The editor center is therefore half a
+            //logical thickness to the left of the anchor and half a logical
+            //length above the anchor.
             //-----------------------------------------------------------------
-            TextRect := Rect(
-                R.Left + M.TextX - 4,
-                R.Top + M.TextY - 3,
-                R.Left + M.TextX + Max(M.TextWidth + 12, 48),
-                R.Top + M.TextY + M.TextHeight + 6);
+            Result.TextCenter := Point(
+                AnchorHost.X - (TextThickness Div 2),
+                AnchorHost.Y - (TextLength Div 2));
         End;
-    End Else Begin
-        //-------------------------------------------------------------------------
-        //Cas vertical.
-        //
-        //Un TEdit standard ne peut pas tourner son texte.
-        //On crée donc un éditeur horizontal centré sur l'item, avec une largeur
-        //suffisante pour une saisie confortable.
-        //-------------------------------------------------------------------------
 
-        EditHeight := Max(
-            M.TextHeight + 8,
-            22);
-
-        EditWidth := Max(
-            M.TextWidth + 24,
-            90);
-
-        CenterX := (R.Left + R.Right) Div 2;
-        CenterY := (R.Top + R.Bottom) Div 2;
-
-        TextRect := Rect(
-            CenterX - (EditWidth Div 2),
-            CenterY - (EditHeight Div 2),
-            CenterX + ((EditWidth + 1) Div 2),
-            CenterY + ((EditHeight + 1) Div 2));
+        nrttoVerticalDown: Begin
+            //-----------------------------------------------------------------
+            //VerticalDown is rendered with a 270 degree font orientation. In
+            //the current layout convention, the same Y correction as
+            //VerticalUp is required. Using +TextLength/2 places both the
+            //standard TEdit and TRotatedEdit too low by exactly one text
+            //length.
+            //-----------------------------------------------------------------
+            Result.TextCenter := Point(
+                AnchorHost.X - (TextThickness Div 2),
+                AnchorHost.Y - (TextLength Div 2));
+        End;
+    Else
+        Result.TextCenter := Point(
+            AnchorHost.X + (TextLength Div 2),
+            AnchorHost.Y + (TextThickness Div 2));
     End;
-
-    //Conversion du rectangle client de la TabBar vers le repère client du host.
-    ScreenTopLeft := ClientToScreen(TextRect.TopLeft);
-    ScreenBottomRight := ClientToScreen(TextRect.BottomRight);
-
-    HostTopLeft := AHost.ScreenToClient(ScreenTopLeft);
-    HostBottomRight := AHost.ScreenToClient(ScreenBottomRight);
-
-    Result := Rect(
-        HostTopLeft.X,
-        HostTopLeft.Y,
-        HostBottomRight.X,
-        HostBottomRight.Y);
-
-    //-------------------------------------------------------------------------
-    //Sécurisation minimale :
-    //- conserver une taille éditable ;
-    //- éviter de sortir complètement du parent.
-    //-------------------------------------------------------------------------
-
-    If Result.Right - Result.Left < 48 Then
-        Result.Right := Result.Left + 48;
-
-    If Result.Bottom - Result.Top < 22 Then
-        Result.Bottom := Result.Top + 22;
-
-    HostClientRect := AHost.ClientRect;
-
-    If Result.Right > HostClientRect.Right Then
-        OffsetRect(
-            Result,
-            HostClientRect.Right - Result.Right,
-            0);
-
-    If Result.Left < HostClientRect.Left Then
-        OffsetRect(
-            Result,
-            HostClientRect.Left - Result.Left,
-            0);
-
-    If Result.Bottom > HostClientRect.Bottom Then
-        OffsetRect(
-            Result,
-            0,
-            HostClientRect.Bottom - Result.Bottom);
-
-    If Result.Top < HostClientRect.Top Then
-        OffsetRect(
-            Result,
-            0,
-            HostClientRect.Top - Result.Top);
 End;
-
 Procedure TNoReflowTabBarEditSupport.UpdateItemEditAppearance(
-    AEdit: TEdit;
+    AEdit: INoReflowTabBarCaptionEditor;
     AIndex: Integer;
     AItem: TNoReflowTabBarItem);
 Var
@@ -677,13 +691,18 @@ Begin
     If AEdit = Nil Then
         Exit;
 
-    AEdit.ParentFont := False;
-    AEdit.Font.Assign(Font);
+    AEdit.ApplyEditorBaseSettings(
+        False,
+        True,
+        StyleElements,
+        False);
+
+    AEdit.AssignEditorFont(Font);
 
     //Si l'item édité est sélectionné, on applique le même enrichissement
     //typographique que le rendu standard.
     If (AIndex >= 0) And (AIndex = FItemIndex) Then
-        AEdit.Font.Style := AEdit.Font.Style + FSelectedFontStyle;
+        AEdit.AddEditorFontStyle(FSelectedFontStyle);
 
     //-------------------------------------------------------------------------
     //Mode style :
@@ -694,7 +713,7 @@ Begin
     //-------------------------------------------------------------------------
 
     If FPaletteMode = nrtcmStyle Then Begin
-        AEdit.StyleElements := [seFont, seClient, seBorder];
+        AEdit.SetEditorStyleElements([seFont, seClient, seBorder]);
         Exit;
     End;
 
@@ -712,16 +731,18 @@ Begin
         SignalBrushColor,
         SignalPenColor);
 
-    AEdit.StyleElements := [];
-    AEdit.Color := BottomColor;
-    AEdit.Font.Color := TextColor;
+    AEdit.SetEditorStyleElements([]);
+    AEdit.SetEditorColors(
+        BottomColor,
+        TextColor);
 End;
 
 Function TNoReflowTabBarEditSupport.BeginEditItemCaption(AIndex: Integer): Boolean;
 Var
-    Item:        TNoReflowTabBarItem;
-    Host:       TWinControl;
-    EditBounds: TRect;
+    Item:          TNoReflowTabBarItem;
+    Host:          TWinControl;
+    TextGeometry:  TNoReflowTabBarCaptionEditorGeometry;
+    EditorControl: TWinControl;
 Begin
     Result := False;
 
@@ -742,41 +763,54 @@ Begin
     If Host = Nil Then
         Exit;
 
-    EditBounds := GetItemEditBounds(
+    TextGeometry := GetItemEditTextGeometry(
         AIndex,
         Host);
 
-    If IsRectEmpty(EditBounds) Then
+    If (TextGeometry.TextLength <= 0) Or (TextGeometry.TextThickness <= 0) Then
         Exit;
 
     If Not EnsureItemCaptionEditor Then
         Exit;
 
-    FItemEdit.Parent := Host;
+    EditorControl := FItemEdit.GetEditorControl;
+
+    If EditorControl = Nil Then
+        Exit;
+
+    EditorControl.Parent := Host;
     FItemEditIndex := AIndex;
     FItemEditOriginalCaption := Item.Caption;
+
+    //-------------------------------------------------------------------------
+    //Transmit the effective text orientation of the rendered item to the
+    //caption editor. The standard TEdit implementation ignores it; optional
+    //editors such as TRotatedEdit can translate it to their own Angle or
+    //Orientation model.
+    //-------------------------------------------------------------------------
+    FItemEdit.ApplyEditorTextOrientation(TextGeometry.TextOrientation);
 
     UpdateItemEditAppearance(
         FItemEdit,
         AIndex,
         Item);
 
-    FItemEdit.Text := Item.Caption;
-    FItemEdit.SetBounds(
-        EditBounds.Left,
-        EditBounds.Top,
-        EditBounds.Right - EditBounds.Left,
-        EditBounds.Bottom - EditBounds.Top);
+    FItemEdit.SetEditorText(Item.Caption);
 
-    FItemEdit.Visible := True;
-    FItemEdit.BringToFront;
-    FItemEdit.SetFocus;
-    FItemEdit.SelectAll;
+    FItemEdit.ApplyEditorTextGeometry(TextGeometry);
+
+    EditorControl.Visible := True;
+    EditorControl.BringToFront;
+    EditorControl.SetFocus;
+
+    FItemEdit.SelectAllEditorText;
 
     Result := True;
 End;
 
 Procedure TNoReflowTabBarEditSupport.HideItemCaptionEditor;
+Var
+    EditorControl: TWinControl;
 Begin
     //-------------------------------------------------------------------------
     //Masque l'éditeur inline sans le détruire.
@@ -784,8 +818,13 @@ Begin
     //L'éditeur est permanent et appartient à la TabBar.
     //Cette méthode ne fait donc qu'annuler l'édition visuelle courante.
     //-------------------------------------------------------------------------
-    If FItemEdit <> Nil Then
-        FItemEdit.Visible := False;
+
+    If FItemEdit <> Nil Then Begin
+        EditorControl := FItemEdit.GetEditorControl;
+
+        If EditorControl <> Nil Then
+            EditorControl.Visible := False;
+    End;
 
     FItemEditIndex := -1;
     FItemEditOriginalCaption := '';
@@ -821,7 +860,7 @@ Begin
         End;
 
         OldCaption := FItemEditOriginalCaption;
-        NewCaption := FItemEdit.Text;
+        NewCaption := FItemEdit.GetEditorText;
 
         HideItemCaptionEditor;
 

@@ -102,6 +102,15 @@ Items can display images. The usual source is the bar image list through `BarIma
 
 Glyphs and signals are independent: an item can have one, both or neither.
 
+
+## Inline caption editor
+
+NoReflowTabBar can edit item captions inline. The default editor is a standard VCL `TEdit`, but the editor layer is pluggable.
+
+The bar passes an explicit caption editor geometry to the active editor. This geometry contains the text center, logical text length, logical text thickness and rendered text orientation. The editor then decides how to position itself. This keeps the TabBar layout independent from the concrete editor control.
+
+The optional [`VclRotatedEdit`](https://github.com/mbaumsti/VclRotatedEdit) adapter uses this mechanism to provide a `TRotatedEdit`-based editor for horizontal and vertical captions.
+
 ## Rendering mode
 
 `BarRenderMode` controls the rendering strategy:
@@ -110,7 +119,7 @@ Glyphs and signals are independent: an item can have one, both or neither.
 - `nrrmFlat`
 - `nrrmGradient`
 
-`BarPaletteMode` controls whether colours are based on custom appearance settings or on the current VCL style.
+`BarPaletteMode` controls whether colours are based on custom appearance settings or on the current VCL style. In style-aware mode, design-time rendering resolves style services from the parent context first so the component preview follows the visual style used by the form designer.
 
 ## Layout mode
 

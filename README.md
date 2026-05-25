@@ -20,10 +20,13 @@ The component has since evolved into a more complete navigation surface with gro
 - Optional drag and drop between compatible bars
 - Optional drag restrictions by zone
 - Inline caption editing with validation events
+- Pluggable inline caption editor architecture
+- Optional [VclRotatedEdit](https://github.com/mbaumsti/VclRotatedEdit) adapter for rotated inline editing
 - Item hints and custom hint events
 - Layout save and restore support
 - Flat and gradient rendering modes
 - Style-aware and custom palettes
+- Style-aware design-time rendering using the parent style context
 - Shape options such as slants, radius and overlap
 - Robust constrained-size handling with text ellipsis
 - Signal-first fallback rules when space is limited
@@ -91,6 +94,8 @@ The layout engine can arrange items sequentially or by zones, depending on the d
 
 When item size is constrained, the content layout engine applies stable fallback rules instead of letting visual elements overlap. Status signals are preserved as much as possible, glyphs may be hidden first, and captions are ellipsized when needed. This is especially useful in button modes where `ForcedLength` or `ForcedThickness` are used to create compact command bars.
 
+When the component is rendered in style-aware mode, design-time rendering resolves the visual style from the parent context first. This makes the component preview closer to the actual styled VCL surface shown by the form designer.
+
 ## Behaviour modes
 
 The same component can be used in several UI patterns.
@@ -139,7 +144,47 @@ Item captions can optionally be edited directly inside the bar.
 
 Inline editing can be enabled globally and restricted by zone. The component also exposes events to decide whether a caption can be edited, validate the new caption and react after a successful edit.
 
-The inline editor is positioned from the computed text rectangle, so it remains aligned with the visible caption even when text is ellipsized or constrained by forced item sizes.
+The default inline editor is a standard VCL `TEdit`, so NoReflowTabBar works out of the box without any additional component dependency.
+
+The inline editor layer is extensible. NoReflowTabBar exposes a small editor abstraction used to pass the text center, logical text length, logical text thickness and text orientation to the active editor. This keeps the bar responsible for layout and lets each editor decide how to position itself.
+
+This architecture is used by the optional [VclRotatedEdit](https://github.com/mbaumsti/VclRotatedEdit) adapter. When that adapter is installed and referenced by the application, vertical captions can be edited with `TRotatedEdit` instead of a standard horizontal `TEdit`.
+
+
+## Optional VclRotatedEdit adapter
+
+NoReflowTabBar itself does not require [VclRotatedEdit](https://github.com/mbaumsti/VclRotatedEdit). The main runtime and design-time packages remain independent and can be installed on their own.
+
+An optional adapter is provided under:
+
+```text
+Optional_Packages/VclRotatedEdit/
+```
+
+This adapter allows NoReflowTabBar to use `TRotatedEdit` as its inline caption editor. It is useful when captions are displayed vertically and the editor should follow the same visual direction as the item text.
+
+The optional adapter requires both components to be available. `VclRotatedEdit` is available at [https://github.com/mbaumsti/VclRotatedEdit](https://github.com/mbaumsti/VclRotatedEdit).
+
+- `NoReflowTabBarR`
+- `NoReflowTabBarDesign`
+- `VclRotatedEditR`
+- `VclRotatedEditDesign`
+
+The optional adapter packages are:
+
+```text
+Optional_Packages/VclRotatedEdit/Packages/NoReflowTabBarVclRotatedEditAdapterR.dpk
+Optional_Packages/VclRotatedEdit/Packages/NoReflowTabBarVclRotatedEditAdapterDesign.dpk
+```
+
+For applications compiled without runtime packages, add the adapter unit to the project uses clause to activate it at runtime:
+
+```pascal
+uses
+  NoReflowTabBar_VclRotatedEditAdapter;
+```
+
+Without this optional adapter, NoReflowTabBar continues to use the standard `TEdit` inline editor.
 
 ## Persistence
 
@@ -186,6 +231,7 @@ NoReflowTabBar/
 │  ├─ NoReflowTabBar_ZoneLayout.pas
 │  ├─ NoReflowTabBar_ZoneHeader.pas
 │  ├─ NoReflowTabBar_DragSupport.pas
+│  ├─ NoReflowTabBar_CaptionEditor.pas
 │  ├─ NoReflowTabBar_EditSupport.pas
 │  ├─ NoReflowTabBar_HintSupport.pas
 │  ├─ NoReflowTabBar_StorageSupport.pas
@@ -194,6 +240,15 @@ NoReflowTabBar/
 ├─ Packages/
 │  ├─ NoReflowTabBarR.dpk
 │  └─ NoReflowTabBarDesign.dpk
+├─ Optional_Packages/
+│  └─ VclRotatedEdit/
+│     ├─ README.md
+│     ├─ Src/
+│     │  ├─ NoReflowTabBar_VclRotatedEditAdapter.pas
+│     │  └─ NoReflowTabBar_VclRotatedEditAdapterReg.pas
+│     └─ Packages/
+│        ├─ NoReflowTabBarVclRotatedEditAdapterR.dpk
+│        └─ NoReflowTabBarVclRotatedEditAdapterDesign.dpk
 ├─ Demo/
 │  ├─ NoReflowTabBarDemo.dpr
 │  ├─ NoReflowTabBarDemo.dproj
@@ -235,6 +290,20 @@ Typical installation steps:
 5. Drop `TNoReflowTabBar` on a VCL form and configure its published properties from the Object Inspector.
 
 Package setup may vary depending on your local Delphi configuration.
+
+### Optional VclRotatedEdit adapter installation
+
+The optional [VclRotatedEdit](https://github.com/mbaumsti/VclRotatedEdit) adapter is not required for the main component. Install it only if you want NoReflowTabBar to use `TRotatedEdit` for inline caption editing.
+
+Typical optional installation steps:
+
+1. Download or clone [VclRotatedEdit](https://github.com/mbaumsti/VclRotatedEdit), then build and install its runtime and design-time packages.
+2. Build and install NoReflowTabBar runtime and design-time packages.
+3. Build the optional runtime adapter:
+   - `Optional_Packages/VclRotatedEdit/Packages/NoReflowTabBarVclRotatedEditAdapterR.dpk`
+4. Build and install the optional design-time adapter:
+   - `Optional_Packages/VclRotatedEdit/Packages/NoReflowTabBarVclRotatedEditAdapterDesign.dpk`
+5. For applications compiled without runtime packages, add `NoReflowTabBar_VclRotatedEditAdapter` to the project uses clause.
 
 ## Documentation
 
@@ -293,6 +362,7 @@ The complete maintainer reference generated in `docs\api-complete\` is ignored b
 - Delphi 12.2 or later is recommended.
 - VCL desktop application.
 - Windows.
+- [VclRotatedEdit](https://github.com/mbaumsti/VclRotatedEdit) is optional and only required for the optional rotated inline editor adapter.
 
 NoReflowTabBar is currently developed and tested with Delphi 12.2. Compatibility with earlier Delphi versions has not been validated yet.
 
