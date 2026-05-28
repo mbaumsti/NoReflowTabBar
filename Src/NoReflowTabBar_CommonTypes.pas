@@ -309,15 +309,27 @@ Type
 
     TNoReflowTabBarZones = Set Of TNoReflowTabBarZone;
 
-    //Métriques calculées pour un item donné.
+    //Metriques calculees pour un item donne.
     //
-    //Cette structure décrit la géométrie interne d'un bouton :
-    //- dimensions globales du bouton
-    //- orientation du texte
-    //- zone réellement disponible pour le contenu
-    //- position finale du texte et du signal
+    //GARDE-FOU : cette structure melange volontairement deux niveaux :
+    //- les dimensions logiques ContentLength / MinorSize ;
+    //- les dimensions physiques ButtonWidth / ButtonHeight uniquement apres
+    //  conversion vers le rectangle local du controle.
     //
-    //Elle est calculée avant le placement final de l'item dans la barre.
+    //Regle imperieuse pour les futures modifications :
+    //- ContentLength suit l'axe logique principal du contenu ;
+    //- MinorSize suit l'axe logique secondaire ;
+    //- Length ne doit jamais etre assimile automatiquement a Width ;
+    //- Thickness ne doit jamais etre assimile automatiquement a Height ;
+    //- quand VerticalFlow=True, l'axe logique Length est materialise par
+    //  ButtonHeight, mais il reste une longueur logique ;
+    //- quand VerticalFlow=False, l'axe logique Length est materialise par
+    //  ButtonWidth.
+    //
+    //Le code de layout doit raisonner autant que possible avec des noms flow /
+    //cross ou Length / Thickness. Les noms X/Y/Width/Height doivent etre reserves
+    //aux points ou la conversion vers les coordonnees locales finales est
+    //explicitement faite.
     TNoReflowTabBarItemMetrics = Record
         //Position de barre prise en compte pour le calcul.
         TabPosition: TNoReflowTabBarPosition;
@@ -329,9 +341,16 @@ Type
         VerticalFlow: Boolean;
 
         //Longueur utile du contenu texte + voyant + marges internes.
+        //
+        //ATTENTION : longueur logique, pas largeur physique. Selon VerticalFlow,
+        //cette valeur sera convertie vers ButtonWidth ou ButtonHeight.
         ContentLength: Integer;
 
-        //Dimension secondaire minimale nécessaire au contenu.
+        //Dimension secondaire minimale necessaire au contenu.
+        //
+        //ATTENTION : epaisseur logique, pas hauteur physique automatique. Selon
+        //VerticalFlow, cette valeur sera convertie vers ButtonHeight ou
+        //ButtonWidth.
         MinorSize: Integer;
 
         //Compensation à ajouter côté "premier slant".
@@ -340,10 +359,16 @@ Type
         //Compensation à ajouter côté "second slant".
         SlantPadSecond: Integer;
 
-        //Largeur finale du bouton calculé.
+        //Largeur finale physique du bouton calcule.
+        //
+        //Cette valeur est une coordonnee locale finale. Elle ne doit pas etre
+        //utilisee comme synonyme de Length sans verifier VerticalFlow.
         ButtonWidth: Integer;
 
-        //Hauteur finale du bouton calculé.
+        //Hauteur finale physique du bouton calcule.
+        //
+        //Cette valeur est une coordonnee locale finale. Elle ne doit pas etre
+        //utilisee comme synonyme de Length sans verifier VerticalFlow.
         ButtonHeight: Integer;
 
         //Position X du texte dans les coordonnées locales du bouton.
@@ -391,14 +416,29 @@ Type
         //du texte.
         GlyphHeight: Integer;
 
-        //Position réellement retenue pour le glyph de cet item.
+        //Position logique retenue pour le glyph de cet item.
         //
-        //Cette valeur est déjà résolue :
-        //- position spécifique de l'item si elle est définie ;
-        //- sinon position globale du layout.
+        //GARDE-FOU IMPORTANT : cette valeur reste exprimee dans le repere
+        //canonique horizontal, avant toute adaptation a l'orientation effective
+        //du texte. Elle represente donc la demande metier/publication :
+        //- Left / Right : avant ou apres le texte dans le modele horizontal ;
+        //- Top / Bottom : au-dessus ou au-dessous du texte dans ce meme modele.
         //
-        //Elle évite au moteur de rendu de recalculer plusieurs fois la même
-        //décision pendant les phases de métriques, de placement et de dessin.
+        //Cette position doit etre utilisee pour les decisions de comportement
+        //qui doivent rester identiques entre texte horizontal et texte vertical,
+        //notamment la regle MinimumLength : on recentre seulement lorsque le
+        //glyph est logiquement au-dessus ou au-dessous du texte.
+        LogicalGlyphPosition: TNoReflowTabBarGlyphPosition;
+
+        //Position physique retenue pour le glyph de cet item.
+        //
+        //Cette valeur est derivee de LogicalGlyphPosition apres application de
+        //l'orientation effective du texte. Elle sert uniquement au placement
+        //et au dessin locaux.
+        //
+        //GARDE-FOU : ne pas utiliser cette position pour decider si une regle
+        //fonctionnelle doit s'appliquer. Sinon VerticalUp / VerticalDown peuvent
+        //inverser le comportement par rapport au cas horizontal canonique.
         GlyphPosition: TNoReflowTabBarGlyphPosition;
 
         //Rectangle local du voyant si présent.

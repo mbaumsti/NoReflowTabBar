@@ -9,11 +9,11 @@
   Appearance and layout sub-objects used by the NoReflowTabBar VCL component.
 
   Repository:
-    https://github.com/mbaumsti/NoReflowTabBar
+  https://github.com/mbaumsti/NoReflowTabBar
 
   License:
-    Mozilla Public License 2.0.
-    See LICENSE file.
+  Mozilla Public License 2.0.
+  See LICENSE file.
 
   ------------------------------------------------------------------------------
 
@@ -34,9 +34,9 @@
   Architecture notes:
   - this unit does not draw anything by itself;
   - it describes rendering and layout settings consumed by the core and render
-    layers;
+  layers;
   - change callbacks keep these persistent sub-objects decoupled from the final
-    TNoReflowTabBar facade.
+  TNoReflowTabBar facade.
 }
 
 interface
@@ -132,10 +132,10 @@ Type
 
         FUpdating: Integer;
 
-        // Notifies the owning component that an appearance property changed.
+        //Notifies the owning component that an appearance property changed.
         Procedure Changed;
 
-        // Tab color setters.
+        //Tab color setters.
         Procedure SetTabNormalTop(Const Value: TColor);
         Procedure SetTabNormalBottom(Const Value: TColor);
         Procedure SetTabNormalText(Const Value: TColor);
@@ -161,7 +161,7 @@ Type
         Procedure SetTabDisabledText(Const Value: TColor);
         Procedure SetTabDisabledBorder(Const Value: TColor);
 
-        // Button color setters.
+        //Button color setters.
         Procedure SetButtonNormalTop(Const Value: TColor);
         Procedure SetButtonNormalBottom(Const Value: TColor);
         Procedure SetButtonNormalText(Const Value: TColor);
@@ -486,7 +486,7 @@ Type
         FMarginEnd:      Integer;
         FRowSpacing:     Integer;
 
-        // Alignment of the full item block along the main layout axis.
+        //Alignment of the full item block along the main layout axis.
         FFlowAlignment: TNoReflowTabBarFlowAlignment;
 
         FSignalSize:    Integer;
@@ -751,6 +751,7 @@ Type
       This class contains only button-specific properties:
       - spacing between independent buttons;
       - optional forced dimensions;
+      - optional minimum button length when the length is not forced;
       - corner radius;
       - border drawing;
       - visual pressed-content offset.
@@ -763,12 +764,13 @@ Type
         FOwner:     TPersistent;
         FOnChanged: TNoReflowTabBarObjectChangedEvent;
 
-        FButtonSpacing: Integer;
-        FForcedLength:   Integer;
-        FForcedThickness:  Integer;
-        FCornerRadius:  Integer;
-        FDrawBorder:    Boolean;
-        FPressedOffset: Integer;
+        FButtonSpacing:   Integer;
+        FForcedLength:    Integer;
+        FMinimumLength:   Integer;
+        FForcedThickness: Integer;
+        FCornerRadius:    Integer;
+        FDrawBorder:      Boolean;
+        FPressedOffset:   Integer;
 
         FUpdating: Integer;
 
@@ -776,6 +778,7 @@ Type
 
         Procedure SetButtonSpacing(Const Value: Integer);
         Procedure SetForcedLength(Const Value: Integer);
+        Procedure SetMinimumLength(Const Value: Integer);
         Procedure SetForcedThickness(Const Value: Integer);
         Procedure SetCornerRadius(Const Value: Integer);
         Procedure SetDrawBorder(Const Value: Boolean);
@@ -826,6 +829,20 @@ Type
         Property ForcedLength: Integer Read FForcedLength Write SetForcedLength default 0;
 
         {
+          Minimum logical button length in the item flow direction.
+
+          This property is used only when ForcedLength is 0. The natural logical
+          length is still computed from the item content, then raised to this minimum
+          when necessary. A value of 0 disables the minimum constraint.
+
+          Important:
+          Length is not necessarily a physical X-axis width. For vertical bar
+          orientations, the logical length may later be transformed to a physical
+          Y-axis span by the canonical layout transformation pipeline.
+        }
+        Property MinimumLength: Integer Read FMinimumLength Write SetMinimumLength default 0;
+
+        {
           Forced button thickness in the item cross direction.
 
           This is a logical dimension, not necessarily the physical screen
@@ -853,7 +870,6 @@ Type
     End;
 
 implementation
-
 
 //===============================================================================================================================
 //TNoReflowTabBarAppearance
@@ -1813,7 +1829,6 @@ Begin
     Changed;
 End;
 
-
 Procedure TNoReflowTabBarLayout.SetGlyphSpacing(Const Value: Integer);
 Var
     NewValue: Integer;
@@ -2002,6 +2017,7 @@ Begin
 
     FButtonSpacing := 6;
     FForcedLength := 0;
+    FMinimumLength := 0;
     FForcedThickness := 0;
     FCornerRadius := 3;
 
@@ -2018,6 +2034,7 @@ Begin
 
         FButtonSpacing := Src.ButtonSpacing;
         FForcedLength := Src.ForcedLength;
+        FMinimumLength := Src.MinimumLength;
         FForcedThickness := Src.ForcedThickness;
         FCornerRadius := Src.CornerRadius;
 
@@ -2085,6 +2102,31 @@ Begin
     Changed;
 End;
 
+Procedure TNoReflowTabBarLayoutButtons.SetMinimumLength(Const Value: Integer);
+Var
+    NewValue: Integer;
+Begin
+    //--------------------------------------------------------------------------
+    //Normalise la longueur minimale des boutons.
+    //
+    //La valeur reste indépendante de ForcedLength :
+    //- ForcedLength > 0 impose toujours une longueur fixe ;
+    //- ForcedLength = 0 conserve la longueur naturelle calculée depuis le
+    //contenu, puis applique MinimumLength comme garde-fou inférieur.
+    //--------------------------------------------------------------------------
+
+    NewValue := Value;
+
+    If NewValue < 0 Then
+        NewValue := 0;
+
+    If FMinimumLength = NewValue Then
+        Exit;
+
+    FMinimumLength := NewValue;
+    Changed;
+End;
+
 Procedure TNoReflowTabBarLayoutButtons.SetForcedThickness(Const Value: Integer);
 Var
     NewValue: Integer;
@@ -2143,4 +2185,3 @@ Begin
 End;
 
 end.
-

@@ -96,6 +96,10 @@ Button layout can also use forced logical dimensions.
 
 `ForcedLength` constrains the item size along the text flow axis. `ForcedThickness` constrains the item size along the cross axis.
 
+`MinimumLength` is specific to button modes and is used only when `ForcedLength` is 0. In that case, the natural logical button length is computed from the content as usual, then enlarged to `MinimumLength` only when the computed length is smaller.
+
+When `MinimumLength` adds extra logical length and the glyph is placed above or below the caption, the stacked glyph/caption block is centered on the logical flow axis in the useful area that remains after reserving any status signal. With horizontal text this means horizontal centering; with vertical text this means vertical centering. This keeps menu-like buttons visually balanced without moving the signal. Glyph-left and glyph-right layouts intentionally keep the historical aligned behavior.
+
 For horizontal text, length usually corresponds to width and thickness to height. For vertical text, the meaning is intentionally logical rather than physical: length follows the text direction and thickness follows the perpendicular direction.
 
 When the available size is too small for every visual element, the content layout engine composes several candidates from scratch and keeps the first one that fits. The current fallback priority is:

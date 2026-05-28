@@ -37,6 +37,21 @@
   rendu, le hit-test et le drag & drop ;
   - toute modification de convention canonique doit être considérée avec
   prudence, car elle impacte l'ensemble du pipeline visuel.
+
+  GARDE-FOU MAJEUR : NE PAS RECREER UN LAYOUT VERTICAL SPECIFIQUE
+
+  Le moteur doit rester fonde sur le principe :
+
+  - calcul dans un repere canonique horizontal TOP ;
+  - transformation finale vers Top / Bottom / Left / Right.
+
+  Les entrees verticales BuildVerticalZoneLayout et BuildVerticalSequentialLayout
+  n'ont pas le droit de placer directement les items en coordonnees finales.
+  Elles doivent seulement fournir au moteur canonique des dimensions transposees
+  puis laisser TransformAllCanonicalRectsToActual effectuer la projection finale.
+
+  Toute correction introduite directement dans le repere Left / Right risque de
+  casser le rendu, le hit-test, les marqueurs de drag et les zones.
 }
 
 Interface
@@ -593,6 +608,9 @@ Type
             Out UsedSecondarySize: Integer;
             Out ALayoutInfo: TNoReflowTabBarZoneLayoutInfo);
 
+        //Point d'entree vertical : ne doit pas contenir de placement vertical
+        //specifique. Il transpose uniquement les dimensions client vers le
+        //repere canonique horizontal, puis laisse le moteur commun travailler.
         Class Procedure BuildVerticalZoneLayout(
             AClientWidth: Integer;
             AClientHeight: Integer;
@@ -620,6 +638,8 @@ Type
             Out UsedWidth: Integer;
             Out UsedHeight: Integer);
 
+        //Point d'entree sequentiel vertical : meme garde-fou que
+        //BuildVerticalZoneLayout. Pas de second moteur vertical.
         Class Procedure BuildVerticalSequentialLayout(
             AClientWidth: Integer;
             AClientHeight: Integer;
@@ -677,6 +697,11 @@ Begin
     //
     //For rotated text this logical position must be converted once, inside the
     //layout engine. RenderSupport must not repeat or second-guess this mapping.
+    //
+    //GUARD RAIL: do not use the resolved physical position to decide whether a
+    //behavior belongs to the Top/Bottom or Left/Right family. Behavioral rules
+    //must remain based on the canonical horizontal position. Only placement and
+    //drawing may use this physical value.
     //-------------------------------------------------------------------------
 
     Result := AGlyphPosition;
@@ -3401,13 +3426,6 @@ Begin
             AActualClientHeight,
             ARenderItems);
 
-
-        //TransformAllCanonicalRectsToActual(
-        //AFlowOrientation,
-        //ABarPosition,
-        //AActualClientWidth,
-        //AActualClientHeight,
-        //ARenderItems);
 
         //-------------------------------------------------------------------------
         //Encombrement logique retourné au composant.

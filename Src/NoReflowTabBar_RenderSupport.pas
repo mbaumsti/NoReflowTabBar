@@ -24,7 +24,57 @@
 
   Elle ne publie pas l'API design-time : elle constitue une couche interne entre
   le layout logique et la peinture finale du contrôle.
+
+  ------------------------------------------------------------------------------
+
+  GARDE-FOUS DE GEOMETRIE
+
+  Ce composant raisonne d'abord dans un repere logique de contenu, puis seulement
+  ensuite dans les coordonnees physiques du controle.
+
+  Regles imperatives :
+  - Length designe toujours l'axe logique principal du contenu ;
+  - Thickness designe toujours l'axe logique secondaire ;
+  - Length ne veut pas dire Width ;
+  - Thickness ne veut pas dire Height ;
+  - X/Y, Width/Height ne doivent etre utilises que lorsque le code convertit
+    explicitement le repere logique vers les coordonnees locales finales ;
+  - les corrections visuelles liees a MinimumLength doivent etre appliquees sur
+    l'axe logique de flux, pas directement sur une coordonnee physique supposee.
+
+  Toute modification du layout doit preserver cette separation. Les regressions
+  les plus faciles a introduire sont :
+  - travailler trop tot dans le repere physique final ;
+  - confondre Length avec une largeur horizontale ;
+  - corriger uniquement le cas horizontal et oublier que le meme raisonnement
+    doit s'appliquer a l'axe logique lorsque le texte est vertical.
+
+  GARDE-FOU MAJEUR : PIPELINE HORIZONTAL CANONIQUE
+
+  Le placement global des items et des zones ne doit jamais etre duplique pour
+  Top / Bottom / Left / Right. Le fonctionnement recherche est le suivant :
+
+  1) calculer les dimensions logiques de chaque item ;
+  2) construire le layout dans le repere canonique horizontal TOP, c'est-a-dire
+     comme si la barre etait horizontale ;
+  3) transformer ensuite les rectangles canoniques vers la position reelle de
+     la barre.
+
+  Si une correction de placement est necessaire pour les barres verticales, il
+  faut d'abord verifier si elle appartient au moteur canonique, puis corriger le
+  repere logique commun. Il ne faut pas ajouter une correction locale en X/Y
+  final qui ne fonctionnerait que pour Left ou Right.
+
+  Nuance importante : les routines CalcHorizontalContentLayout et
+  CalcVerticalContentLayout ci-dessous ne remplacent pas ce pipeline. Elles ne
+  positionnent que le contenu local d'un item deja dimensionne. La routine
+  verticale existe parce que le rendu GDI d'un texte tourne utilise des points
+  d'ancrage differents. Toute nouvelle regle de layout local, notamment autour
+  de MinimumLength, doit donc etre exprimee en Flow/Cross et reportee de facon
+  symetrique dans les deux routines, sans raisonner directement en Width/Height
+  ou X/Y final.
 }
+
 
 Interface
 
@@ -110,7 +160,12 @@ Type
             Const AMetrics: TNoReflowTabBarItemMetrics;
             Out TopInset, BottomInset, LeftInset, RightInset: Integer);
 
-        //Calcule la position locale du texte et du voyant en mode horizontal.
+        //Calcule la position locale du texte, du glyph et du voyant lorsque
+        //le texte est horizontal.
+        //
+        //GARDE-FOU : cette routine est la reference lisible du layout local
+        //de contenu. Toute nouvelle regle introduite ici doit etre exprimee
+        //en Flow/Cross, puis verifiee dans CalcVerticalContentLayout.
         Procedure CalcHorizontalContentLayout(
             Var AMetrics: TNoReflowTabBarItemMetrics;
             AHasSignal: Boolean;
@@ -123,11 +178,17 @@ Type
             Var ATextY: Integer;
             Var ASignalRect: TRect);
 
-        //Calcule la position locale du texte, du voyant et du glyph
-        //en mode texte vertical.
+        //Calcule la position locale du texte, du glyph et du voyant lorsque
+        //le texte est vertical.
         //
-        //AMetrics est passé en Var car cette méthode complète aussi
-        //AMetrics.GlyphRect, comme CalcHorizontalContentLayout le fait déjà.
+        //GARDE-FOU : cette routine n'est pas un second moteur de layout en
+        //coordonnees finales. Elle est seulement l'adaptateur local necessaire
+        //au rendu GDI du texte tourne. Les decisions doivent rester identiques
+        //a celles de CalcHorizontalContentLayout et etre exprimees en
+        //Flow/Cross.
+        //
+        //AMetrics est passe en Var car cette methode complete aussi
+        //AMetrics.GlyphRect, comme CalcHorizontalContentLayout le fait deja.
         Procedure CalcVerticalContentLayout(
             Var AMetrics: TNoReflowTabBarItemMetrics;
             AHasSignal: Boolean;
@@ -318,6 +379,17 @@ Type
         //
         //L'item peut imposer sa propre position avec GlyphPosition.
         //Si l'item reste en nrigpDefault, la position globale du layout est utilisée.
+        //Resout la position logique du glyph pour un item.
+        //
+        //GARDE-FOU : cette position reste dans le repere canonique horizontal.
+        //Elle ne doit pas etre tournee. Elle sert aux regles fonctionnelles qui
+        //doivent produire le meme resultat avant transformation finale.
+        Function ResolveLogicalGlyphPosition(AItem: TNoReflowTabBarItem): TNoReflowTabBarGlyphPosition;
+
+        //Resout la position physique du glyph pour un item.
+        //
+        //La position logique obtenue est ensuite adaptee a l'orientation du texte
+        //uniquement pour le placement/dessin local.
         Function ResolveGlyphPosition(AItem: TNoReflowTabBarItem): TNoReflowTabBarGlyphPosition;
 
         //Résout l'orientation effective du texte des headers de zones.
@@ -431,7 +503,9 @@ Begin
     Metrics.TabPosition := FBarPosition;
     ResolveMetricsTextOrientation(Metrics);
 
-    GlyphPosition := ResolveGlyphPosition(AItem);
+    GlyphPosition := RotateGlyphPositionForTextOrientation(
+        ResolveLogicalGlyphPosition(AItem),
+        Metrics.TextOrientation);
     HasGlyph := ResolveGlyphSize(
         AItem,
         GlyphW,
@@ -527,7 +601,9 @@ Begin
     Metrics.TabPosition := FBarPosition;
     ResolveMetricsTextOrientation(Metrics);
 
-    GlyphPosition := ResolveGlyphPosition(AItem);
+    GlyphPosition := RotateGlyphPositionForTextOrientation(
+        ResolveLogicalGlyphPosition(AItem),
+        Metrics.TextOrientation);
     HasGlyph := ResolveGlyphSize(
         AItem,
         GlyphW,
@@ -657,7 +733,10 @@ Begin
     //---------------------------------------------------------------------
     //Glyph.
     //---------------------------------------------------------------------
-    AMetrics.GlyphPosition := ResolveGlyphPosition(AItem);
+    AMetrics.LogicalGlyphPosition := ResolveLogicalGlyphPosition(AItem);
+    AMetrics.GlyphPosition := RotateGlyphPositionForTextOrientation(
+        AMetrics.LogicalGlyphPosition,
+        AMetrics.TextOrientation);
 
     AMetrics.HasGlyph := ResolveGlyphSize(
         AItem,
@@ -982,6 +1061,7 @@ Procedure TNoReflowTabBarRenderSupport.CalcMetricsButtonSize(Var AMetrics: TNoRe
 var
     ShapeSlantFirst:  Integer;
     ShapeSlantSecond: Integer;
+    LengthUsesHeight: Boolean;
 Begin
     //-------------------------------------------------------------------------
     //Déduit la taille externe complète de l'item.
@@ -1040,11 +1120,50 @@ Begin
     End;
 
     If IsButtonBarMode And (FLayoutButtons <> Nil) Then Begin
-        If FLayoutButtons.ForcedLength > 0 Then
-            AMetrics.ButtonWidth := FLayoutButtons.ForcedLength;
+        //---------------------------------------------------------------------
+        //Dimensionnement sp�cifique au mode boutons.
+        //
+        //R�gle imp�rative : Length et Thickness sont des dimensions logiques.
+        //Ils ne doivent jamais �tre assimil�s directement � Width et Height.
+        //
+        //Length suit l'axe de flux du contenu :
+        //- texte horizontal  -> dimension physique X, donc ButtonWidth ;
+        //- texte vertical    -> dimension physique Y, donc ButtonHeight.
+        //
+        //Thickness suit l'axe secondaire, perpendiculaire au flux :
+        //- texte horizontal  -> dimension physique Y, donc ButtonHeight ;
+        //- texte vertical    -> dimension physique X, donc ButtonWidth.
+        //
+        //ForcedLength conserve son comportement historique sur l'axe logique :
+        //il impose une longueur fixe et ignore donc la taille naturelle du
+        //contenu.
+        //
+        //MinimumLength ne s'applique que lorsque ForcedLength vaut 0. Dans ce
+        //cas, la longueur naturelle calcul�e plus haut reste prioritaire tant
+        //qu'elle d�passe le minimum demand�. Les boutons courts sont simplement
+        //allong�s jusqu'� cette limite, sans changer l'�paisseur.
+        //---------------------------------------------------------------------
+        LengthUsesHeight := AMetrics.VerticalFlow;
 
-        If FLayoutButtons.ForcedThickness > 0 Then
-            AMetrics.ButtonHeight := FLayoutButtons.ForcedThickness;
+        If LengthUsesHeight Then Begin
+            If FLayoutButtons.ForcedLength > 0 Then
+                AMetrics.ButtonHeight := FLayoutButtons.ForcedLength
+            Else If (FLayoutButtons.MinimumLength > 0) And
+                    (AMetrics.ButtonHeight < FLayoutButtons.MinimumLength) Then
+                AMetrics.ButtonHeight := FLayoutButtons.MinimumLength;
+
+            If FLayoutButtons.ForcedThickness > 0 Then
+                AMetrics.ButtonWidth := FLayoutButtons.ForcedThickness;
+        End Else Begin
+            If FLayoutButtons.ForcedLength > 0 Then
+                AMetrics.ButtonWidth := FLayoutButtons.ForcedLength
+            Else If (FLayoutButtons.MinimumLength > 0) And
+                    (AMetrics.ButtonWidth < FLayoutButtons.MinimumLength) Then
+                AMetrics.ButtonWidth := FLayoutButtons.MinimumLength;
+
+            If FLayoutButtons.ForcedThickness > 0 Then
+                AMetrics.ButtonHeight := FLayoutButtons.ForcedThickness;
+        End;
     End;
 End;
 
@@ -1118,21 +1237,31 @@ Var
     CrossSize:        Integer;
     FlowStart:        Integer;
     FlowEnd:          Integer;
-    SignalBefore:     Boolean;
-    SignalAtItemEnd:  Boolean;
-    SignalTop:        Integer;
-    ContentStart:     Integer;
-    ContentTop:       Integer;
-    ContentFlowSize:  Integer;
-    ContentCrossSize: Integer;
-    GlyphRect:        TRect;
+    SignalBefore:            Boolean;
+    SignalAfter:             Boolean;
+    SignalAtItemEnd:         Boolean;
+    CenterStackedGlyphTextInFlow: Boolean;
+    SignalTop:               Integer;
+    ContentStart:            Integer;
+    ContentTop:              Integer;
+    ContentFlowSize:         Integer;
+    ContentCrossSize:        Integer;
+    ContentAreaStart:        Integer;
+    ContentAreaEnd:          Integer;
+    ContentFlowAreaLength:   Integer;
+    GlyphRect:               TRect;
 Begin
     //-------------------------------------------------------------------------
     //Place le texte, le signal et le glyph dans le cas d’un texte horizontal.
     //
     //Dans cette configuration :
-    //- l’axe "cross" est la hauteur du bouton ;
-    //- l’axe "flow"  est la largeur du bouton.
+    //- l'axe "cross" est la hauteur physique du bouton ;
+    //- l'axe "flow"  est la longueur logique du contenu.
+    //
+    //GARDE-FOU : le fait que le flow horizontal soit actuellement stocke dans
+    //ButtonWidth ne doit pas faire oublier que le raisonnement reste logique.
+    //Toute correction liee a MinimumLength doit viser l'axe flow, pas une
+    //coordonne X choisie par reflexe.
     //
     //Le signal est placé avant ou après le bloc "glyph + texte".
     //Le glyph est ensuite placé par rapport au texte selon GlyphPosition.
@@ -1173,9 +1302,12 @@ Begin
     SetRectEmpty(GlyphRect);
 
     SignalBefore := FSignalPosition = nrtspBefore;
+    SignalAfter := FSignalPosition = nrtspAfter;
     SignalAtItemEnd := FSignalPosition = nrtspItemEnd;
 
     ContentStart := FlowStart;
+    ContentAreaStart := FlowStart;
+    ContentAreaEnd := FlowEnd;
 
     //---------------------------------------------------------------------
     //Taille du bloc glyph + texte.
@@ -1203,6 +1335,18 @@ Begin
 
     SignalTop := CrossStart + FLayout.TextSpaceOver + ((CrossSize - FLayout.TextSpaceOver - FLayout.TextSpaceUnder - SignalDiameter) Div 2);
 
+    CenterStackedGlyphTextInFlow := False;
+
+    If IsButtonBarMode And
+       AMetrics.HasGlyph And
+       ((AMetrics.LogicalGlyphPosition = nrgpTop) Or
+        (AMetrics.LogicalGlyphPosition = nrgpBottom)) And
+       (FLayoutButtons <> Nil) And
+       (FLayoutButtons.ForcedLength <= 0) And
+       (FLayoutButtons.MinimumLength > 0) And
+       (AMetrics.ButtonWidth > AMetrics.ContentLength) Then
+        CenterStackedGlyphTextInFlow := True;
+
     If AHasSignal And SignalAtItemEnd Then Begin
         //---------------------------------------------------------------------
         //nrtspItemEnd keeps the signal aligned with the useful end edge of the
@@ -1212,6 +1356,9 @@ Begin
         ASignalRect.Left := ASignalRect.Right - SignalDiameter;
         ASignalRect.Top := SignalTop;
         ASignalRect.Bottom := ASignalRect.Top + SignalDiameter;
+
+        If CenterStackedGlyphTextInFlow Then
+            ContentAreaEnd := ASignalRect.Left - FLayout.SignalSpacing;
     End Else If AHasSignal And SignalBefore Then Begin
         ASignalRect.Left := FlowStart;
         ASignalRect.Right := ASignalRect.Left + SignalDiameter;
@@ -1219,6 +1366,45 @@ Begin
         ASignalRect.Bottom := ASignalRect.Top + SignalDiameter;
 
         ContentStart := ASignalRect.Right + FLayout.SignalSpacing;
+        ContentAreaStart := ContentStart;
+    End Else If AHasSignal And SignalAfter And CenterStackedGlyphTextInFlow Then Begin
+        //---------------------------------------------------------------------
+        //En correction légère de MinimumLength, le signal placé après le
+        //bloc texte/glyph est réservé du côté droit utile du bouton.
+        //
+        //Le signal reste ainsi dans son rôle visuel de voyant à droite, tandis
+        //que le couple vertical glyph + texte est recentré dans l'espace
+        //restant. Le comportement historique de nrtspAfter est conservé pour
+        //les glyphs gauche/droite et pour les boutons non élargis par
+        //MinimumLength.
+        //---------------------------------------------------------------------
+        ASignalRect.Right := FlowEnd;
+        ASignalRect.Left := ASignalRect.Right - SignalDiameter;
+        ASignalRect.Top := SignalTop;
+        ASignalRect.Bottom := ASignalRect.Top + SignalDiameter;
+
+        ContentAreaEnd := ASignalRect.Left - FLayout.SignalSpacing;
+    End;
+
+    If CenterStackedGlyphTextInFlow Then Begin
+        //---------------------------------------------------------------------
+        //MinimumLength augmente uniquement la longueur logique finale du bouton.
+        //
+        //Pour un glyph au-dessus ou au-dessous du texte, le contenu forme un
+        //bloc vertical qui paraît naturellement devoir être centré. On centre
+        //donc uniquement ce bloc glyph + texte dans la zone utile restante.
+        //
+        //Les signaux ne sont pas déplacés avec ce bloc : ils conservent leur
+        //ancrage gauche/droite et réduisent simplement la zone disponible.
+        //Pour les glyphs gauche/droite, aucun recentrage n'est appliqué afin
+        //de conserver l'impression historique de boutons calés à gauche.
+        //---------------------------------------------------------------------
+        ContentFlowAreaLength := ContentAreaEnd - ContentAreaStart;
+
+        If ContentFlowAreaLength < ContentFlowSize Then
+            ContentFlowAreaLength := ContentFlowSize;
+
+        ContentStart := ContentAreaStart + ((ContentFlowAreaLength - ContentFlowSize) Div 2);
     End;
 
     ContentTop := CrossStart + FLayout.TextSpaceOver + ((CrossSize - FLayout.TextSpaceOver - FLayout.TextSpaceUnder - ContentCrossSize) Div 2);
@@ -1275,7 +1461,10 @@ Begin
 
     AMetrics.GlyphRect := GlyphRect;
 
-    If AHasSignal And (Not SignalBefore) And (Not SignalAtItemEnd) Then Begin
+    If AHasSignal And
+       (Not SignalBefore) And
+       (Not SignalAtItemEnd) And
+       IsRectEmpty(ASignalRect) Then Begin
         ASignalRect.Left := ContentStart + ContentFlowSize + FLayout.SignalSpacing;
         ASignalRect.Right := ASignalRect.Left + SignalDiameter;
         ASignalRect.Top := SignalTop;
@@ -1295,83 +1484,102 @@ Procedure TNoReflowTabBarRenderSupport.CalcVerticalContentLayout(
     Var ATextY: Integer;
     Var ASignalRect: TRect);
 Var
-    CrossStart:       Integer;
-    CrossEnd:         Integer;
-    CrossSize:        Integer;
-    FlowStart:        Integer;
-    FlowEnd:          Integer;
-    FlowLength:       Integer;
-    SignalBefore:     Boolean;
-    SignalAtItemEnd:  Boolean;
-    SignalCrossLeft:  Integer;
-    ContentStart:     Integer;
-    ContentCrossLeft: Integer;
-    ContentFlowSize:  Integer;
-    ContentCrossSize: Integer;
-    GlyphRect:        TRect;
+    LogicalCrossStart:            Integer;
+    LogicalCrossEnd:              Integer;
+    LogicalCrossSize:             Integer;
+    LogicalFlowStart:             Integer;
+    LogicalFlowEnd:               Integer;
+    LogicalFlowLength:            Integer;
+    SignalBefore:                 Boolean;
+    SignalAfter:                  Boolean;
+    SignalAtItemEnd:              Boolean;
+    CenterStackedGlyphTextInFlow: Boolean;
+    SignalCrossStart:             Integer;
+    ContentFlowStart:             Integer;
+    ContentCrossStart:            Integer;
+    ContentFlowSize:              Integer;
+    ContentCrossSize:             Integer;
+    ContentFlowAreaStart:         Integer;
+    ContentFlowAreaEnd:           Integer;
+    ContentFlowAreaLength:        Integer;
+    GlyphRect:                    TRect;
 Begin
     //-------------------------------------------------------------------------
     //Place le texte, le signal et le glyph dans le cas d'un texte vertical.
     //
-    //Repère local utilisé :
-    //- axe flow  : hauteur du bouton ;
-    //- axe cross : largeur du bouton.
+    //GARDE-FOU IMPORTANT : cette routine ne doit pas etre comprise comme un
+    //travail direct en repere final X/Y. Elle utilise un repere logique :
+    //- axe flow  : axe principal du contenu vertical ;
+    //- axe cross : axe secondaire du contenu vertical.
+    //
+    //Dans l'implementation GDI actuelle, ce repere logique est stocke dans des
+    //coordonnees locales physiques parce que TextOut attend un point d'ancrage
+    //reel. Cela ne doit pas faire oublier la regle de conception : les decisions
+    //de layout doivent etre prises sur flow/cross, pas sur Width/Height par
+    //reflexe.
+    //
+    //Regle MinimumLength :
+    //- MinimumLength agit sur l'axe logique Length ;
+    //- quand le texte est vertical, cet axe est materialise par la hauteur
+    //  physique du bouton, mais il reste une longueur logique ;
+    //- le recentrage du couple glyph + texte doit donc se faire sur l'axe flow,
+    //  ce qui devient visuellement un centrage vertical.
     //
     //Important :
-    //GlyphPosition a déjà été résolu par ResolveGlyphPosition, donc il est
-    //déjà exprimé dans le repère réel du texte :
-    //- pour nrttoVerticalUp, Left logique devient Bottom réel ;
-    //- pour nrttoVerticalDown, Left logique devient Top réel ;
-    //- etc.
+    //AMetrics.LogicalGlyphPosition conserve la position demandee dans le
+    //repere horizontal canonique. AMetrics.GlyphPosition contient seulement la
+    //position physique adaptee a TextOrientation pour le dessin local.
     //
-    //La routine n'a donc plus à deviner l'intention de l'utilisateur. Elle se
-    //contente de placer proprement le glyph autour du texte vertical final.
+    //GARDE-FOU FONCTIONNEL : la regle MinimumLength doit comparer la position
+    //logique, pas la position physique. Sinon VerticalUp / VerticalDown peuvent
+    //appliquer le recentrage au cas inverse du cas horizontal.
     //-------------------------------------------------------------------------
 
-    CrossStart := LeftInset;
-    CrossEnd := AMetrics.ButtonWidth - 1 - RightInset;
-    CrossSize := CrossEnd - CrossStart;
+    LogicalCrossStart := LeftInset;
+    LogicalCrossEnd := AMetrics.ButtonWidth - 1 - RightInset;
+    LogicalCrossSize := LogicalCrossEnd - LogicalCrossStart;
 
-    If CrossSize < 1 Then
-        CrossSize := 1;
+    If LogicalCrossSize < 1 Then
+        LogicalCrossSize := 1;
 
     Case AMetrics.TabPosition Of
         nrtbpLeft: Begin
-                FlowStart := AMetrics.SlantPadSecond + FLayout.TextSpaceBefore;
-                FlowEnd := AMetrics.ButtonHeight - AMetrics.SlantPadFirst - FLayout.TextSpaceAfter;
+                LogicalFlowStart := AMetrics.SlantPadSecond + FLayout.TextSpaceBefore;
+                LogicalFlowEnd := AMetrics.ButtonHeight - AMetrics.SlantPadFirst - FLayout.TextSpaceAfter;
             End;
 
         nrtbpRight: Begin
-                FlowStart := AMetrics.SlantPadFirst + FLayout.TextSpaceBefore;
-                FlowEnd := AMetrics.ButtonHeight - AMetrics.SlantPadSecond - FLayout.TextSpaceAfter;
+                LogicalFlowStart := AMetrics.SlantPadFirst + FLayout.TextSpaceBefore;
+                LogicalFlowEnd := AMetrics.ButtonHeight - AMetrics.SlantPadSecond - FLayout.TextSpaceAfter;
             End;
 
         nrtbpTop, nrtbpBottom: Begin
-                FlowStart := FLayout.TextSpaceBefore;
-                FlowEnd := AMetrics.ButtonHeight - FLayout.TextSpaceAfter;
+                LogicalFlowStart := FLayout.TextSpaceBefore;
+                LogicalFlowEnd := AMetrics.ButtonHeight - FLayout.TextSpaceAfter;
             End;
     Else Begin
-            FlowStart := FLayout.TextSpaceBefore;
-            FlowEnd := AMetrics.ButtonHeight - FLayout.TextSpaceAfter;
+            LogicalFlowStart := FLayout.TextSpaceBefore;
+            LogicalFlowEnd := AMetrics.ButtonHeight - FLayout.TextSpaceAfter;
         End;
     End;
 
-    FlowLength := FlowEnd - FlowStart;
-    If FlowLength < 1 Then
-        FlowLength := 1;
+    LogicalFlowLength := LogicalFlowEnd - LogicalFlowStart;
+    If LogicalFlowLength < 1 Then Begin
+        LogicalFlowLength := 1;
+        LogicalFlowEnd := LogicalFlowStart + LogicalFlowLength;
+    End;
 
     SetRectEmpty(ASignalRect);
     SetRectEmpty(GlyphRect);
 
     SignalBefore := FSignalPosition = nrtspBefore;
+    SignalAfter := FSignalPosition = nrtspAfter;
     SignalAtItemEnd := FSignalPosition = nrtspItemEnd;
 
-    ContentStart := FlowStart;
-
     //---------------------------------------------------------------------
-    //Taille du bloc glyph + texte dans le repère vertical.
+    //Taille du bloc glyph + texte dans le repere logique vertical.
     //
-    //Le texte tourné occupe :
+    //Le texte tourne occupe :
     //- TextW dans l'axe flow ;
     //- TextH dans l'axe cross.
     //---------------------------------------------------------------------
@@ -1397,101 +1605,153 @@ Begin
     End;
 
     //---------------------------------------------------------------------
-    //Placement du bloc texte/glyph et du signal dans l'axe vertical.
+    //Decision de recentrage liee a MinimumLength.
     //
-    //Attention : en nrttoVerticalUp, le flux logique est inversé par rapport
-    //à l'axe Y physique.
+    //Meme si la coordonnee physique concernee est ici Y/ButtonHeight, la regle
+    //reste strictement logique : on centre le bloc glyph + texte sur l'axe flow
+    //lorsque MinimumLength a allonge l'item et que le glyph est LOGIQUEMENT
+    //au-dessus ou au-dessous du texte dans le repere horizontal canonique.
     //
-    //Repère physique :
-    //- FlowStart = haut physique
-    //- FlowEnd   = bas physique
-    //
-    //Repère logique VerticalUp :
-    //- début logique = bas physique
-    //- fin logique   = haut physique
-    //
-    //Conséquences attendues :
-    //- nrtspBefore  : signal au début logique, donc en bas physique
-    //- nrtspAfter   : signal après le texte, donc au-dessus du texte
-    //- nrtspItemEnd : signal à la fin logique de l'item, donc en haut physique
+    //Les glyphs gauche/droite conservent le comportement historique : le bloc
+    //reste cale au debut logique afin que les boutons donnent le meme effet
+    //d'alignement qu'avant l'introduction de MinimumLength.
     //---------------------------------------------------------------------
+    CenterStackedGlyphTextInFlow := False;
+
+    If IsButtonBarMode And
+       AMetrics.HasGlyph And
+       ((AMetrics.LogicalGlyphPosition = nrgpTop) Or
+        (AMetrics.LogicalGlyphPosition = nrgpBottom)) And
+       (FLayoutButtons <> Nil) And
+       (FLayoutButtons.ForcedLength <= 0) And
+       (FLayoutButtons.MinimumLength > 0) And
+       (AMetrics.ButtonHeight > AMetrics.ContentLength) Then
+        CenterStackedGlyphTextInFlow := True;
+
+    //---------------------------------------------------------------------
+    //Zone utile de centrage dans l'axe flow.
+    //
+    //Les signaux ne font pas partie du bloc centre. Ils restent ancres au debut,
+    //a la fin ou apres le contenu selon la regle de signal existante. Lorsqu'un
+    //recentrage est necessaire, ils reduisent seulement la zone restante dans
+    //laquelle le bloc glyph + texte peut etre centre.
+    //---------------------------------------------------------------------
+    ContentFlowAreaStart := LogicalFlowStart;
+    ContentFlowAreaEnd := LogicalFlowEnd;
 
     If AMetrics.TextOrientation = nrttoVerticalUp Then
-        ContentStart := FlowEnd - ContentFlowSize
+        ContentFlowStart := LogicalFlowEnd - ContentFlowSize
     Else
-        ContentStart := FlowStart;
+        ContentFlowStart := LogicalFlowStart;
 
     If AHasSignal Then Begin
-        SignalCrossLeft := CrossStart + FLayout.TextSpaceOver + ((CrossSize - FLayout.TextSpaceOver - FLayout.TextSpaceUnder - SignalDiameter) Div 2);
+        SignalCrossStart := LogicalCrossStart + FLayout.TextSpaceOver + ((LogicalCrossSize - FLayout.TextSpaceOver - FLayout.TextSpaceUnder - SignalDiameter) Div 2);
 
         If SignalAtItemEnd Then Begin
             If AMetrics.TextOrientation = nrttoVerticalUp Then Begin
-                //-------------------------------------------------------------
+                //---------------------------------------------------------
                 //VerticalUp + ItemEnd :
                 //la fin logique du flux texte correspond au haut physique.
-                //
-                //Le texte/glyph reste naturellement placé côté bas physique.
-                //-------------------------------------------------------------
-                ASignalRect.Top := FlowStart;
+                //---------------------------------------------------------
+                ASignalRect.Top := LogicalFlowStart;
                 ASignalRect.Bottom := ASignalRect.Top + SignalDiameter;
+
+                If CenterStackedGlyphTextInFlow Then
+                    ContentFlowAreaStart := ASignalRect.Bottom + FLayout.SignalSpacing;
             End Else Begin
-                //-------------------------------------------------------------
+                //---------------------------------------------------------
                 //VerticalDown + ItemEnd :
                 //la fin logique correspond au bas physique.
-                //-------------------------------------------------------------
-                ASignalRect.Bottom := FlowEnd;
+                //---------------------------------------------------------
+                ASignalRect.Bottom := LogicalFlowEnd;
                 ASignalRect.Top := ASignalRect.Bottom - SignalDiameter;
+
+                If CenterStackedGlyphTextInFlow Then
+                    ContentFlowAreaEnd := ASignalRect.Top - FLayout.SignalSpacing;
             End;
-        End Else If AMetrics.TextOrientation = nrttoVerticalUp Then Begin
-            If SignalBefore Then Begin
-                //-------------------------------------------------------------
+        End Else If SignalBefore Then Begin
+            If AMetrics.TextOrientation = nrttoVerticalUp Then Begin
+                //---------------------------------------------------------
                 //VerticalUp + Before :
-                //le signal est au début logique, donc en bas physique.
-                //Le bloc texte/glyph suit derrière, donc au-dessus du signal.
-                //-------------------------------------------------------------
-                ASignalRect.Bottom := FlowEnd;
+                //le signal est au debut logique, donc en bas physique.
+                //---------------------------------------------------------
+                ASignalRect.Bottom := LogicalFlowEnd;
                 ASignalRect.Top := ASignalRect.Bottom - SignalDiameter;
 
-                ContentStart := ASignalRect.Top - FLayout.SignalSpacing - ContentFlowSize;
+                If CenterStackedGlyphTextInFlow Then
+                    ContentFlowAreaEnd := ASignalRect.Top - FLayout.SignalSpacing
+                Else
+                    ContentFlowStart := ASignalRect.Top - FLayout.SignalSpacing - ContentFlowSize;
             End Else Begin
-                //-------------------------------------------------------------
-                //VerticalUp + After :
-                //le texte/glyph commence au début logique, donc en bas physique.
-                //Le signal suit après le texte, donc au-dessus du bloc texte/glyph.
-                //-------------------------------------------------------------
-                ContentStart := FlowEnd - ContentFlowSize;
-
-                ASignalRect.Bottom := ContentStart - FLayout.SignalSpacing;
-                ASignalRect.Top := ASignalRect.Bottom - SignalDiameter;
-            End;
-        End Else Begin
-            If SignalBefore Then Begin
-                //-------------------------------------------------------------
-                //Horizontal logique ou VerticalDown + Before :
-                //début logique = début physique du flux.
-                //-------------------------------------------------------------
-                ASignalRect.Top := FlowStart;
+                //---------------------------------------------------------
+                //VerticalDown + Before :
+                //debut logique = debut physique du flux.
+                //---------------------------------------------------------
+                ASignalRect.Top := LogicalFlowStart;
                 ASignalRect.Bottom := ASignalRect.Top + SignalDiameter;
 
-                ContentStart := ASignalRect.Bottom + FLayout.SignalSpacing;
+                If CenterStackedGlyphTextInFlow Then
+                    ContentFlowAreaStart := ASignalRect.Bottom + FLayout.SignalSpacing
+                Else
+                    ContentFlowStart := ASignalRect.Bottom + FLayout.SignalSpacing;
+            End;
+        End Else If SignalAfter Then Begin
+            If CenterStackedGlyphTextInFlow Then Begin
+                //---------------------------------------------------------
+                //Correction legere MinimumLength :
+                //le signal place apres le bloc est reserve du cote fin logique
+                //de l'item. Le bloc glyph + texte est ensuite centre dans la
+                //zone restante.
+                //---------------------------------------------------------
+                If AMetrics.TextOrientation = nrttoVerticalUp Then Begin
+                    ASignalRect.Top := LogicalFlowStart;
+                    ASignalRect.Bottom := ASignalRect.Top + SignalDiameter;
+
+                    ContentFlowAreaStart := ASignalRect.Bottom + FLayout.SignalSpacing;
+                End Else Begin
+                    ASignalRect.Bottom := LogicalFlowEnd;
+                    ASignalRect.Top := ASignalRect.Bottom - SignalDiameter;
+
+                    ContentFlowAreaEnd := ASignalRect.Top - FLayout.SignalSpacing;
+                End;
+            End Else If AMetrics.TextOrientation = nrttoVerticalUp Then Begin
+                //---------------------------------------------------------
+                //VerticalUp + After historique :
+                //le texte/glyph commence au debut logique, donc en bas
+                //physique. Le signal suit apres le texte, donc au-dessus du
+                //bloc texte/glyph.
+                //---------------------------------------------------------
+                ContentFlowStart := LogicalFlowEnd - ContentFlowSize;
+
+                ASignalRect.Bottom := ContentFlowStart - FLayout.SignalSpacing;
+                ASignalRect.Top := ASignalRect.Bottom - SignalDiameter;
             End Else Begin
-                //-------------------------------------------------------------
-                //Horizontal logique ou VerticalDown + After :
-                //signal après le bloc texte/glyph.
-                //-------------------------------------------------------------
-                ASignalRect.Top := ContentStart + ContentFlowSize + FLayout.SignalSpacing;
+                //---------------------------------------------------------
+                //VerticalDown + After historique :
+                //signal apres le bloc texte/glyph.
+                //---------------------------------------------------------
+                ASignalRect.Top := ContentFlowStart + ContentFlowSize + FLayout.SignalSpacing;
                 ASignalRect.Bottom := ASignalRect.Top + SignalDiameter;
             End;
         End;
 
-        ASignalRect.Left := SignalCrossLeft;
+        ASignalRect.Left := SignalCrossStart;
         ASignalRect.Right := ASignalRect.Left + SignalDiameter;
+    End;
+
+    If CenterStackedGlyphTextInFlow Then Begin
+        ContentFlowAreaLength := ContentFlowAreaEnd - ContentFlowAreaStart;
+
+        If ContentFlowAreaLength < ContentFlowSize Then
+            ContentFlowAreaLength := ContentFlowSize;
+
+        ContentFlowStart := ContentFlowAreaStart + ((ContentFlowAreaLength - ContentFlowSize) Div 2);
     End;
 
     //---------------------------------------------------------------------
     //Placement du bloc texte + glyph dans l'axe secondaire.
     //---------------------------------------------------------------------
-    ContentCrossLeft := CrossStart + FLayout.TextSpaceOver + ((CrossSize - FLayout.TextSpaceOver - FLayout.TextSpaceUnder - ContentCrossSize) Div 2);
+    ContentCrossStart := LogicalCrossStart + FLayout.TextSpaceOver + ((LogicalCrossSize - FLayout.TextSpaceOver - FLayout.TextSpaceUnder - ContentCrossSize) Div 2);
 
     //---------------------------------------------------------------------
     //Placement relatif glyph / texte.
@@ -1506,48 +1766,48 @@ Begin
     If AMetrics.HasGlyph Then Begin
         Case AMetrics.GlyphPosition Of
             nrgpTop: Begin
-                    GlyphRect.Left := ContentCrossLeft + ((ContentCrossSize - AMetrics.GlyphWidth) Div 2);
-                    GlyphRect.Top := ContentStart;
+                    GlyphRect.Left := ContentCrossStart + ((ContentCrossSize - AMetrics.GlyphWidth) Div 2);
+                    GlyphRect.Top := ContentFlowStart;
                     GlyphRect.Right := GlyphRect.Left + AMetrics.GlyphWidth;
                     GlyphRect.Bottom := GlyphRect.Top + AMetrics.GlyphHeight;
 
-                    ATextX := ContentCrossLeft + ((ContentCrossSize - TextH) Div 2) + TextH;
+                    ATextX := ContentCrossStart + ((ContentCrossSize - TextH) Div 2) + TextH;
                     ATextY := GlyphRect.Bottom + FLayout.GlyphSpacing + TextW;
                 End;
 
             nrgpBottom: Begin
-                    ATextX := ContentCrossLeft + ((ContentCrossSize - TextH) Div 2) + TextH;
-                    ATextY := ContentStart + TextW;
+                    ATextX := ContentCrossStart + ((ContentCrossSize - TextH) Div 2) + TextH;
+                    ATextY := ContentFlowStart + TextW;
 
-                    GlyphRect.Left := ContentCrossLeft + ((ContentCrossSize - AMetrics.GlyphWidth) Div 2);
-                    GlyphRect.Top := ContentStart + TextW + FLayout.GlyphSpacing;
+                    GlyphRect.Left := ContentCrossStart + ((ContentCrossSize - AMetrics.GlyphWidth) Div 2);
+                    GlyphRect.Top := ContentFlowStart + TextW + FLayout.GlyphSpacing;
                     GlyphRect.Right := GlyphRect.Left + AMetrics.GlyphWidth;
                     GlyphRect.Bottom := GlyphRect.Top + AMetrics.GlyphHeight;
                 End;
 
             nrgpLeft: Begin
-                    GlyphRect.Left := ContentCrossLeft;
-                    GlyphRect.Top := ContentStart + ((ContentFlowSize - AMetrics.GlyphHeight) Div 2);
+                    GlyphRect.Left := ContentCrossStart;
+                    GlyphRect.Top := ContentFlowStart + ((ContentFlowSize - AMetrics.GlyphHeight) Div 2);
                     GlyphRect.Right := GlyphRect.Left + AMetrics.GlyphWidth;
                     GlyphRect.Bottom := GlyphRect.Top + AMetrics.GlyphHeight;
 
                     ATextX := GlyphRect.Right + FLayout.GlyphSpacing + TextH;
-                    ATextY := ContentStart + ((ContentFlowSize - TextW) Div 2) + TextW;
+                    ATextY := ContentFlowStart + ((ContentFlowSize - TextW) Div 2) + TextW;
                 End;
 
             nrgpRight: Begin
-                    ATextX := ContentCrossLeft + TextH;
-                    ATextY := ContentStart + ((ContentFlowSize - TextW) Div 2) + TextW;
+                    ATextX := ContentCrossStart + TextH;
+                    ATextY := ContentFlowStart + ((ContentFlowSize - TextW) Div 2) + TextW;
 
-                    GlyphRect.Left := ContentCrossLeft + TextH + FLayout.GlyphSpacing;
-                    GlyphRect.Top := ContentStart + ((ContentFlowSize - AMetrics.GlyphHeight) Div 2);
+                    GlyphRect.Left := ContentCrossStart + TextH + FLayout.GlyphSpacing;
+                    GlyphRect.Top := ContentFlowStart + ((ContentFlowSize - AMetrics.GlyphHeight) Div 2);
                     GlyphRect.Right := GlyphRect.Left + AMetrics.GlyphWidth;
                     GlyphRect.Bottom := GlyphRect.Top + AMetrics.GlyphHeight;
                 End;
         End;
     End Else Begin
-        ATextX := ContentCrossLeft + ((ContentCrossSize - TextH) Div 2) + TextH;
-        ATextY := ContentStart + TextW;
+        ATextX := ContentCrossStart + ((ContentCrossSize - TextH) Div 2) + TextH;
+        ATextY := ContentFlowStart + TextW;
     End;
 
     AMetrics.GlyphRect := GlyphRect;
@@ -3921,52 +4181,61 @@ Begin
     End;
 End;
 
-Function TNoReflowTabBarRenderSupport.ResolveGlyphPosition(AItem: TNoReflowTabBarItem): TNoReflowTabBarGlyphPosition;
-Var
-    LLogicalPosition: TNoReflowTabBarGlyphPosition;
-    LMetrics:         TNoReflowTabBarItemMetrics;
+Function TNoReflowTabBarRenderSupport.ResolveLogicalGlyphPosition(AItem: TNoReflowTabBarItem): TNoReflowTabBarGlyphPosition;
 Begin
     //-------------------------------------------------------------------------
-    //Résout la position réelle du glyph.
+    //Resout la position logique du glyph.
     //
-    //Deux niveaux de configuration existent :
-    //1) position spécifique portée par l'item ;
-    //2) position globale portée par BarLayout.
+    //GARDE-FOU MAJEUR : cette fonction ne tient volontairement pas compte de
+    //TextOrientation. Elle retourne la position dans le repere horizontal
+    //canonique, c'est-a-dire le repere dans lequel les regles publiques sont
+    //definies.
     //
-    //La valeur obtenue reste d'abord une position logique exprimée autour d'un
-    //texte horizontal canonique. Elle est ensuite tournée selon l'orientation
-    //effective du texte.
-    //
-    //Cette centralisation est importante :
-    //- CalcBaseContentLength ;
-    //- CalcBaseContentThickness ;
-    //- CalcMetricsBaseSizes ;
-    //- DrawTabGlyph ;
-    //doivent tous raisonner sur la même position finale.
+    //Cette position doit etre utilisee pour decider si un comportement doit
+    //etre applique de la meme maniere en horizontal, VerticalUp et VerticalDown.
+    //Exemple critique : MinimumLength recentre le bloc glyph + texte uniquement
+    //si le glyph est LOGIQUEMENT au-dessus ou au-dessous du texte.
     //-------------------------------------------------------------------------
 
-    LLogicalPosition := FLayout.GlyphPosition;
+    Result := FLayout.GlyphPosition;
 
     If AItem <> Nil Then Begin
         Case AItem.GlyphPosition Of
             nrigpLeft:
-                LLogicalPosition := nrgpLeft;
+                Result := nrgpLeft;
 
             nrigpRight:
-                LLogicalPosition := nrgpRight;
+                Result := nrgpRight;
 
             nrigpTop:
-                LLogicalPosition := nrgpTop;
+                Result := nrgpTop;
 
             nrigpBottom:
-                LLogicalPosition := nrgpBottom;
+                Result := nrgpBottom;
 
             nrigpDefault:
-                LLogicalPosition := FLayout.GlyphPosition;
+                Result := FLayout.GlyphPosition;
         Else
-            LLogicalPosition := FLayout.GlyphPosition;
+            Result := FLayout.GlyphPosition;
         End;
     End;
+End;
+
+Function TNoReflowTabBarRenderSupport.ResolveGlyphPosition(AItem: TNoReflowTabBarItem): TNoReflowTabBarGlyphPosition;
+Var
+    LMetrics: TNoReflowTabBarItemMetrics;
+Begin
+    //-------------------------------------------------------------------------
+    //Resout la position physique du glyph.
+    //
+    //La position logique est d'abord resolue dans le repere horizontal
+    //canonique, puis tournee selon l'orientation effective du texte.
+    //
+    //GARDE-FOU : cette valeur physique doit servir au placement et au dessin.
+    //Elle ne doit pas remplacer la position logique pour les decisions
+    //fonctionnelles, sous peine d'inverser les comportements en VerticalUp ou
+    //VerticalDown.
+    //-------------------------------------------------------------------------
 
     FillChar(
         LMetrics,
@@ -3978,7 +4247,7 @@ Begin
     ResolveMetricsTextOrientation(LMetrics);
 
     Result := RotateGlyphPositionForTextOrientation(
-        LLogicalPosition,
+        ResolveLogicalGlyphPosition(AItem),
         LMetrics.TextOrientation);
 End;
 

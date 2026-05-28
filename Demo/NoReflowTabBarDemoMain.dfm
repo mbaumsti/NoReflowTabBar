@@ -30,7 +30,7 @@ object FrmOngletBtn: TFrmOngletBtn
     Width = 1240
     Height = 756
     Align = alClient
-    ActiveCard = CardLayoutAndZone
+    ActiveCard = CardButtonsModes
     Caption = 'CardPanel1'
     TabOrder = 1
     object CardOverview: TCard
@@ -1346,15 +1346,15 @@ object FrmOngletBtn: TFrmOngletBtn
         Left = 0
         Top = 58
         Width = 1238
-        Height = 136
+        Height = 149
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
         object RgButtonMode: TRadioGroup
           Left = 12
-          Top = 8
+          Top = 2
           Width = 151
-          Height = 115
+          Height = 105
           Caption = 'Mode'
           ItemIndex = 0
           Items.Strings = (
@@ -1366,17 +1366,18 @@ object FrmOngletBtn: TFrmOngletBtn
         end
         object RgForcedButtonSize: TRadioGroup
           Left = 574
-          Top = 12
+          Top = 2
           Width = 218
-          Height = 112
-          Caption = 'Forced button length/thickness'
+          Height = 140
+          Caption = 'Button length/thickness'
           ItemIndex = 0
           Items.Strings = (
             'Natural'
             'Forced length'
             'Forced thickness'
             'Forced length + thickness'
-            'Very small')
+            'Very small'
+            'Minimum length')
           TabOrder = 0
           OnClick = ButtonModeClick
         end
@@ -1391,9 +1392,9 @@ object FrmOngletBtn: TFrmOngletBtn
         end
         object RgButtonsPosition: TRadioGroup
           Left = 175
-          Top = 9
+          Top = 2
           Width = 103
-          Height = 115
+          Height = 128
           Caption = 'Position'
           ItemIndex = 0
           Items.Strings = (
@@ -1406,9 +1407,9 @@ object FrmOngletBtn: TFrmOngletBtn
         end
         object RgButtonsTextDirection: TRadioGroup
           Left = 287
-          Top = 9
+          Top = 2
           Width = 134
-          Height = 115
+          Height = 102
           Caption = 'Text direction'
           ItemIndex = 0
           Items.Strings = (
@@ -1420,9 +1421,9 @@ object FrmOngletBtn: TFrmOngletBtn
         end
         object RgButtonsSignalPosition: TRadioGroup
           Left = 431
-          Top = 9
+          Top = 2
           Width = 134
-          Height = 115
+          Height = 80
           Caption = 'Signal position'
           ItemIndex = 0
           Items.Strings = (
@@ -1434,7 +1435,7 @@ object FrmOngletBtn: TFrmOngletBtn
       end
       object ButtonModeBar: TNoReflowTabBar
         Left = 0
-        Top = 194
+        Top = 207
         Width = 1238
         Height = 171
         Hint = ' '
@@ -1521,6 +1522,7 @@ object FrmOngletBtn: TFrmOngletBtn
         BarZoneHeader.Font.Height = -11
         BarZoneHeader.Font.Name = 'Segoe UI'
         BarZoneHeader.Font.Style = [fsItalic]
+        BarSignalPosition = nrtspItemEnd
         BarItems = <
           item
             Caption = 'Property'

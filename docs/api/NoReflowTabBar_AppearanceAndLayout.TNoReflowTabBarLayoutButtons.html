@@ -43,7 +43,7 @@
 <p>
 Layout settings specific to button rendering.
 
-<p>This class contains only button-specific properties: - spacing between independent buttons; - optional forced dimensions; - corner radius; - border drawing; - visual pressed-content offset.
+<p>This class contains only button-specific properties: - spacing between independent buttons; - optional forced dimensions; - optional minimum button length when the length is not forced; - corner radius; - border drawing; - visual pressed-content offset.
 
 <p>Common text, signal, glyph and margin settings remain in <a class="normal" href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayout.html">TNoReflowTabBarLayout</a>.</p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
@@ -85,17 +85,21 @@ Layout settings specific to button rendering.
 </tr>
 <tr class="list2 visibility-published">
 <td class="visibility"><span class="badge vis-published">Published</span></td>
-<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#ForcedThickness">ForcedThickness</a></strong>: Integer Read FForcedThickness Write SetForcedThickness default 0;</code></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#MinimumLength">MinimumLength</a></strong>: Integer Read FMinimumLength Write SetMinimumLength default 0;</code></td>
 </tr>
 <tr class="list visibility-published">
 <td class="visibility"><span class="badge vis-published">Published</span></td>
-<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#CornerRadius">CornerRadius</a></strong>: Integer Read FCornerRadius Write SetCornerRadius default 3;</code></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#ForcedThickness">ForcedThickness</a></strong>: Integer Read FForcedThickness Write SetForcedThickness default 0;</code></td>
 </tr>
 <tr class="list2 visibility-published">
 <td class="visibility"><span class="badge vis-published">Published</span></td>
-<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#DrawBorder">DrawBorder</a></strong>: Boolean Read FDrawBorder Write SetDrawBorder default True;</code></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#CornerRadius">CornerRadius</a></strong>: Integer Read FCornerRadius Write SetCornerRadius default 3;</code></td>
 </tr>
 <tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#DrawBorder">DrawBorder</a></strong>: Boolean Read FDrawBorder Write SetDrawBorder default True;</code></td>
+</tr>
+<tr class="list2 visibility-published">
 <td class="visibility"><span class="badge vis-published">Published</span></td>
 <td class="itemcode"><code>property <strong><a href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#PressedOffset">PressedOffset</a></strong>: Integer Read FPressedOffset Write SetPressedOffset default 1;</code></td>
 </tr>
@@ -175,6 +179,18 @@ Spacing between two consecutive buttons.
 Forced button length in the item flow direction.
 
 <p>This is a logical dimension, not necessarily the physical screen width. A value of 0 means that the natural length is computed from the item content.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="visibility"><span class="badge vis-published">Published</span></td>
+<td class="itemcode"><span id="MinimumLength"></span><code>property <strong>MinimumLength</strong>: Integer Read FMinimumLength Write SetMinimumLength default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Minimum button length in the item flow direction.
+
+<p>This property is used only when <a class="normal" href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#ForcedLength">ForcedLength</a> is 0. The natural length is still computed from the item content, then raised to this minimum when necessary. A value of 0 disables the minimum constraint.</p>
 </td></tr>
 </table>
 <table class="detail visibility-published wide_list">

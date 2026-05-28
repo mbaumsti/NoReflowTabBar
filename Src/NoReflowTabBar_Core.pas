@@ -41,6 +41,10 @@
 
 Interface
 
+{$IF CompilerVersion >= 34.0}
+  {$DEFINE NRTB_HAS_CONTROL_STYLE_SERVICES}
+{$IFEND}
+
 Uses
     Winapi.Windows,
     Winapi.Messages,
@@ -3473,13 +3477,18 @@ Begin
     //-------------------------------------------------------------------------
     //Résout les services de style à utiliser par NoReflowTabBar.
     //
-    //En runtime, StyleServices(Self) suffit généralement : le contrôle est dans
-    //son contexte VCL réel.
+    //En runtime, StyleServices(Self) suffit généralement sur les versions VCL
+    //récentes : le contrôle est dans son contexte VCL réel.
     //
     //En design-time, les couleurs réellement visibles dans le designer sont
     //souvent déterminées par le conteneur parent. C'est le même principe que
     //celui validé dans VclRotatedEdit : on privilégie donc StyleServices(Parent)
     //lorsque le composant est en conception.
+    //
+    //Les surcharges StyleServices(Control) ne sont toutefois pas disponibles
+    //dans certaines anciennes versions de Delphi. Le symbole
+    //NRTB_HAS_CONTROL_STYLE_SERVICES permet donc de conserver le comportement
+    //amélioré sur Delphi récent tout en gardant un fallback global.
     //
     //Le parent n'est pas supposé être "le designer Delphi". Il représente
     //simplement le contexte visuel dans lequel la TabBar est placée : fiche,
@@ -3488,14 +3497,19 @@ Begin
 
     Result := Nil;
 
+    {$IFDEF NRTB_HAS_CONTROL_STYLE_SERVICES}
     If (csDesigning In ComponentState) And (Parent <> Nil) Then
         Result := StyleServices(Parent);
 
     If Result = Nil Then
         Result := StyleServices(Self);
+    {$ENDIF}
 
     If Result = Nil Then
         Result := TStyleManager.ActiveStyle;
+
+    If Result = Nil Then
+        Result := StyleServices;
 End;
 
 Function TNoReflowTabBarCore.BuildStylePalette: TNoReflowTabBarPalette;

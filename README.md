@@ -28,6 +28,7 @@ The component has since evolved into a more complete navigation surface with gro
 - Style-aware and custom palettes
 - Style-aware design-time rendering using the parent style context
 - Shape options such as slants, radius and overlap
+- Optional minimum button length when button length is content-driven
 - Robust constrained-size handling with text ellipsis
 - Signal-first fallback rules when space is limited
 - Keyboard focus rendering
@@ -92,7 +93,7 @@ Zones make it possible to keep unrelated navigation entries or commands visually
 
 The layout engine can arrange items sequentially or by zones, depending on the desired behaviour. It also supports flow order, alignment, common item length, common item thickness, forced logical length, forced logical thickness, overlap and orientation options.
 
-When item size is constrained, the content layout engine applies stable fallback rules instead of letting visual elements overlap. Status signals are preserved as much as possible, glyphs may be hidden first, and captions are ellipsized when needed. This is especially useful in button modes where `ForcedLength` or `ForcedThickness` are used to create compact command bars.
+When item size is constrained, the content layout engine applies stable fallback rules instead of letting visual elements overlap. Status signals are preserved as much as possible, glyphs may be hidden first, and captions are ellipsized when needed. This is especially useful in button modes where `ForcedLength`, `MinimumLength` or `ForcedThickness` are used to create compact command bars.
 
 When the component is rendered in style-aware mode, design-time rendering resolves the visual style from the parent context first. This makes the component preview closer to the actual styled VCL surface shown by the form designer.
 
@@ -357,6 +358,14 @@ The public HTML reference generated in `docs\api\` is intended to be distributed
 
 The complete maintainer reference generated in `docs\api-complete\` is ignored by `.gitignore` by default, because it includes internal support layers and is mainly useful during project maintenance.
 
+## Button minimum length update
+
+This update adds `BarLayoutButtons.MinimumLength`. In button modes, when `ForcedLength` is 0, the logical button length is still computed from the item content, but it is raised to `MinimumLength` when shorter. When `ForcedLength` is greater than 0, the existing fixed-length behavior remains unchanged.
+
+When `MinimumLength` enlarges a button whose glyph is above or below the caption, the stacked glyph/caption block is centered on the logical flow axis inside the remaining useful area. With horizontal text this is a horizontal centering; with vertical text this is a vertical centering. Status signals keep their normal anchoring and are excluded from that centered area. Glyph-left and glyph-right layouts keep the historical aligned visual behavior.
+
+This version also protects newer `StyleServices(Control)` calls with conditional compilation so older Delphi versions can fall back to global VCL style services.
+
 ## Requirements
 
 - Delphi 12.2 or later is recommended.
@@ -364,7 +373,7 @@ The complete maintainer reference generated in `docs\api-complete\` is ignored b
 - Windows.
 - [VclRotatedEdit](https://github.com/mbaumsti/VclRotatedEdit) is optional and only required for the optional rotated inline editor adapter.
 
-NoReflowTabBar is currently developed and tested with Delphi 12.2. Compatibility with earlier Delphi versions has not been validated yet.
+NoReflowTabBar is currently developed and tested with Delphi 12.2. Compatibility with earlier Delphi versions cannot be fully guaranteed without local test environments. The source includes compatibility fallbacks for older VCL style APIs.
 
 ## License
 

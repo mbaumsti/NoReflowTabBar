@@ -1,4 +1,4 @@
-Unit NoReflowTabBarDemoMain;
+﻿Unit NoReflowTabBarDemoMain;
 
 {
   NoReflowTabBarDemoMain.pas
@@ -1166,7 +1166,7 @@ Begin
     End;
 
     //---------------------------------------------------------------------
-    //Forced button logical dimensions are deliberately exposed in the demo.
+    //Forced and minimum button logical dimensions are deliberately exposed in the demo.
     //
     //They are especially useful to verify the overflow behaviour of button
     //content:
@@ -1180,6 +1180,7 @@ Begin
     //makes it easier to compare tab and button rendering.
     //---------------------------------------------------------------------
     ButtonModeBar.BarLayoutButtons.ForcedLength := 0;
+    ButtonModeBar.BarLayoutButtons.MinimumLength := 0;
     ButtonModeBar.BarLayoutButtons.ForcedThickness := 0;
 
     If RgForcedButtonSize <> Nil Then Begin
@@ -1199,6 +1200,10 @@ Begin
             4: Begin
                     ButtonModeBar.BarLayoutButtons.ForcedLength := 78;
                     ButtonModeBar.BarLayoutButtons.ForcedThickness := 36;
+                End;
+            5: Begin
+                    ButtonModeBar.BarLayoutButtons.MinimumLength := 200;
+                    ButtonModeBar.BarLayoutButtons.ForcedThickness := 0;
                 End;
         End;
     End;

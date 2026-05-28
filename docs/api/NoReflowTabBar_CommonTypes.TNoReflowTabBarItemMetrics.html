@@ -41,11 +41,13 @@
 <code>type TNoReflowTabBarItemMetrics = record</code></p>
 <h2 class="description">Description</h2>
 <p>
-Métriques calculées pour un item donné.
+Metriques calculees pour un item donne.
 
-<p>Cette structure décrit la géométrie interne d'un bouton : - dimensions globales du bouton - orientation du texte - zone réellement disponible pour le contenu - position finale du texte et du signal
+<p>GARDE-FOU : cette structure melange volontairement deux niveaux : - les dimensions logiques <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ContentLength">ContentLength</a> / <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#MinorSize">MinorSize</a> ; - les dimensions physiques <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ButtonWidth">ButtonWidth</a> / <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ButtonHeight">ButtonHeight</a> uniquement apres conversion vers le rectangle local du controle.
 
-<p>Elle est calculée avant le placement final de l'item dans la barre.</p>
+<p>Regle imperieuse pour les futures modifications : - <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ContentLength">ContentLength</a> suit l'axe logique principal du contenu ; - <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#MinorSize">MinorSize</a> suit l'axe logique secondaire ; - Length ne doit jamais etre assimile automatiquement a Width ; - Thickness ne doit jamais etre assimile automatiquement a Height ; - quand <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#VerticalFlow">VerticalFlow</a>=True, l'axe logique Length est materialise par <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ButtonHeight">ButtonHeight</a>, mais il reste une longueur logique ; - quand <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#VerticalFlow">VerticalFlow</a>=False, l'axe logique Length est materialise par <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ButtonWidth">ButtonWidth</a>.
+
+<p>Le code de layout doit raisonner autant que possible avec des noms flow / cross ou Length / Thickness. Les noms X/Y/Width/Height doivent etre reserves aux points ou la conversion vers les coordonnees locales finales est explicitement faite.</p>
 <h2 class="overview">Overview</h2>
 <span id="PasDoc-Fields"></span><h3 class="summary">Fields</h3>
 <table class="summary wide_list">
@@ -119,13 +121,17 @@ Métriques calculées pour un item donné.
 </tr>
 <tr class="list2 visibility-public">
 <td class="visibility"><span class="badge vis-public">Public</span></td>
-<td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#GlyphPosition">GlyphPosition</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarGlyphPosition">TNoReflowTabBarGlyphPosition</a>;</code></td>
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#LogicalGlyphPosition">LogicalGlyphPosition</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarGlyphPosition">TNoReflowTabBarGlyphPosition</a>;</code></td>
 </tr>
 <tr class="list visibility-public">
 <td class="visibility"><span class="badge vis-public">Public</span></td>
-<td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#SignalRect">SignalRect</a></strong>: TRect;</code></td>
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#GlyphPosition">GlyphPosition</a></strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarGlyphPosition">TNoReflowTabBarGlyphPosition</a>;</code></td>
 </tr>
 <tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#SignalRect">SignalRect</a></strong>: TRect;</code></td>
+</tr>
+<tr class="list visibility-public">
 <td class="visibility"><span class="badge vis-public">Public</span></td>
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#HasSignal">HasSignal</a></strong>: Boolean;</code></td>
 </tr>
@@ -187,7 +193,9 @@ Indique si le flux principal du contenu est vertical.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Longueur utile du contenu texte + voyant + marges internes.</p>
+Longueur utile du contenu texte + voyant + marges internes.
+
+<p>ATTENTION : longueur logique, pas largeur physique. Selon <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#VerticalFlow">VerticalFlow</a>, cette valeur sera convertie vers <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ButtonWidth">ButtonWidth</a> ou <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ButtonHeight">ButtonHeight</a>.</p>
 </td></tr>
 </table>
 <table class="detail visibility-public wide_list">
@@ -197,7 +205,9 @@ Longueur utile du contenu texte + voyant + marges internes.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Dimension secondaire minimale nécessaire au contenu.</p>
+Dimension secondaire minimale necessaire au contenu.
+
+<p>ATTENTION : epaisseur logique, pas hauteur physique automatique. Selon <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#VerticalFlow">VerticalFlow</a>, cette valeur sera convertie vers <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ButtonHeight">ButtonHeight</a> ou <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#ButtonWidth">ButtonWidth</a>.</p>
 </td></tr>
 </table>
 <table class="detail visibility-public wide_list">
@@ -227,7 +237,9 @@ Compensation à ajouter côté &quot;second slant&quot;.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Largeur finale du bouton calculé.</p>
+Largeur finale physique du bouton calcule.
+
+<p>Cette valeur est une coordonnee locale finale. Elle ne doit pas etre utilisee comme synonyme de Length sans verifier <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#VerticalFlow">VerticalFlow</a>.</p>
 </td></tr>
 </table>
 <table class="detail visibility-public wide_list">
@@ -237,7 +249,9 @@ Largeur finale du bouton calculé.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Hauteur finale du bouton calculé.</p>
+Hauteur finale physique du bouton calcule.
+
+<p>Cette valeur est une coordonnee locale finale. Elle ne doit pas etre utilisee comme synonyme de Length sans verifier <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#VerticalFlow">VerticalFlow</a>.</p>
 </td></tr>
 </table>
 <table class="detail visibility-public wide_list">
@@ -333,15 +347,29 @@ Hauteur réelle du glyph retenu pour le rendu.
 <table class="detail visibility-public wide_list">
 <tr class="list visibility-public">
 <td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="LogicalGlyphPosition"></span><code><strong>LogicalGlyphPosition</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarGlyphPosition">TNoReflowTabBarGlyphPosition</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Position logique retenue pour le glyph de cet item.
+
+<p>GARDE-FOU IMPORTANT : cette valeur reste exprimee dans le repere canonique horizontal, avant toute adaptation a l'orientation effective du texte. Elle represente donc la demande metier/publication : - Left / Right : avant ou apres le texte dans le modele horizontal ; - Top / Bottom : au-dessus ou au-dessous du texte dans ce meme modele.
+
+<p>Cette position doit etre utilisee pour les decisions de comportement qui doivent rester identiques entre texte horizontal et texte vertical, notamment la regle MinimumLength : on recentre seulement lorsque le glyph est logiquement au-dessus ou au-dessous du texte.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
 <td class="itemcode"><span id="GlyphPosition"></span><code><strong>GlyphPosition</strong>: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarGlyphPosition">TNoReflowTabBarGlyphPosition</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Position réellement retenue pour le glyph de cet item.
+Position physique retenue pour le glyph de cet item.
 
-<p>Cette valeur est déjà résolue : - position spécifique de l'item si elle est définie ; - sinon position globale du layout.
+<p>Cette valeur est derivee de <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#LogicalGlyphPosition">LogicalGlyphPosition</a> apres application de l'orientation effective du texte. Elle sert uniquement au placement et au dessin locaux.
 
-<p>Elle évite au moteur de rendu de recalculer plusieurs fois la même décision pendant les phases de métriques, de placement et de dessin.</p>
+<p>GARDE-FOU : ne pas utiliser cette position pour decider si une regle fonctionnelle doit s'appliquer. Sinon VerticalUp / VerticalDown peuvent inverser le comportement par rapport au cas horizontal canonique.</p>
 </td></tr>
 </table>
 <table class="detail visibility-public wide_list">
