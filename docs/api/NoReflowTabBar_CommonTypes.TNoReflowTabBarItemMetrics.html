@@ -105,6 +105,14 @@ Metriques calculees pour un item donne.
 </tr>
 <tr class="list2 visibility-public">
 <td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#AllowTextTrimming">AllowTextTrimming</a></strong>: Boolean;</code></td>
+</tr>
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#TextClipRect">TextClipRect</a></strong>: TRect;</code></td>
+</tr>
+<tr class="list2 visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#GlyphRect">GlyphRect</a></strong>: TRect;</code></td>
 </tr>
 <tr class="list visibility-public">
@@ -261,7 +269,9 @@ Hauteur finale physique du bouton calcule.
 </tr>
 <tr><td colspan="2">
 <p>
-Position X du texte dans les coordonnées locales du bouton.</p>
+Point d'appel X du texte dans les coordonnees locales du bouton.
+
+<p>Regle imperative : ce point est calcule par le layout et consomme tel quel par les renderers. Il ne doit pas etre reconstruit depuis <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#TextClipRect">TextClipRect</a> dans GDI ou Direct2D.</p>
 </td></tr>
 </table>
 <table class="detail visibility-public wide_list">
@@ -271,7 +281,9 @@ Position X du texte dans les coordonnées locales du bouton.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Position Y du texte dans les coordonnées locales du bouton.</p>
+Point d'appel Y du texte dans les coordonnees locales du bouton.
+
+<p>Pour le texte horizontal, <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#TextX">TextX</a>/<code>TextY</code> correspond au coin haut/gauche du rectangle texte. Pour les textes verticaux, il correspond au point d'appel deja projete : bas/gauche en VerticalUp, haut/droit en VerticalDown.</p>
 </td></tr>
 </table>
 <table class="detail visibility-public wide_list">
@@ -292,6 +304,34 @@ Largeur mesurée du texte.</p>
 <tr><td colspan="2">
 <p>
 Hauteur mesurée du texte.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="AllowTextTrimming"></span><code><strong>AllowTextTrimming</strong>: Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Indique si le renderer a le droit d'afficher une ellipse lorsque le texte ne tient pas dans <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#TextClipRect">TextClipRect</a>.
+
+<p>REGLE D'OR v74 : cette décision vient du layout, pas du backend. En mode onglet naturel, le texte doit rester entier ; DirectWrite ne doit donc pas inventer une ellipse parce que ses métriques diffèrent légèrement de celles utilisées par le layout historique GDI.
+
+<p>Le cas prévu est le bouton avec ForcedLength, où l'utilisateur impose volontairement une longueur éventuellement insuffisante.</p>
+</td></tr>
+</table>
+<table class="detail visibility-public wide_list">
+<tr class="list visibility-public">
+<td class="visibility"><span class="badge vis-public">Public</span></td>
+<td class="itemcode"><span id="TextClipRect"></span><code><strong>TextClipRect</strong>: TRect;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Rectangle local de composition/clipping du texte.
+
+<p>Règle d'architecture : ce rectangle est calculé par le layout, pas par les renderers. Les backends GDI et Direct2D doivent seulement le consommer pour borner le dessin du texte horizontal, notamment lorsque la longueur des boutons est forcée.
+
+<p><a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#TextWidth">TextWidth</a>/<a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#TextHeight">TextHeight</a> restent les metriques naturelles du texte. <a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#TextX">TextX</a>/<a class="normal" href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html#TextY">TextY</a> restent l'ancre de dessin calculee par le layout. <code>TextClipRect</code> represente la zone utile dans laquelle le texte peut reellement etre compose sans empieter sur le glyph, le voyant, les slants ou les marges internes.</p>
 </td></tr>
 </table>
 <table class="detail visibility-public wide_list">

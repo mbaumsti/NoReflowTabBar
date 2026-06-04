@@ -70,7 +70,9 @@ Uses
     NoReflowTabBar_HintSupport,
     NoReflowTabBar_EditSupport,
     NoReflowTabBar_DragSupport,
-    NoReflowTabBar_StorageSupport;
+    NoReflowTabBar_StorageSupport,
+NoReflowTabBar_RenderBackend_GDI,
+    NoReflowTabBar_RenderBackend;
 
 Type
     {
@@ -189,12 +191,13 @@ Type
         Label7: TLabel;
         NbBlue: TNumberBox;
         BtnAddUserColor: TButton;
-    RGSignalFilling: TRadioGroup;
+        RGSignalFilling: TRadioGroup;
         UpSignalRed: TUpDown;
         UpSignalOrange: TUpDown;
         UpSignalGreen: TUpDown;
         UpSignalGray: TUpDown;
-    Label8: TLabel;
+        Label8: TLabel;
+        RgRender: TRadioGroup;
 
         {
           Adds a custom user signal colour to the Signals page.
@@ -482,16 +485,17 @@ Type
           Applies the selected drag zone options to the drag sample.
         }
         Procedure DragZonesOptionsClick(Sender: TObject);
-        procedure UpSignalGrayClick(
+
+        Procedure UpSignalGrayClick(
             Sender: TObject;
             Button: TUDBtnType);
-        procedure UpSignalGreenClick(
+        Procedure UpSignalGreenClick(
             Sender: TObject;
             Button: TUDBtnType);
-        procedure UpSignalOrangeClick(
+        Procedure UpSignalOrangeClick(
             Sender: TObject;
             Button: TUDBtnType);
-        procedure UpSignalRedClick(
+        Procedure UpSignalRedClick(
             Sender: TObject;
             Button: TUDBtnType);
     private
@@ -647,8 +651,8 @@ End;
 Procedure TFrmOngletBtn.BtnAddUserColorClick(Sender: TObject);
 Var
     LSignal: TNoReflowTabBarSignalDef;
-    Name:    String;
-    Item :TNoReflowTabBarItem;
+    Name: String;
+    Item: TNoReflowTabBarItem;
 Begin
 
     Name := Format('RGB(%d,%d,%d)', [NbRed.ValueInt, NbGreen.ValueInt, NbBlue.ValueInt]);
@@ -666,11 +670,11 @@ Begin
             0,
             0);
 
-        Item:=SignalsBar.AddCenterItem(
+        Item := SignalsBar.AddCenterItem(
             Name,
             FSignalCode);
-        Item.SignalMax:=4;
-        Item.SignalValue:=RGSignalFilling.ItemIndex;
+        Item.SignalMax := 4;
+        Item.SignalValue := RGSignalFilling.ItemIndex;
 
         inc(FSignalCode);
 
@@ -817,7 +821,7 @@ End;
 Procedure TFrmOngletBtn.AddEventLog(Const AText: String);
 Var
     InsertRow: Integer;
-    RowIndex:  Integer;
+    RowIndex: Integer;
 Begin
     If EventsGrid = Nil Then
         Exit;
@@ -964,6 +968,11 @@ Begin
                 LayoutBar.BarPosition := nrtbpRight;
             End;
     End;
+
+    If RgRender.ItemIndex = 0 Then
+        LayoutBar.BarRenderBackendKind := ntrbkDirect2D
+    Else
+        LayoutBar.BarRenderBackendKind := ntrbkGDI;
 
     If RgLayoutMode.ItemIndex = 0 Then
         LayoutBar.BarLayoutMode := nrblmSequential
@@ -1121,30 +1130,30 @@ Begin
     End;
 
     Case RgButtonsPosition.ItemIndex Of
-        0: begin
+        0: Begin
                 ButtonModeBar.Align := alTop;
                 ButtonModeBar.BarPosition := nrtbpTop;
                 ButtonModeBar.BarFlowOrder := nrtfoNormal;
                 ButtonModeBar.BarLayout.FlowAlignment := nrtfaStart;
-            end;
-        1: begin
+            End;
+        1: Begin
                 ButtonModeBar.Align := alBottom;
                 ButtonModeBar.BarPosition := nrtbpBottom;
                 ButtonModeBar.BarFlowOrder := nrtfoNormal;
                 ButtonModeBar.BarLayout.FlowAlignment := nrtfaStart;
-            end;
-        2: begin
+            End;
+        2: Begin
                 ButtonModeBar.Align := alLeft;
                 ButtonModeBar.BarPosition := nrtbpLeft;
                 ButtonModeBar.BarFlowOrder := nrtfoReverseZonesAndItems;
                 ButtonModeBar.BarLayout.FlowAlignment := nrtfaEnd;
-            end;
-        3: begin
+            End;
+        3: Begin
                 ButtonModeBar.Align := alRight;
                 ButtonModeBar.BarPosition := nrtbpRight;
                 ButtonModeBar.BarFlowOrder := nrtfoNormal;
                 ButtonModeBar.BarLayout.FlowAlignment := nrtfaStart;
-            end;
+            End;
     End;
 
     Case RgButtonsTextDirection.ItemIndex Of
@@ -1162,7 +1171,8 @@ Begin
             ButtonModeBar.BarSignalPosition := nrtspBefore;
         1:
             ButtonModeBar.BarSignalPosition := nrtspAfter;
-
+        2:
+            ButtonModeBar.BarSignalPosition := nrtspItemEnd;
     End;
 
     //---------------------------------------------------------------------
@@ -1596,39 +1606,42 @@ Begin
     BarDragSelf.BarDragReorderZones := zones;
 End;
 
-procedure TFrmOngletBtn.UpSignalGrayClick(
+
+
+Procedure TFrmOngletBtn.UpSignalGrayClick(
     Sender: TObject;
     Button: TUDBtnType);
-begin
+Begin
     SignalsBar.BarItems[1].signalMAx := 4;
     SignalsBar.BarItems[1].SignalValue := UpSignalGray.Position;
-end;
+End;
 
-procedure TFrmOngletBtn.UpSignalGreenClick(
+Procedure TFrmOngletBtn.UpSignalGreenClick(
     Sender: TObject;
     Button: TUDBtnType);
-begin
+Begin
     SignalsBar.BarItems[2].signalMAx := 4;
     SignalsBar.BarItems[2].SignalValue := UpSignalGreen.Position;
 
-end;
+End;
 
-procedure TFrmOngletBtn.UpSignalOrangeClick(
+Procedure TFrmOngletBtn.UpSignalOrangeClick(
     Sender: TObject;
     Button: TUDBtnType);
-begin
+Begin
     SignalsBar.BarItems[3].signalMAx := 4;
     SignalsBar.BarItems[3].SignalValue := UpSignalOrange.Position;
 
-end;
+End;
 
-procedure TFrmOngletBtn.UpSignalRedClick(
+Procedure TFrmOngletBtn.UpSignalRedClick(
     Sender: TObject;
     Button: TUDBtnType);
-begin
+Begin
     SignalsBar.BarItems[4].signalMAx := 4;
     SignalsBar.BarItems[4].SignalValue := UpSignalRed.Position;
 
-end;
+End;
 
 End.
+

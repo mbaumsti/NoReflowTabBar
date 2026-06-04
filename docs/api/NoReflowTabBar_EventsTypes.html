@@ -74,27 +74,30 @@
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarItemCaptionEditedEvent">TNoReflowTabBarItemCaptionEditedEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AOldCaption: String; Const ANewCaption: String) Of Object;</code></td>
 </tr>
 <tr class="list visibility-published">
-<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarPaintEvent">TNoReflowTabBarPaintEvent</a></strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AText: String; Const ABounds: TRect; Const ARegionPoints: TArray&lt;TPoint&gt;; Const AMetrics: <a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html">TNoReflowTabBarItemMetrics</a>; AVisualState: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemVisualState">TNoReflowTabBarItemVisualState</a>; Var ADefaultDraw: Boolean) Of Object;</code></td>
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGDIPaintEvent">TNoReflowTabBarGDIPaintEvent</a></strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AText: String; Const ABounds: TRect; Const ARegionPoints: TArray&lt;TPoint&gt;; Const AMetrics: <a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html">TNoReflowTabBarItemMetrics</a>; AVisualState: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemVisualState">TNoReflowTabBarItemVisualState</a>; Var ADefaultDraw: Boolean) Of Object;</code></td>
 </tr>
 <tr class="list2 visibility-published">
+<td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarPaintEvent">TNoReflowTabBarPaintEvent</a></strong> = <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGDIPaintEvent">TNoReflowTabBarGDIPaintEvent</a>;</code></td>
+</tr>
+<tr class="list visibility-published">
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarClickEvent">TNoReflowTabBarClickEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Button: TMouseButton; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
 </tr>
-<tr class="list visibility-published">
+<tr class="list2 visibility-published">
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarDblClickEvent">TNoReflowTabBarDblClickEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
 </tr>
-<tr class="list2 visibility-published">
+<tr class="list visibility-published">
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMouseEvent">TNoReflowTabBarMouseEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
 </tr>
-<tr class="list visibility-published">
+<tr class="list2 visibility-published">
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarZoneMouseEvent">TNoReflowTabBarZoneMouseEvent</a></strong> = Procedure( Sender: TObject; APinZone: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarPinZone">TNoReflowTabBarPinZone</a>; Shift: TShiftState; X, Y: Integer) Of Object;</code></td>
 </tr>
-<tr class="list2 visibility-published">
+<tr class="list visibility-published">
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGetItemTextEvent">TNoReflowTabBarGetItemTextEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var AText: String) Of Object;</code></td>
 </tr>
-<tr class="list visibility-published">
+<tr class="list2 visibility-published">
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGetItemHintEvent">TNoReflowTabBarGetItemHintEvent</a></strong> = Procedure( Sender: TObject; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Var AHint: String; Var AShowHint: Boolean) Of Object;</code></td>
 </tr>
-<tr class="list2 visibility-published">
+<tr class="list visibility-published">
 <td class="itemcode"><code><strong><a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarMeasureItemEvent">TNoReflowTabBarMeasureItemEvent</a></strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; ASelectedFont: Boolean; Var ATextWidth: Integer; Var ATextHeight: Integer; Var AHandled: Boolean) Of Object;</code></td>
 </tr>
 </table>
@@ -250,17 +253,28 @@ Event fired after an item caption has been effectively changed.
 </table>
 <table class="detail visibility-published wide_list">
 <tr class="list visibility-published">
-<td class="itemcode"><span id="TNoReflowTabBarPaintEvent"></span><code><strong>TNoReflowTabBarPaintEvent</strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AText: String; Const ABounds: TRect; Const ARegionPoints: TArray&lt;TPoint&gt;; Const AMetrics: <a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html">TNoReflowTabBarItemMetrics</a>; AVisualState: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemVisualState">TNoReflowTabBarItemVisualState</a>; Var ADefaultDraw: Boolean) Of Object;</code></td>
+<td class="itemcode"><span id="TNoReflowTabBarGDIPaintEvent"></span><code><strong>TNoReflowTabBarGDIPaintEvent</strong> = Procedure( Sender: TObject; ACanvas: TCanvas; AItemIndex: Integer; AItem: <a href="NoReflowTabBar_Items.TNoReflowTabBarItem.html">TNoReflowTabBarItem</a>; Const AText: String; Const ABounds: TRect; Const ARegionPoints: TArray&lt;TPoint&gt;; Const AMetrics: <a href="NoReflowTabBar_CommonTypes.TNoReflowTabBarItemMetrics.html">TNoReflowTabBarItemMetrics</a>; AVisualState: <a href="NoReflowTabBar_CommonTypes.html#TNoReflowTabBarItemVisualState">TNoReflowTabBarItemVisualState</a>; Var ADefaultDraw: Boolean) Of Object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Event used to customise the rendering of an item.
+Event used to customise the GDI/VCL rendering of an item.
 
-<p>Unlike a simple rectangle-based paint callback, this event exposes: - the active component canvas; - the logical item object; - the item bounding rectangle; - the real polygonal outline used for painting and hit testing; - the computed content metrics; - the resolved visual state.
+<p>This event is deliberately tied to TCanvas and therefore to the GDI backend. It is exposed through <a class="normal" href="NoReflowTabBar.TNoReflowTabBar.html#OnGDIPaintItem">TNoReflowTabBar.OnGDIPaintItem</a>. The Direct2D backend does not call this event; a future Direct2D-specific hook should use a dedicated Direct2D-aware contract instead of mixing rendering backends during the same paint pass.
 
-<p>The handler can either leave ADefaultDraw set to True to keep the standard drawing pipeline, or set it to False and perform the full drawing itself.
+<p>Unlike a simple rectangle-based paint callback, this event exposes: - the active component canvas; - the logical item object; - the item bounding rectangle; - the real polygonal outline used for painting and hit testing; - the computed content metrics prepared by the layout; - the resolved visual state.
+
+<p>The handler can either leave ADefaultDraw set to True to keep the standard GDI drawing pipeline, or set it to False and perform the full GDI drawing itself.
 
 <p>AText contains the resolved display text for the item, after applying OnGetItemText when assigned. The same text is used by the component during measurement, provided OnGetItemText remains stable during the layout and paint cycle.</p>
+</td></tr>
+</table>
+<table class="detail visibility-published wide_list">
+<tr class="list visibility-published">
+<td class="itemcode"><span id="TNoReflowTabBarPaintEvent"></span><code><strong>TNoReflowTabBarPaintEvent</strong> = <a href="NoReflowTabBar_EventsTypes.html#TNoReflowTabBarGDIPaintEvent">TNoReflowTabBarGDIPaintEvent</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Legacy source-level alias kept for code that referenced the old event type name directly. The published event property itself has been renamed to OnGDIPaintItem to make the backend dependency explicit.</p>
 </td></tr>
 </table>
 <table class="detail visibility-published wide_list">

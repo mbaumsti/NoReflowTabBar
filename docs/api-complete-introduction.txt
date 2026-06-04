@@ -4,10 +4,15 @@ This documentation includes the public component facade and the internal support
 
 It is primarily intended for maintainers and contributors. Application developers should normally start with docs\api\index.html and the Markdown guides.
 
+Version 1.3 adds a stabilized Direct2D backend and reorganizes shared metric, content-layout, outline and render-item preparation out of the GDI backend. The complete reference is therefore useful for checking that layout responsibilities remain in the support layers and that concrete render backends stay drawing-only.
+
 This complete reference includes:
 - public component API units;
 - internal core, layout, render, hint, edit, drag and storage support layers;
 - the canonical zone layout engine;
+- the shared render backend contract;
+- the GDI/GDI+ backend;
+- the Direct2D backend;
 - shared utility helpers;
 - the design-time registration unit;
 - the caption editor abstraction and optional VclRotatedEdit adapter integration points.

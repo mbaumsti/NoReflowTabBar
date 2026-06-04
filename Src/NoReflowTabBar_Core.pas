@@ -104,7 +104,7 @@ Type
         FOnGetItemText:    TNoReflowTabBarGetItemTextEvent;
         FOnGetItemHint:    TNoReflowTabBarGetItemHintEvent;
         FOnMeasureItem:    TNoReflowTabBarMeasureItemEvent;
-        FOnPaintItem:      TNoReflowTabBarPaintEvent;
+        FOnGDIPaintItem:      TNoReflowTabBarGDIPaintEvent;
         FItems:            TNoReflowTabBarItems;
 
         FHotZone: TNoReflowTabBarPinZone;
@@ -992,6 +992,7 @@ Begin
         //- palette style  -> rendu plat ;
         //- palette custom -> rendu gradient.
         FBarRenderMode := nrrmAuto;
+
 
         //Par défaut, on active le moteur horizontal par zones.
         FLayoutMode := nrblmByZones;

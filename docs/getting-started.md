@@ -146,3 +146,8 @@ The demo application is the best starting point for visual configuration. It sho
 - local state snapshots and reset actions.
 
 The demo intentionally keeps most visual setup in the DFM, which makes it useful as a design-time configuration reference.
+
+
+## Rendering backend
+
+NoReflowTabBar can render through the historical GDI/GDI+ backend or through the Direct2D backend introduced in version 1.3. See [Rendering and styles](rendering-and-styles.md) for the relationship between `BarRenderBackendKind`, `BarRenderMode` and `BarPaletteMode`.

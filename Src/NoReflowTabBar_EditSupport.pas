@@ -1,4 +1,4 @@
-﻿Unit NoReflowTabBar_EditSupport;
+Unit NoReflowTabBar_EditSupport;
 
 {
   NoReflowTabBar_EditSupport.pas
@@ -574,28 +574,25 @@ Function TNoReflowTabBarEditSupport.GetItemEditTextGeometry(
 Var
     R:             TRect;
     M:             TNoReflowTabBarItemMetrics;
-    AnchorClient:  TPoint;
-    AnchorScreen:  TPoint;
-    AnchorHost:    TPoint;
+    TextRect:      TRect;
+    CenterClient:  TPoint;
+    CenterScreen:  TPoint;
+    CenterHost:    TPoint;
     TextLength:    Integer;
     TextThickness: Integer;
 Begin
     //-------------------------------------------------------------------------
-    //Builds the neutral text geometry used by the inline caption editor.
+    // Builds the neutral text geometry used by the inline caption editor.
     //
-    //Important:
-    //the TabBar does not compute the final editor control bounds here. It only
-    //provides explicit text information:
-    //- the center of the rendered text reference in host coordinates;
-    //- the logical text length;
-    //- the logical text thickness;
-    //- the effective text orientation.
+    // Règle d'architecture : la position de l'éditeur doit provenir du layout.
+    // Cette méthode ne reconstruit donc plus une position à partir de l'ancien
+    // point d'ancrage TextOut. Elle consomme simplement TextClipRect, qui est
+    // la zone finale de composition du texte calculée par le layout commun.
     //
-    //This method deliberately uses the same text anchor convention as the
-    //renderer. The renderer does not draw vertical text from the top-left corner
-    //of a final physical rectangle; it uses TextOut with orientation-specific
-    //alignment. Therefore the editor geometry must be derived from TextX/TextY,
-    //not from the naive center of TextRect.
+    // Le TEdit standard reste horizontal, mais il est centré sur la zone de
+    // texte réellement rendue. Les éditeurs optionnels capables de pivoter le
+    // texte reçoivent la même géométrie neutre : centre, longueur logique,
+    // épaisseur logique et orientation effective.
     //-------------------------------------------------------------------------
 
     Result.TextCenter := Point(0, 0);
@@ -619,8 +616,49 @@ Begin
 
     Result.TextOrientation := M.TextOrientation;
 
-    TextLength := M.TextWidth;
-    TextThickness := M.TextHeight;
+    TextRect := M.TextClipRect;
+
+    If IsRectEmpty(TextRect) Then Begin
+        //---------------------------------------------------------------------
+        // Sécurité uniquement : les versions récentes du layout renseignent
+        // toujours TextClipRect. Si un ancien chemin de calcul ne l'a pas fait,
+        // on retombe sur les métriques naturelles déjà exposées par le layout.
+        //---------------------------------------------------------------------
+        TextRect := Rect(
+            M.TextX,
+            M.TextY,
+            M.TextX + M.TextWidth,
+            M.TextY + M.TextHeight);
+    End;
+
+    If IsRectEmpty(TextRect) Then
+        Exit;
+
+    CenterClient := Point(
+        R.Left + ((TextRect.Left + TextRect.Right) Div 2),
+        R.Top + ((TextRect.Top + TextRect.Bottom) Div 2));
+
+    CenterScreen := ClientToScreen(CenterClient);
+    CenterHost := AHost.ScreenToClient(CenterScreen);
+
+    Case M.TextOrientation Of
+        nrttoVerticalUp,
+        nrttoVerticalDown: Begin
+            //-----------------------------------------------------------------
+            // En texte vertical, TextClipRect est déjà le rectangle physique
+            // final fourni par le layout. La longueur logique du texte suit
+            // donc la hauteur physique du rectangle, et son épaisseur suit sa
+            // largeur physique. Aucun calcul d'ancre propre au renderer n'est
+            // nécessaire ici.
+            //-----------------------------------------------------------------
+            TextLength := TextRect.Bottom - TextRect.Top;
+            TextThickness := TextRect.Right - TextRect.Left;
+        End;
+    Else Begin
+            TextLength := TextRect.Right - TextRect.Left;
+            TextThickness := TextRect.Bottom - TextRect.Top;
+        End;
+    End;
 
     If TextLength < 1 Then
         TextLength := 1;
@@ -628,52 +666,11 @@ Begin
     If TextThickness < 1 Then
         TextThickness := 1;
 
-    //-------------------------------------------------------------------------
-    //TextX/TextY are renderer anchors, not a generic top-left text rectangle.
-    //They are the coordinates passed to TextOut after the item bounds are
-    //applied. We convert that anchor into the editor host coordinate system.
-    //-------------------------------------------------------------------------
-    AnchorClient := Point(
-        R.Left + M.TextX,
-        R.Top + M.TextY);
-
-    AnchorScreen := ClientToScreen(AnchorClient);
-    AnchorHost := AHost.ScreenToClient(AnchorScreen);
-
+    Result.TextCenter := CenterHost;
     Result.TextLength := TextLength;
     Result.TextThickness := TextThickness;
-
-    Case M.TextOrientation Of
-        nrttoVerticalUp: Begin
-            //-----------------------------------------------------------------
-            //VerticalUp is rendered with a 90 degree font orientation and a
-            //left / bottom text anchor. The editor center is therefore half a
-            //logical thickness to the left of the anchor and half a logical
-            //length above the anchor.
-            //-----------------------------------------------------------------
-            Result.TextCenter := Point(
-                AnchorHost.X - (TextThickness Div 2),
-                AnchorHost.Y - (TextLength Div 2));
-        End;
-
-        nrttoVerticalDown: Begin
-            //-----------------------------------------------------------------
-            //VerticalDown is rendered with a 270 degree font orientation. In
-            //the current layout convention, the same Y correction as
-            //VerticalUp is required. Using +TextLength/2 places both the
-            //standard TEdit and TRotatedEdit too low by exactly one text
-            //length.
-            //-----------------------------------------------------------------
-            Result.TextCenter := Point(
-                AnchorHost.X - (TextThickness Div 2),
-                AnchorHost.Y - (TextLength Div 2));
-        End;
-    Else
-        Result.TextCenter := Point(
-            AnchorHost.X + (TextLength Div 2),
-            AnchorHost.Y + (TextThickness Div 2));
-    End;
 End;
+
 Procedure TNoReflowTabBarEditSupport.UpdateItemEditAppearance(
     AEdit: INoReflowTabBarCaptionEditor;
     AIndex: Integer;

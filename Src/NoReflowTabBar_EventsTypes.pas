@@ -247,25 +247,32 @@ Type
         Const ANewCaption: String) Of Object;
 
     {
-      Event used to customise the rendering of an item.
+      Event used to customise the GDI/VCL rendering of an item.
+
+      This event is deliberately tied to TCanvas and therefore to the GDI
+      backend. It is exposed through TNoReflowTabBar.OnGDIPaintItem. The
+      Direct2D backend does not call this event; a future Direct2D-specific
+      hook should use a dedicated Direct2D-aware contract instead of mixing
+      rendering backends during the same paint pass.
 
       Unlike a simple rectangle-based paint callback, this event exposes:
       - the active component canvas;
       - the logical item object;
       - the item bounding rectangle;
       - the real polygonal outline used for painting and hit testing;
-      - the computed content metrics;
+      - the computed content metrics prepared by the layout;
       - the resolved visual state.
 
       The handler can either leave ADefaultDraw set to True to keep the standard
-      drawing pipeline, or set it to False and perform the full drawing itself.
+      GDI drawing pipeline, or set it to False and perform the full GDI drawing
+      itself.
 
       AText contains the resolved display text for the item, after applying
       OnGetItemText when assigned. The same text is used by the component during
       measurement, provided OnGetItemText remains stable during the layout and
       paint cycle.
     }
-    TNoReflowTabBarPaintEvent = Procedure(
+    TNoReflowTabBarGDIPaintEvent = Procedure(
         Sender: TObject;
         ACanvas: TCanvas;
         AItemIndex: Integer;
@@ -276,6 +283,14 @@ Type
         Const AMetrics: TNoReflowTabBarItemMetrics;
         AVisualState: TNoReflowTabBarItemVisualState;
         Var ADefaultDraw: Boolean) Of Object;
+
+    {
+      Legacy source-level alias kept for code that referenced the old event
+      type name directly. The published event property itself has been renamed
+      to OnGDIPaintItem to make the backend dependency explicit.
+    }
+    TNoReflowTabBarPaintEvent = TNoReflowTabBarGDIPaintEvent;
+
 
     {
       Event fired when a mouse click activates a valid item.

@@ -30,7 +30,7 @@ object FrmOngletBtn: TFrmOngletBtn
     Width = 1240
     Height = 756
     Align = alClient
-    ActiveCard = CardButtonsModes
+    ActiveCard = CardOverview
     Caption = 'CardPanel1'
     TabOrder = 1
     object CardOverview: TCard
@@ -178,6 +178,7 @@ object FrmOngletBtn: TFrmOngletBtn
         BarLayout.MarginStart = 12
         BarLayout.MarginEnd = 12
         BarLayoutTabs.ShapeSlantSecond = 32
+        BarLayoutTabs.ShapeRadiusSecond = 6
         BarLayoutButtons.CornerRadius = 4
         BarImages = FImages
         BarZoneHeader.Visible = True
@@ -400,8 +401,8 @@ object FrmOngletBtn: TFrmOngletBtn
           OnClick = LayoutOptionClick
         end
         object RgRenderMode: TRadioGroup
-          Left = 461
-          Top = 111
+          Left = 430
+          Top = 112
           Width = 99
           Height = 96
           Caption = 'Render'
@@ -414,8 +415,8 @@ object FrmOngletBtn: TFrmOngletBtn
           OnClick = LayoutOptionClick
         end
         object RgPaletteMode: TRadioGroup
-          Left = 565
-          Top = 111
+          Left = 534
+          Top = 112
           Width = 89
           Height = 96
           Caption = 'Palette'
@@ -528,7 +529,7 @@ object FrmOngletBtn: TFrmOngletBtn
           OnClick = LayoutOptionClick
         end
         object RgSignalsPosition: TRadioGroup
-          Left = 329
+          Left = 323
           Top = 111
           Width = 99
           Height = 96
@@ -539,6 +540,19 @@ object FrmOngletBtn: TFrmOngletBtn
             'After'
             'ItemEnd')
           TabOrder = 15
+          OnClick = LayoutOptionClick
+        end
+        object RgRender: TRadioGroup
+          Left = 629
+          Top = 113
+          Width = 89
+          Height = 96
+          Caption = 'Render'
+          ItemIndex = 0
+          Items.Strings = (
+            'Direct2D'
+            'GDI')
+          TabOrder = 16
           OnClick = LayoutOptionClick
         end
       end
@@ -1192,7 +1206,10 @@ object FrmOngletBtn: TFrmOngletBtn
         BarLayout.ZoneSpacing = 18
         BarLayout.MarginStart = 12
         BarLayout.MarginEnd = 12
-        BarLayoutTabs.ShapeSlantSecond = 32
+        BarLayoutTabs.ShapeSlantFirst = 15
+        BarLayoutTabs.ShapeSlantSecond = 15
+        BarLayoutTabs.ShapeRadiusFirst = 6
+        BarLayoutTabs.ShapeRadiusSecond = 6
         BarLayoutButtons.CornerRadius = 4
         BarImages = FImages
         BarZoneHeader.Visible = True
@@ -1423,12 +1440,13 @@ object FrmOngletBtn: TFrmOngletBtn
           Left = 431
           Top = 2
           Width = 134
-          Height = 80
+          Height = 105
           Caption = 'Signal position'
           ItemIndex = 0
           Items.Strings = (
             'Before'
-            'After')
+            'After'
+            'End')
           TabOrder = 5
           OnClick = ButtonModeClick
         end
@@ -1522,7 +1540,6 @@ object FrmOngletBtn: TFrmOngletBtn
         BarZoneHeader.Font.Height = -11
         BarZoneHeader.Font.Name = 'Segoe UI'
         BarZoneHeader.Font.Style = [fsItalic]
-        BarSignalPosition = nrtspItemEnd
         BarItems = <
           item
             Caption = 'Property'
@@ -2141,6 +2158,7 @@ object FrmOngletBtn: TFrmOngletBtn
             BarAppearance.ButtonLightEdge = clWhite
             BarAppearance.ButtonShadowEdge = clGray
             BarAppearance.FocusColor = 13395456
+            BarPaletteMode = nrtcmStyle
             BarMode = nrbmPushButtons
             BarDragReorderMode = nrbrmAllZones
             BarDragInterBarMode = nrtbimSourceAndTarget
@@ -2251,6 +2269,7 @@ object FrmOngletBtn: TFrmOngletBtn
             BarAppearance.ButtonLightEdge = clWhite
             BarAppearance.ButtonShadowEdge = clGray
             BarAppearance.FocusColor = 13395456
+            BarPaletteMode = nrtcmStyle
             BarMode = nrbmPushButtons
             BarDragReorderMode = nrbrmAllZones
             BarDragInterBarMode = nrtbimSourceAndTarget
@@ -2360,6 +2379,7 @@ object FrmOngletBtn: TFrmOngletBtn
             BarAppearance.ButtonLightEdge = clWhite
             BarAppearance.ButtonShadowEdge = clGray
             BarAppearance.FocusColor = 13395456
+            BarPaletteMode = nrtcmStyle
             BarMode = nrbmPushButtons
             BarDragReorderMode = nrbrmAllZones
             BarDragInterBarMode = nrtbimSourceAndTarget
@@ -3094,6 +3114,8 @@ object FrmOngletBtn: TFrmOngletBtn
         BarLayout.MarginStart = 12
         BarLayout.MarginEnd = 12
         BarLayoutTabs.ShapeSlantSecond = 32
+        BarLayoutTabs.ShapeRadiusFirst = 6
+        BarLayoutTabs.ShapeRadiusSecond = 6
         BarLayoutButtons.CornerRadius = 4
         BarImages = FImages
         BarZoneHeader.Visible = True
@@ -3226,6 +3248,7 @@ object FrmOngletBtn: TFrmOngletBtn
       end>
     BarLayout.MarginStart = 6
     BarLayout.MarginFirstRow = 12
+    BarLayoutTabs.ShapeRadiusFirst = 6
     BarLayoutTabs.ShapeRadiusSecond = 6
     BarZoneHeader.Font.Charset = DEFAULT_CHARSET
     BarZoneHeader.Font.Color = clWindowText

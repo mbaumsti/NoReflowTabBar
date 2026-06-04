@@ -111,15 +111,22 @@ The bar passes an explicit caption editor geometry to the active editor. This ge
 
 The optional [`VclRotatedEdit`](https://github.com/mbaumsti/VclRotatedEdit) adapter uses this mechanism to provide a `TRotatedEdit`-based editor for horizontal and vertical captions.
 
-## Rendering mode
+## Rendering mode and backend
 
-`BarRenderMode` controls the rendering strategy:
+`BarRenderBackendKind` selects the low-level drawing backend:
+
+- `ntrbkGDI`: historical GDI/GDI+ backend.
+- `ntrbkDirect2D`: Direct2D backend introduced and stabilized in version 1.3.
+
+`BarRenderMode` controls the rendering strategy independently from the backend:
 
 - `nrrmAuto`
 - `nrrmFlat`
 - `nrrmGradient`
 
 `BarPaletteMode` controls whether colours are based on custom appearance settings or on the current VCL style. In style-aware mode, design-time rendering resolves style services from the parent context first so the component preview follows the visual style used by the form designer.
+
+The layout/support layer prepares common primitives for both GDI and Direct2D. Renderers draw these primitives and should not correct placement locally. See [Rendering and styles](rendering-and-styles.md) for details.
 
 ## Layout mode
 

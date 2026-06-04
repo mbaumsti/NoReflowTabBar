@@ -46,11 +46,14 @@ contains
   NoReflowTabBar_Items in '..\Src\NoReflowTabBar_Items.pas',
   NoReflowTabBar_LayoutSupport in '..\Src\NoReflowTabBar_LayoutSupport.pas',
   NoReflowTabBar_Library in '..\Src\NoReflowTabBar_Library.pas',
+  NoReflowTabBar_RenderBackend in '..\Src\NoReflowTabBar_RenderBackend.pas',
   NoReflowTabBar_RenderSupport in '..\Src\NoReflowTabBar_RenderSupport.pas',
   NoReflowTabBar_RenderTypes in '..\Src\NoReflowTabBar_RenderTypes.pas',
   NoReflowTabBar_StorageSupport in '..\Src\NoReflowTabBar_StorageSupport.pas',
   NoReflowTabBar_ZoneHeader in '..\Src\NoReflowTabBar_ZoneHeader.pas',
   NoReflowTabBar_ZoneLayout in '..\Src\NoReflowTabBar_ZoneLayout.pas',
-  NoReflowTabBar_CaptionEditor in '..\Src\NoReflowTabBar_CaptionEditor.pas';
+  NoReflowTabBar_CaptionEditor in '..\Src\NoReflowTabBar_CaptionEditor.pas',
+  NoReflowTabBar_RenderBackend_GDI in '..\Src\NoReflowTabBar_RenderBackend_GDI.pas',
+  NoReflowTabBar_RenderBackend_Direct2D in '..\Src\NoReflowTabBar_RenderBackend_Direct2D.pas';
 
 end.

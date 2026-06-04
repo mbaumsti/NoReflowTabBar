@@ -1,4 +1,4 @@
-﻿Unit NoReflowTabBar;
+Unit NoReflowTabBar;
 
 {
   NoReflowTabBar.pas
@@ -42,7 +42,7 @@
   1) BarItems contient les données métier.
   2) RebuildRenderInfo construit FRenderItems.
   3) Chaque render item reçoit ses métriques, bounds et polygones.
-  4) Paint dessine la barre à partir de FRenderItems.
+  4) Paint demande au backend de rendu actif de dessiner la barre à partir de FRenderItems.
   5) ItemAtPos réutilise les polygones calculés pour le hit-test.
 
   Fonctionnalités principales du composant :
@@ -83,6 +83,7 @@ Uses
     NoReflowTabBar_Core,
     NoReflowTabBar_Items,
     NoReflowTabBar_AppearanceAndLayout,
+    NoReflowTabBar_RenderBackend,
     NoReflowTabBar_ZoneHeader,
     NoReflowTabBar_StorageSupport,
     NoReflowTabBar_DragSupport,
@@ -264,13 +265,13 @@ Type
         //- Caption de l'item
         //- puis OnGetItemText si un handler est affecté
         //
-        //Elle permet au code applicatif, notamment dans OnPaintItem, de
+        //Elle permet au code applicatif, notamment dans OnGDIPaintItem, de
         //récupérer le libellé final sans dupliquer la logique du composant.
         Function GetItemDisplayText(AAbsoluteItemIndex: Integer): String;
 
         //Exécute le rendu standard complet d'un item à partir de son index.
         //
-        //Cette méthode sert principalement aux handlers OnPaintItem qui veulent
+        //Cette méthode sert principalement aux handlers OnGDIPaintItem qui veulent
         //prendre la main sur un item tout en pouvant réutiliser le rendu
         //standard du composant sans dépendre de TNoReflowTabBarRenderItem.
         //Si l'index est invalide ou si l'item n'est pas visible, la
@@ -400,6 +401,25 @@ Type
         //rendu maison dégradé.
         //Les couleurs viennent de BarPaletteMode.
         Property BarRenderMode: TNoReflowTabBarRenderMode Read FBarRenderMode Write SetBarRenderMode default nrrmAuto;
+
+        //Choisit le backend de rendu bas niveau utilisé par le composant.
+        //
+        //- ntrbkGDI :
+        //backend historique GDI/GDI+, conservé pour la compatibilité visuelle,
+        //les scénarios de personnalisation OnGDIPaintItem et les anciennes
+        //configurations applicatives.
+        //
+        //- ntrbkDirect2D :
+        //backend Direct2D stabilisé en version publique 1.3. Il dessine
+        //nativement les surfaces d'items, les headers, le texte, les glyphs et
+        //les signaux à partir des primitives communes calculées par le layout.
+        //Lorsque le style VCL fournit un fond texturé, seul ce fond est demandé
+        //au pipeline VCL afin de conserver la fidélité visuelle du style.
+        //
+        //Cette propriété ne remplace pas BarRenderMode : BarRenderBackendKind choisit
+        //le moteur de dessin, tandis que BarRenderMode choisit la stratégie
+        //visuelle Flat / Gradient / Auto.
+        Property BarRenderBackendKind: TNoReflowTabBarRenderBackendKind Read FBarRenderBackendKind Write SetBarRenderBackendKind default ntrbkDirect2D;
 
         //Mode fonctionnel global de la barre.
         //
@@ -695,7 +715,14 @@ Type
         Property OnGetItemText: TNoReflowTabBarGetItemTextEvent Read FOnGetItemText Write FOnGetItemText;
         Property OnGetItemHint: TNoReflowTabBarGetItemHintEvent Read FOnGetItemHint Write FOnGetItemHint;
         Property OnMeasureItem: TNoReflowTabBarMeasureItemEvent Read FOnMeasureItem Write FOnMeasureItem;
-        Property OnPaintItem:   TNoReflowTabBarPaintEvent Read FOnPaintItem Write FOnPaintItem;
+
+        //Personnalisation du rendu GDI/VCL d'un item.
+        //
+        //Cet evenement expose un TCanvas et n'est donc appele que par le
+        //backend GDI. Le backend Direct2D autonome l'ignore volontairement.
+        //Un hook Direct2D specifique pourra etre ajoute plus tard avec un
+        //contrat adapte a Direct2D.
+        Property OnGDIPaintItem: TNoReflowTabBarGDIPaintEvent Read FOnGDIPaintItem Write FOnGDIPaintItem;
 
         //Événement déclenché lorsque la souris entre dans un item.
         Property OnItemMouseEnter: TNoReflowTabBarMouseEvent Read FOnItemMouseEnter Write FOnItemMouseEnter;
@@ -809,8 +836,10 @@ Begin
         Exit;
 
     FSignals.BeginUpdate;
-    Try FSignals.Assign(Value);
-    Finally FSignals.EndUpdate;
+    Try
+        FSignals.Assign(Value);
+    Finally
+        FSignals.EndUpdate;
     End;
 
     InvalidateLayout;
@@ -1144,7 +1173,7 @@ Begin
             ClientWidth,
             ClientHeight);
 
-        PaintToCanvas(Buffer.Canvas);
+        ResolveRenderBackend.PaintToCanvas(Buffer.Canvas);
 
         //Marqueur de drag dessin au-dessus de la barre déjà rendue.
         DrawDragInsertMarker(Buffer.Canvas);
@@ -1159,7 +1188,8 @@ Begin
             0,
             0,
             SRCCOPY);
-    Finally Buffer.Free;
+    Finally
+        Buffer.Free;
     End;
 End;
 
@@ -1723,16 +1753,16 @@ End;
 Procedure TNoReflowTabBar.MouseMove(
     Shift: TShiftState;
     X, Y: Integer);
-Const
-    CDragThreshold = 4;
 Var
-    NewHot:    Integer;
-    OldHot:    Integer;
-    NewTarget: TNoReflowTabBarDragTarget;
-    OldTab:    TNoReflowTabBarItem;
-    NewTab:    TNoReflowTabBarItem;
-    OldZone:   TNoReflowTabBarPinZone;
-    NewZone:   TNoReflowTabBarPinZone;
+    NewHot:         Integer;
+    OldHot:         Integer;
+    NewTarget:      TNoReflowTabBarDragTarget;
+    OldTab:         TNoReflowTabBarItem;
+    NewTab:         TNoReflowTabBarItem;
+    OldZone:        TNoReflowTabBarPinZone;
+    NewZone:        TNoReflowTabBarPinZone;
+    DragThresholdX: Integer;
+    DragThresholdY: Integer;
 Begin
     //-------------------------------------------------------------------------
     //Gère le déplacement de la souris au-dessus du contrôle.
@@ -1803,7 +1833,16 @@ Begin
     //-------------------------------------------------------------------------
 
     If FDragTracking Then Begin
-        If (Not FDragActive) And ((Abs(X - FDragStartPos.X) >= CDragThreshold) Or (Abs(Y - FDragStartPos.Y) >= CDragThreshold)) Then Begin
+        DragThresholdX := GetSystemMetrics(SM_CXDRAG);
+        DragThresholdY := GetSystemMetrics(SM_CYDRAG);
+
+        If DragThresholdX < 4 Then
+            DragThresholdX := 4;
+
+        If DragThresholdY < 4 Then
+            DragThresholdY := 4;
+
+        If (Not FDragActive) And ((Abs(X - FDragStartPos.X) > DragThresholdX) Or (Abs(Y - FDragStartPos.Y) > DragThresholdY)) Then Begin
 
             If FHotItemIndex <> -1 Then Begin
                 OldHot := FHotItemIndex;
@@ -1938,12 +1977,12 @@ Begin
     //
     //Cas important :
     //- si le contrôle éditeur possède encore le focus, le MouseDown provient
-    //  normalement de l'éditeur lui-même ou d'une séquence qui doit lui rester
-    //  propre ; on laisse donc l'éditeur traiter l'événement.
+    //normalement de l'éditeur lui-même ou d'une séquence qui doit lui rester
+    //propre ; on laisse donc l'éditeur traiter l'événement.
     //
     //- si le focus n'est plus sur l'éditeur, le clic concerne la barre ou un
-    //  autre contrôle ; on valide l'édition avant de poursuivre le traitement
-    //  normal du MouseDown.
+    //autre contrôle ; on valide l'édition avant de poursuivre le traitement
+    //normal du MouseDown.
     //
     //Depuis l'abstraction INoReflowTabBarCaptionEditor, FItemEdit n'est plus
     //un TEdit concret. Les propriétés VCL comme Focused doivent donc être
@@ -1984,10 +2023,8 @@ Begin
 
     If CanFocus And (Not Focused) Then Begin
         FSuppressFocusInvalidate := True;
-        Try
-            SetFocus;
-        Finally
-            FSuppressFocusInvalidate := False;
+        Try SetFocus;
+        Finally FSuppressFocusInvalidate := False;
         End;
     End;
 
@@ -2135,6 +2172,40 @@ Begin
             LDropped := ApplyDraggedTabToTarget(
                 FDragSourceIndex,
                 FDragTarget);
+
+            If LDropped Then Begin
+                //-------------------------------------------------------------
+                //Un drag interne applique directement le déplacement dans la
+                //collection de cette barre via ApplyDraggedTabToTarget.
+                //
+                //Avant cette correction, seul le chemin inter-barres passait
+                //par DropExternalDraggedBarItem / DropDraggedBarItem et
+                //déclenchait OnItemDropped. Un simple réordonnancement dans
+                //la même barre modifiait donc visuellement et logiquement les
+                //items, puis déclenchait uniquement OnEndItemDrag.
+                //
+                //Pour les applications qui persévèrent l'ordre au moment du
+                //drop, OnItemDropped doit rester symétrique :
+                //- inter-barres : l'événement est déclenché par la barre cible ;
+                //- intra-barre  : l'événement est déclenché ici par la même
+                //barre, après application effective du nouvel
+                //ordre interne.
+                //
+                //ASourceItem et ATargetItem désignent volontairement le même
+                //objet dans ce cas, conformément à la documentation publique
+                //de TNoReflowTabBarItemDroppedEvent.
+                //-------------------------------------------------------------
+                LTargetItem := LDraggedTab;
+
+                If Assigned(FOnItemDropped) Then
+                    FOnItemDropped(
+                        Self,
+                        Self,
+                        LDraggedTab,
+                        LTargetItem,
+                        LTargetZone,
+                        LTargetZoneIndex);
+            End;
         End;
 
         DoEndTabDrag(

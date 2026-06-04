@@ -2,6 +2,12 @@
 
 NoReflowTabBar is built around a stable layout engine. Its main purpose is to keep items predictable when the available space changes or when the user selects an item.
 
+## Layout ownership
+
+The layout/support layer owns item positioning. It computes bounds, text rectangles, glyph rectangles, signal rectangles, outline polygons and zone-header primitives before rendering starts. GDI and Direct2D backends must consume these values and draw them; they must not correct positions locally.
+
+The global layout is computed in a canonical horizontal Top coordinate system, then transformed to the requested bar position. This keeps Top, Bottom, Left and Right positions consistent and avoids maintaining separate layout algorithms for each orientation.
+
 ## Stable multi-row layout
 
 Classic multi-row tab controls may move rows when a tab is selected. NoReflowTabBar avoids that kind of disruptive reflow.

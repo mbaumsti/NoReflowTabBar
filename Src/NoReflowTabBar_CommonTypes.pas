@@ -371,10 +371,19 @@ Type
         //utilisee comme synonyme de Length sans verifier VerticalFlow.
         ButtonHeight: Integer;
 
-        //Position X du texte dans les coordonnées locales du bouton.
+        //Point d'appel X du texte dans les coordonnees locales du bouton.
+        //
+        //Regle imperative : ce point est calcule par le layout et consomme
+        //tel quel par les renderers. Il ne doit pas etre reconstruit depuis
+        //TextClipRect dans GDI ou Direct2D.
         TextX: Integer;
 
-        //Position Y du texte dans les coordonnées locales du bouton.
+        //Point d'appel Y du texte dans les coordonnees locales du bouton.
+        //
+        //Pour le texte horizontal, TextX/TextY correspond au coin haut/gauche
+        //du rectangle texte. Pour les textes verticaux, il correspond au point
+        //d'appel deja projete : bas/gauche en VerticalUp, haut/droit en
+        //VerticalDown.
         TextY: Integer;
 
         //Largeur mesurée du texte.
@@ -382,6 +391,32 @@ Type
 
         //Hauteur mesurée du texte.
         TextHeight: Integer;
+
+        //Indique si le renderer a le droit d'afficher une ellipse lorsque
+        //le texte ne tient pas dans TextClipRect.
+        //
+        //REGLE D'OR v74 : cette décision vient du layout, pas du backend.
+        //En mode onglet naturel, le texte doit rester entier ; DirectWrite ne
+        //doit donc pas inventer une ellipse parce que ses métriques diffèrent
+        //légèrement de celles utilisées par le layout historique GDI.
+        //
+        //Le cas prévu est le bouton avec ForcedLength, où l'utilisateur impose
+        //volontairement une longueur éventuellement insuffisante.
+        AllowTextTrimming: Boolean;
+
+        //Rectangle local de composition/clipping du texte.
+        //
+        //Règle d'architecture : ce rectangle est calculé par le layout, pas par
+        //les renderers. Les backends GDI et Direct2D doivent seulement le
+        //consommer pour borner le dessin du texte horizontal, notamment lorsque
+        //la longueur des boutons est forcée.
+        //
+        //TextWidth/TextHeight restent les metriques naturelles du texte.
+        //TextX/TextY restent l'ancre de dessin calculee par le layout.
+        //TextClipRect represente la zone utile dans laquelle le texte peut
+        //reellement etre compose sans empieter sur le glyph, le voyant, les
+        //slants ou les marges internes.
+        TextClipRect: TRect;
 
         //Rectangle local du glyph si présent.
         //
@@ -703,6 +738,12 @@ Begin
 
     If TextHeight < 0 Then
         TextHeight := 0;
+
+    TextClipRect := Rect(
+        TextX,
+        TextY,
+        TextX + TextWidth,
+        TextY + TextHeight);
 End;
 
 //===============================================================================================================================

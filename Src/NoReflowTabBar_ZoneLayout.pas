@@ -1,4 +1,4 @@
-﻿Unit NoReflowTabBar_ZoneLayout;
+Unit NoReflowTabBar_ZoneLayout;
 
 {
   NoReflowTabBar_ZoneLayout.pas
@@ -52,6 +52,26 @@
 
   Toute correction introduite directement dans le repere Left / Right risque de
   casser le rendu, le hit-test, les marqueurs de drag et les zones.
+
+  REGLES D'OR v71
+  ----------------
+
+  1) Le layout est l'unique autorite de positionnement. Les renderers GDI et
+     Direct2D ne doivent jamais corriger localement les rectangles, points
+     d'ancrage, segments ou primitives deja calcules.
+
+  2) Le layout global est toujours calcule en repere canonique horizontal TOP,
+     puis transforme vers la position finale de la barre. Aucun moteur vertical
+     direct ne doit etre ajoute.
+
+  3) Le contenu interne d'un item suit la meme discipline : composition logique
+     comme un contenu horizontal, puis projection selon l'orientation effective
+     du texte. Les corrections de texte, glyph ou voyant appartiennent au moteur
+     commun de layout de contenu, pas aux backends de rendu.
+
+  4) Les headers de zones suivent aussi cette regle. Leurs segments decoratifs,
+     leur texte tronque et leur point d'insertion doivent etre prepares par la
+     couche layout, puis seulement consommes par GDI ou Direct2D.
 }
 
 Interface
@@ -336,6 +356,19 @@ Type
         TopInset: Integer;
         RightInset: Integer;
         BottomInset: Integer;
+
+        //Indique si le moteur a le droit de raccourcir le texte.
+        //
+        //REGLE D'OR v73 : le raccourcissement du texte n'est pas une
+        //degradation automatique du layout naturel. En mode onglet, sans
+        //longueur imposee, l'item est dimensionne depuis son contenu complet :
+        //le texte doit donc rester entier et les elements visuels optionnels
+        //doivent etre retires avant toute reduction de caption.
+        //
+        //Cette option doit etre activee uniquement lorsqu'une contrainte
+        //externe impose volontairement une longueur insuffisante, par exemple
+        //ForcedLength en mode bouton.
+        AllowTextShortening: Boolean;
     End;
 
     TNoReflowTabBarItemContentLayoutResult = Record
@@ -404,6 +437,13 @@ Type
             Var AResult: TNoReflowTabBarItemContentLayoutResult;
             ADeltaFlow: Integer;
             ADeltaCross: Integer); Static;
+
+        Class Procedure ResolveCanonicalTopInnerBounds(
+            Const AInput: TNoReflowTabBarItemContentLayoutInput;
+            Out AFlowStart: Integer;
+            Out AFlowEnd: Integer;
+            Out ACrossStart: Integer;
+            Out ACrossEnd: Integer); Static;
 
         Class Function BuildPhysicalCandidate(
             Const AInput: TNoReflowTabBarItemContentLayoutInput;
@@ -687,58 +727,22 @@ Class Function TNoReflowTabBarItemContentLayoutEngine.ResolvePhysicalGlyphPositi
     ATextOrientation: TNoReflowTabBarTextOrientation): TNoReflowTabBarGlyphPosition;
 Begin
     //-------------------------------------------------------------------------
-    //Converts the user-facing glyph position to the physical side used by the
-    //effective text orientation.
+    // v48 : la position du glyph reste exprimee dans le repere canonique
+    // horizontal.
     //
-    //The public GlyphPosition remains logical:
-    //- Left means before the text in the usual horizontal mental model;
-    //- Right means after it;
-    //- Top / Bottom mean above / below that model.
+    // Le moteur de contenu compose toujours le bloc texte / glyph / signal
+    // comme si le texte etait horizontal, puis BuildPhysicalCandidate projette
+    // l'ensemble du resultat dans le repere final lorsque le texte est vertical.
     //
-    //For rotated text this logical position must be converted once, inside the
-    //layout engine. RenderSupport must not repeat or second-guess this mapping.
+    // Il ne faut donc plus convertir Left/Right/Top/Bottom avant le calcul :
+    // cela recreerait deux logiques differentes entre horizontal et vertical,
+    // exactement le probleme constate avec ForcedLength.
     //
-    //GUARD RAIL: do not use the resolved physical position to decide whether a
-    //behavior belongs to the Top/Bottom or Left/Right family. Behavioral rules
-    //must remain based on the canonical horizontal position. Only placement and
-    //drawing may use this physical value.
+    // ATextOrientation est conserve dans la signature pour compatibilite avec
+    // l'appel existant et pour documenter que l'orientation est geree plus tard,
+    // au moment de la projection finale.
     //-------------------------------------------------------------------------
-
     Result := AGlyphPosition;
-
-    Case ATextOrientation Of
-        nrttoVerticalUp: Begin
-                Case AGlyphPosition Of
-                    nrgpLeft:
-                        Result := nrgpBottom;
-
-                    nrgpRight:
-                        Result := nrgpTop;
-
-                    nrgpTop:
-                        Result := nrgpLeft;
-
-                    nrgpBottom:
-                        Result := nrgpRight;
-                End;
-            End;
-
-        nrttoVerticalDown: Begin
-                Case AGlyphPosition Of
-                    nrgpLeft:
-                        Result := nrgpTop;
-
-                    nrgpRight:
-                        Result := nrgpBottom;
-
-                    nrgpTop:
-                        Result := nrgpRight;
-
-                    nrgpBottom:
-                        Result := nrgpLeft;
-                End;
-            End;
-    End;
 End;
 
 Class Function TNoReflowTabBarItemContentLayoutEngine.BuildContentContainerRect(
@@ -884,13 +888,15 @@ Begin
         AInput.GlyphPosition,
         AInput.TextOrientation);
 
-    If AInput.TextOrientation = nrttoHorizontal Then Begin
-        GlyphFlow := AInput.GlyphWidth;
-        GlyphCross := AInput.GlyphHeight;
-    End Else Begin
-        GlyphFlow := AInput.GlyphHeight;
-        GlyphCross := AInput.GlyphWidth;
-    End;
+    //-------------------------------------------------------------------------
+    // v48 : composition canonique horizontale.
+    //
+    // Le glyph conserve ses dimensions naturelles dans le repere horizontal
+    // logique. Les rectangles seront projetes ensuite si l'orientation finale
+    // est VerticalUp ou VerticalDown.
+    //-------------------------------------------------------------------------
+    GlyphFlow := AInput.GlyphWidth;
+    GlyphCross := AInput.GlyphHeight;
 
     //---------------------------------------------------------------------
     //Compose text + glyph as a sub-block.
@@ -907,33 +913,21 @@ Begin
                 End;
         End;
 
-        Case AInput.TextOrientation Of
-            nrttoHorizontal: Begin
-                    Case PhysicalGlyphPosition Of
-                        nrgpLeft, nrgpRight: Begin
-                                TextGlyphFlow := GlyphFlow + AInput.GlyphSpacing + ATextFlow;
-                                TextGlyphCross := Max(GlyphCross, TextCross);
-                            End;
-
-                        nrgpTop, nrgpBottom: Begin
-                                TextGlyphFlow := Max(GlyphFlow, ATextFlow);
-                                TextGlyphCross := GlyphCross + AInput.GlyphSpacing + TextCross;
-                            End;
-                    End;
+        //---------------------------------------------------------------------
+        // v48 : le bloc texte/glyph est toujours compose dans le meme repere
+        // horizontal canonique. La rotation finale ne doit pas changer les
+        // regles de degradation ni les dimensions du candidat.
+        //---------------------------------------------------------------------
+        Case PhysicalGlyphPosition Of
+            nrgpLeft, nrgpRight: Begin
+                    TextGlyphFlow := GlyphFlow + AInput.GlyphSpacing + ATextFlow;
+                    TextGlyphCross := Max(GlyphCross, TextCross);
                 End;
-        Else Begin
-                Case PhysicalGlyphPosition Of
-                    nrgpTop, nrgpBottom: Begin
-                            TextGlyphFlow := GlyphFlow + AInput.GlyphSpacing + ATextFlow;
-                            TextGlyphCross := Max(GlyphCross, TextCross);
-                        End;
 
-                    nrgpLeft, nrgpRight: Begin
-                            TextGlyphFlow := Max(GlyphFlow, ATextFlow);
-                            TextGlyphCross := GlyphCross + AInput.GlyphSpacing + TextCross;
-                        End;
+            nrgpTop, nrgpBottom: Begin
+                    TextGlyphFlow := Max(GlyphFlow, ATextFlow);
+                    TextGlyphCross := GlyphCross + AInput.GlyphSpacing + TextCross;
                 End;
-            End;
         End;
     End;
 
@@ -944,125 +938,69 @@ Begin
         TextCross);
 
     If nrtcesGlyph In AElements Then Begin
-        Case AInput.TextOrientation Of
-            nrttoHorizontal: Begin
-                    Case PhysicalGlyphPosition Of
-                        nrgpLeft: Begin
-                                SetGlyphRect(
-                                    0,
-                                    (TextGlyphCross - GlyphCross) Div 2,
-                                    GlyphFlow,
-                                    GlyphCross);
+        //---------------------------------------------------------------------
+        // v48 : placement canonique horizontal unique.
+        //
+        // Ces quatre cas sont les memes, quelle que soit l'orientation finale
+        // du texte. Si le texte est vertical, la transformation physique sera
+        // appliquee plus tard a TextRect, GlyphRect et SignalRect ensemble.
+        //---------------------------------------------------------------------
+        Case PhysicalGlyphPosition Of
+            nrgpLeft: Begin
+                    SetGlyphRect(
+                        0,
+                        (TextGlyphCross - GlyphCross) Div 2,
+                        GlyphFlow,
+                        GlyphCross);
 
-                                SetTextRect(
-                                    GlyphFlow + AInput.GlyphSpacing,
-                                    (TextGlyphCross - TextCross) Div 2,
-                                    ATextFlow,
-                                    TextCross);
-                            End;
-
-                        nrgpRight: Begin
-                                SetTextRect(
-                                    0,
-                                    (TextGlyphCross - TextCross) Div 2,
-                                    ATextFlow,
-                                    TextCross);
-
-                                SetGlyphRect(
-                                    ATextFlow + AInput.GlyphSpacing,
-                                    (TextGlyphCross - GlyphCross) Div 2,
-                                    GlyphFlow,
-                                    GlyphCross);
-                            End;
-
-                        nrgpTop: Begin
-                                SetGlyphRect(
-                                    (TextGlyphFlow - GlyphFlow) Div 2,
-                                    0,
-                                    GlyphFlow,
-                                    GlyphCross);
-
-                                SetTextRect(
-                                    (TextGlyphFlow - ATextFlow) Div 2,
-                                    GlyphCross + AInput.GlyphSpacing,
-                                    ATextFlow,
-                                    TextCross);
-                            End;
-
-                        nrgpBottom: Begin
-                                SetTextRect(
-                                    (TextGlyphFlow - ATextFlow) Div 2,
-                                    0,
-                                    ATextFlow,
-                                    TextCross);
-
-                                SetGlyphRect(
-                                    (TextGlyphFlow - GlyphFlow) Div 2,
-                                    TextCross + AInput.GlyphSpacing,
-                                    GlyphFlow,
-                                    GlyphCross);
-                            End;
-                    End;
+                    SetTextRect(
+                        GlyphFlow + AInput.GlyphSpacing,
+                        (TextGlyphCross - TextCross) Div 2,
+                        ATextFlow,
+                        TextCross);
                 End;
-        Else Begin
-                Case PhysicalGlyphPosition Of
-                    nrgpTop: Begin
-                            SetGlyphRect(
-                                0,
-                                (TextGlyphCross - GlyphCross) Div 2,
-                                GlyphFlow,
-                                GlyphCross);
 
-                            SetTextRect(
-                                GlyphFlow + AInput.GlyphSpacing,
-                                (TextGlyphCross - TextCross) Div 2,
-                                ATextFlow,
-                                TextCross);
-                        End;
+            nrgpRight: Begin
+                    SetTextRect(
+                        0,
+                        (TextGlyphCross - TextCross) Div 2,
+                        ATextFlow,
+                        TextCross);
 
-                    nrgpBottom: Begin
-                            SetTextRect(
-                                0,
-                                (TextGlyphCross - TextCross) Div 2,
-                                ATextFlow,
-                                TextCross);
-
-                            SetGlyphRect(
-                                ATextFlow + AInput.GlyphSpacing,
-                                (TextGlyphCross - GlyphCross) Div 2,
-                                GlyphFlow,
-                                GlyphCross);
-                        End;
-
-                    nrgpLeft: Begin
-                            SetGlyphRect(
-                                (TextGlyphFlow - GlyphFlow) Div 2,
-                                0,
-                                GlyphFlow,
-                                GlyphCross);
-
-                            SetTextRect(
-                                (TextGlyphFlow - ATextFlow) Div 2,
-                                GlyphCross + AInput.GlyphSpacing,
-                                ATextFlow,
-                                TextCross);
-                        End;
-
-                    nrgpRight: Begin
-                            SetTextRect(
-                                (TextGlyphFlow - ATextFlow) Div 2,
-                                0,
-                                ATextFlow,
-                                TextCross);
-
-                            SetGlyphRect(
-                                (TextGlyphFlow - GlyphFlow) Div 2,
-                                TextCross + AInput.GlyphSpacing,
-                                GlyphFlow,
-                                GlyphCross);
-                        End;
+                    SetGlyphRect(
+                        ATextFlow + AInput.GlyphSpacing,
+                        (TextGlyphCross - GlyphCross) Div 2,
+                        GlyphFlow,
+                        GlyphCross);
                 End;
-            End;
+
+            nrgpTop: Begin
+                    SetGlyphRect(
+                        (TextGlyphFlow - GlyphFlow) Div 2,
+                        0,
+                        GlyphFlow,
+                        GlyphCross);
+
+                    SetTextRect(
+                        (TextGlyphFlow - ATextFlow) Div 2,
+                        GlyphCross + AInput.GlyphSpacing,
+                        ATextFlow,
+                        TextCross);
+                End;
+
+            nrgpBottom: Begin
+                    SetTextRect(
+                        (TextGlyphFlow - ATextFlow) Div 2,
+                        0,
+                        ATextFlow,
+                        TextCross);
+
+                    SetGlyphRect(
+                        (TextGlyphFlow - GlyphFlow) Div 2,
+                        TextCross + AInput.GlyphSpacing,
+                        GlyphFlow,
+                        GlyphCross);
+                End;
         End;
     End;
 
@@ -1139,6 +1077,52 @@ Begin
             ADeltaCross);
 End;
 
+Class Procedure TNoReflowTabBarItemContentLayoutEngine.ResolveCanonicalTopInnerBounds(
+    Const AInput: TNoReflowTabBarItemContentLayoutInput;
+    Out AFlowStart: Integer;
+    Out AFlowEnd: Integer;
+    Out ACrossStart: Integer;
+    Out ACrossEnd: Integer);
+Begin
+    //--------------------------------------------------------------------------
+    // v60 : resolve the useful content rectangle in the canonical Top layout
+    // model.
+    //
+    // This routine is deliberately part of the layout engine. Renderers must not
+    // reproduce this logic. They receive the final rectangles and text anchor
+    // after BuildPhysicalCandidate has projected the canonical result.
+    //
+    // The current formulas are intentionally behavior-preserving relative to the
+    // v59 validated state. This pass only isolates the decision so that future
+    // work can replace the remaining position/orientation branches by a single
+    // canonical projection without changing visual output.
+    //--------------------------------------------------------------------------
+
+    If AInput.TextOrientation = nrttoHorizontal Then Begin
+        If AInput.TabPosition In [nrtbpTop, nrtbpBottom] Then Begin
+            AFlowStart := AInput.SlantPadFirst + AInput.TextSpaceBefore;
+            AFlowEnd := AInput.ItemWidth - AInput.SlantPadSecond - AInput.TextSpaceAfter;
+        End Else Begin
+            AFlowStart := AInput.TextSpaceBefore;
+            AFlowEnd := AInput.ItemWidth - AInput.TextSpaceAfter;
+        End;
+
+        ACrossStart := AInput.TopInset + AInput.TextSpaceOver;
+        ACrossEnd := AInput.ItemHeight - AInput.BottomInset - AInput.TextSpaceUnder;
+    End Else Begin
+        If AInput.TabPosition In [nrtbpLeft, nrtbpRight] Then Begin
+            AFlowStart := AInput.SlantPadFirst + AInput.TextSpaceBefore;
+            AFlowEnd := AInput.ItemHeight - AInput.SlantPadSecond - AInput.TextSpaceAfter;
+        End Else Begin
+            AFlowStart := AInput.TextSpaceBefore;
+            AFlowEnd := AInput.ItemHeight - AInput.TextSpaceAfter;
+        End;
+
+        ACrossStart := AInput.LeftInset + AInput.TextSpaceOver;
+        ACrossEnd := AInput.ItemWidth - AInput.RightInset - AInput.TextSpaceUnder;
+    End;
+End;
+
 Class Function TNoReflowTabBarItemContentLayoutEngine.BuildPhysicalCandidate(
     Const AInput: TNoReflowTabBarItemContentLayoutInput;
     AElements: TNoReflowTabBarItemContentElementSet;
@@ -1154,7 +1138,16 @@ Var
     CrossEnd:       Integer;
     DeltaFlow:      Integer;
     DeltaCross:     Integer;
-    SavedFlowStart: Integer;
+
+    PhysicalGlyphPosition: TNoReflowTabBarGlyphPosition;
+    CenterStackedContentInRemainingFlow: Boolean;
+    RemainingFlowStart: Integer;
+    RemainingFlowEnd: Integer;
+    ContentFlowStart: Integer;
+    ContentFlowEnd: Integer;
+    ContentFlowSize: Integer;
+    RemainingFlowSize: Integer;
+    CenterDeltaFlow: Integer;
 
     Function FlowToPhysicalRect(Const ARect: TRect): TRect;
     Begin
@@ -1192,67 +1185,19 @@ Begin
         Exit;
 
     //---------------------------------------------------------------------
-    //Build the useful inner rectangle first.
+    //Resolve the useful inner rectangle in the canonical layout model.
     //
-    //This rectangle is the only area in which content may be placed. It already
-    //contains:
-    //- TextSpaceBefore / TextSpaceAfter;
-    //- TextSpaceOver / TextSpaceUnder;
-    //- tab slant pads;
-    //- shape insets.
-    //
-    //Candidate composition is then done in a local coordinate system whose
-    //origin is InnerRect.Left/Top, but expressed as 0,0 during composition.
-    //
-    //Algorithm:
-    //1) build InnerRect in item coordinates;
-    //2) create LocalMaxRect = Rect(0,0,InnerRect.Width,InnerRect.Height);
-    //3) compose a candidate at 0,0;
-    //4) compare the candidate container to LocalMaxRect;
-    //5) translate accepted rectangles by InnerRect.Left/Top;
-    //6) transform flow/cross rectangles back to physical item coordinates.
+    // v60: the calculation is now isolated in ResolveCanonicalTopInnerBounds.
+    // The formulas are unchanged from the v59 validated behavior, but the
+    // responsibility is now explicit: the layout engine computes the useful
+    // zone, then projects accepted candidates. Renderers only draw.
     //---------------------------------------------------------------------
-
-    If AInput.TextOrientation = nrttoHorizontal Then Begin
-        Case AInput.TabPosition Of
-            nrtbpTop: Begin
-                    FlowStart := AInput.SlantPadFirst + AInput.TextSpaceBefore;
-                    FlowEnd := AInput.ItemWidth - AInput.SlantPadSecond - AInput.TextSpaceAfter;
-                End;
-        Else Begin
-                FlowStart := AInput.TextSpaceBefore;
-                FlowEnd := AInput.ItemWidth - AInput.TextSpaceAfter;
-            End;
-        End;
-
-        CrossStart := AInput.TopInset + AInput.TextSpaceOver;
-        CrossEnd := AInput.ItemHeight - AInput.BottomInset - AInput.TextSpaceUnder;
-    End Else Begin
-        Case AInput.TabPosition Of
-            nrtbpLeft: Begin
-                    FlowStart := AInput.SlantPadSecond + AInput.TextSpaceBefore;
-                    FlowEnd := AInput.ItemHeight - AInput.SlantPadFirst - AInput.TextSpaceAfter;
-                End;
-
-            nrtbpRight: Begin
-                    FlowStart := AInput.SlantPadFirst + AInput.TextSpaceBefore;
-                    FlowEnd := AInput.ItemHeight - AInput.SlantPadSecond - AInput.TextSpaceAfter;
-                End;
-        Else Begin
-                FlowStart := AInput.TextSpaceBefore;
-                FlowEnd := AInput.ItemHeight - AInput.TextSpaceAfter;
-            End;
-        End;
-
-        If AInput.TextOrientation = nrttoVerticalUp Then Begin
-            SavedFlowStart := FlowStart;
-            FlowStart := AInput.ItemHeight - FlowEnd;
-            FlowEnd := AInput.ItemHeight - SavedFlowStart;
-        End;
-
-        CrossStart := AInput.LeftInset + AInput.TextSpaceOver;
-        CrossEnd := AInput.ItemWidth - AInput.RightInset - AInput.TextSpaceUnder;
-    End;
+    ResolveCanonicalTopInnerBounds(
+        AInput,
+        FlowStart,
+        FlowEnd,
+        CrossStart,
+        CrossEnd);
 
     If (FlowEnd <= FlowStart) Or (CrossEnd <= CrossStart) Then
         Exit;
@@ -1328,10 +1273,139 @@ Begin
         DeltaFlow,
         DeltaCross);
 
+    //---------------------------------------------------------------------
+    // nrtspItemEnd : le voyant appartient a la fin utile de l'item, pas a la
+    // fin du bloc texte/glyph. Le moteur de contenu compose le candidat en
+    // repere canonique, puis le layout ancre explicitement le voyant sur la
+    // limite de flux disponible avant la projection physique.
+    //
+    // Le texte et le glyph ne sont pas deplaces ici : le candidat a deja ete
+    // valide avec la place reservee au voyant. On ne fait donc qu'introduire
+    // l'espace libre entre le contenu et le voyant de fin.
+    //---------------------------------------------------------------------
+    If (AInput.SignalPosition = nrtspItemEnd) And
+       (Not AResult.SignalRect.IsEmpty) Then
+        OffsetRect(
+            AResult.SignalRect,
+            InnerRect.Right - AResult.SignalRect.Right,
+            0);
+
+    //---------------------------------------------------------------------
+    // v61 : centering of stacked horizontal-reference content.
+    //
+    // This is still a layout decision, not a renderer correction.  The
+    // canonical candidate has already been accepted and placed inside the
+    // useful Top-reference rectangle.  Before the final orientation projection,
+    // the layout may center the text/glyph sub-block in the flow space that
+    // remains after the signal has kept its own configured position.
+    //
+    // Applies only to canonical stacked content:
+    // - text alone;
+    // - glyph above the text;
+    // - glyph below the text.
+    //
+    // Does not apply to canonical in-line content:
+    // - glyph before the text;
+    // - glyph after the text.
+    //
+    // The signal rectangle is never moved by this rule.  This preserves the
+    // existing nrtspBefore / nrtspAfter / nrtspItemEnd semantics.
+    //---------------------------------------------------------------------
+    PhysicalGlyphPosition := ResolvePhysicalGlyphPosition(
+        AInput.GlyphPosition,
+        AInput.TextOrientation);
+
+    CenterStackedContentInRemainingFlow :=
+        Not (nrtcesGlyph In AElements) Or
+        (PhysicalGlyphPosition In [nrgpTop, nrgpBottom]);
+
+    If CenterStackedContentInRemainingFlow And
+       (Not AResult.TextRect.IsEmpty) Then Begin
+        RemainingFlowStart := InnerRect.Left;
+        RemainingFlowEnd := InnerRect.Right;
+
+        If (nrtcesSignal In AElements) And
+           (Not AResult.SignalRect.IsEmpty) Then Begin
+            Case AInput.SignalPosition Of
+                nrtspBefore: Begin
+                        RemainingFlowStart :=
+                            AResult.SignalRect.Right + AInput.SignalSpacing;
+                    End;
+
+                nrtspAfter,
+                nrtspItemEnd: Begin
+                        RemainingFlowEnd :=
+                            AResult.SignalRect.Left - AInput.SignalSpacing;
+                    End;
+            End;
+        End;
+
+        If RemainingFlowEnd < RemainingFlowStart Then
+            RemainingFlowEnd := RemainingFlowStart;
+
+        If (nrtcesGlyph In AElements) And
+           (Not AResult.GlyphRect.IsEmpty) Then Begin
+            ContentFlowStart := Min(
+                AResult.TextRect.Left,
+                AResult.GlyphRect.Left);
+
+            ContentFlowEnd := Max(
+                AResult.TextRect.Right,
+                AResult.GlyphRect.Right);
+        End Else Begin
+            ContentFlowStart := AResult.TextRect.Left;
+            ContentFlowEnd := AResult.TextRect.Right;
+        End;
+
+        ContentFlowSize := ContentFlowEnd - ContentFlowStart;
+        RemainingFlowSize := RemainingFlowEnd - RemainingFlowStart;
+
+        If (ContentFlowSize > 0) And
+           (RemainingFlowSize > ContentFlowSize) Then Begin
+            CenterDeltaFlow :=
+                RemainingFlowStart +
+                ((RemainingFlowSize - ContentFlowSize) Div 2) -
+                ContentFlowStart;
+
+            OffsetRect(
+                AResult.TextRect,
+                CenterDeltaFlow,
+                0);
+
+            If Not AResult.GlyphRect.IsEmpty Then
+                OffsetRect(
+                    AResult.GlyphRect,
+                    CenterDeltaFlow,
+                    0);
+        End;
+
+        If Not (nrtcesGlyph In AElements) Then Begin
+            AResult.TextRect.Left := RemainingFlowStart;
+            AResult.TextRect.Right := RemainingFlowEnd;
+        End;
+    End;
+
     AResult.TextRect := FlowToPhysicalRect(AResult.TextRect);
     AResult.GlyphRect := FlowToPhysicalRect(AResult.GlyphRect);
     AResult.SignalRect := FlowToPhysicalRect(AResult.SignalRect);
 
+    //---------------------------------------------------------------------
+    // v50 : le layout fournit explicitement le point d'appel du texte.
+    //
+    // TextRect reste le rectangle physique final de clipping/composition.
+    // TextAnchorX/TextAnchorY ne doivent pas etre deduits par les renderers :
+    // ils representent le point que TextOut / DirectWrite doivent recevoir
+    // apres projection du calcul canonique horizontal.
+    //
+    // Pour un texte horizontal, ce point est bien le coin haut/gauche du
+    // rectangle. Pour un texte vertical, le meme point canonique a ete tourne
+    // avec le rectangle :
+    // - VerticalUp   : point bas/gauche du rectangle physique ;
+    // - VerticalDown : point haut/droit du rectangle physique.
+    //
+    // Ainsi GDI et Direct2D consomment exactement le meme ancrage, sans
+    // reconstruire localement une ancre depuis les bords du rectangle.
+    //---------------------------------------------------------------------
     Case AInput.TextOrientation Of
         nrttoVerticalUp: Begin
                 AResult.TextAnchorX := AResult.TextRect.Left;
@@ -1404,13 +1478,13 @@ Begin
     //
     //Priority rule:
     //
-    //  1) signal
-    //  2) text
+    //  1) full text
+    //  2) signal
     //  3) glyph
     //
-    //The signal is an important status indicator. The text can be completed by
-    //the item hint, so when there is not enough room for the complete caption,
-    //the resolver now tries "short text + signal" before removing the signal.
+    //The signal is an important status indicator, but it must not force text
+    //shortening in natural tab layout. Text shortening is now explicit and is
+    //controlled by AInput.AllowTextShortening.
     //
     //The absence of a signal or glyph may come from either:
     //- the item/user configuration, through HasSignal / HasGlyph;
@@ -1462,9 +1536,22 @@ Begin
         Exit;
 
     //---------------------------------------------------------------------
-    //3. Keep the signal if possible, even with shortened text.
+    //3. Optionally keep the signal with shortened text.
+    //
+    //REGLE D'OR v73 : IL NE FAUT PAS RACCOURCIR LE TEXTE EN LAYOUT
+    //NATUREL.
+    //
+    //En mode onglet naturel, l'item a deja ete dimensionne depuis son texte
+    //complet, son signal et son glyph. Si un candidat riche ne tient pas dans
+    //ce rectangle, le bon repli consiste a retirer les elements visuels
+    //optionnels, pas a reduire la caption.
+    //
+    //Le raccourcissement reste autorise uniquement lorsque l'appelant annonce
+    //explicitement une contrainte externe, typiquement ForcedLength en mode
+    //bouton.
     //---------------------------------------------------------------------
-    If nrtcesSignal In TextSignal Then Begin
+    If AInput.AllowTextShortening And
+       (nrtcesSignal In TextSignal) Then Begin
         If TryCandidateWithShortText(
             AInput,
             TextSignal,
@@ -1473,7 +1560,7 @@ Begin
     End;
 
     //---------------------------------------------------------------------
-    //4. Only now remove the signal and try full text alone.
+    //4. Remove optional visual elements before degrading natural text.
     //---------------------------------------------------------------------
     If BuildPhysicalCandidate(
         AInput,
@@ -1483,12 +1570,13 @@ Begin
         Exit;
 
     //---------------------------------------------------------------------
-    //5. Final fallback: shortened text alone.
+    //5. Final fallback: shortened text alone, but only when explicitly allowed.
     //---------------------------------------------------------------------
-    TryCandidateWithShortText(
-        AInput,
-        TextOnly,
-        AResult);
+    If AInput.AllowTextShortening Then
+        TryCandidateWithShortText(
+            AInput,
+            TextOnly,
+            AResult);
 End;
 
 Const

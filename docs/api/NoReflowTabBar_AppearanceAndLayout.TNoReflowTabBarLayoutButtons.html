@@ -188,9 +188,11 @@ Forced button length in the item flow direction.
 </tr>
 <tr><td colspan="2">
 <p>
-Minimum button length in the item flow direction.
+Minimum logical button length in the item flow direction.
 
-<p>This property is used only when <a class="normal" href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#ForcedLength">ForcedLength</a> is 0. The natural length is still computed from the item content, then raised to this minimum when necessary. A value of 0 disables the minimum constraint.</p>
+<p>This property is used only when <a class="normal" href="NoReflowTabBar_AppearanceAndLayout.TNoReflowTabBarLayoutButtons.html#ForcedLength">ForcedLength</a> is 0. The natural logical length is still computed from the item content, then raised to this minimum when necessary. A value of 0 disables the minimum constraint.
+
+<p>Important: Length is not necessarily a physical X-axis width. For vertical bar orientations, the logical length may later be transformed to a physical Y-axis span by the canonical layout transformation pipeline.</p>
 </td></tr>
 </table>
 <table class="detail visibility-published wide_list">
